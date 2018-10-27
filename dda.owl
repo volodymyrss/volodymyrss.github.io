@@ -6,6 +6,56 @@
          xml:base="http://ddahub.io/ontology/analysis"
          xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 
+<owl:Class rdf:about="#WebDataAnalysis">
+  <rdfs:subClassOf rdf:resource="#DataAnalysis"/>
+</owl:Class>
+
+<owl:Class rdf:about="#ACSDetectorLC">
+  <rdfs:subClassOf rdf:resource="#DetectorLC"/>
+</owl:Class>
+
+<owl:Class rdf:about="#CounterpartDetection">
+  <rdfs:subClassOf rdf:resource="#WebDataAnalysis"/>
+</owl:Class>
+
+<owl:Class rdf:about="#PlotLC">
+  <rdfs:subClassOf rdf:resource="#WebDataAnalysis"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://w3id.org/function/ontology#expects"/>
+      <owl:someValuesFrom rdf:resource="#Transient"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://w3id.org/function/ontology#expects"/>
+      <owl:someValuesFrom rdf:resource="#DetectorLC"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://w3id.org/function/ontology#expects"/>
+      <owl:someValuesFrom rdf:resource="#CounterpartDetectionInLC"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="#CounterpartDetectionInLC">
+  <rdfs:subClassOf rdf:resource="#WebDataAnalysis"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://w3id.org/function/ontology#expects"/>
+      <owl:someValuesFrom rdf:resource="#Transient"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://w3id.org/function/ontology#expects"/>
+      <owl:someValuesFrom rdf:resource="#DetectorLC"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
 <owl:Ontology rdf:about="http://ddahub.io/ontology/analysis"/>
 
 <owl:Class rdf:about="#DataAnalysis">
@@ -14,6 +64,7 @@
 
 <owl:Class rdf:about="#Transient">
   <rdfs:subClassOf rdf:resource="#DataAnalysis"/>
+  <rdfs:subClassOf rdf:resource="#WebDataAnalysis"/>
 </owl:Class>
 
 <owl:Class rdf:about="#DetectorLC">
@@ -24,6 +75,7 @@
       <owl:someValuesFrom rdf:resource="#Transient"/>
     </owl:Restriction>
   </rdfs:subClassOf>
+  <rdfs:subClassOf rdf:resource="#WebDataAnalysis"/>
 </owl:Class>
 
 
