@@ -98,5 +98,25 @@
   <v1:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://api.odahub.io/PlotLC</v1:url>
 </PlotLC>
 
+<Transient rdf:about="#transient2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <v1:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://api.odahub.io/Transient</v1:url>
+</Transient>
+
+<ACSDetectorLC rdf:about="#acsdetectorlc2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <v1:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://api.odahub.io/ACSDetectorLC</v1:url>
+</ACSDetectorLC>
+
+<CounterpartDetectionInLC rdf:about="#counterpartdetectioninlc2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <v1:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://api.odahub.io/CounterpartDetectionInLC</v1:url>
+</CounterpartDetectionInLC>
+
+<PlotLC rdf:about="#plotlc2">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  <v1:url rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://api.odahub.io/PlotLC</v1:url>
+</PlotLC>
+
 
 </rdf:RDF>
