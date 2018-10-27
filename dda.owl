@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://ddahub.io/ontology/analysis#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xml:base="http://ddahub.io/ontology/analysis"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+
+<owl:Ontology rdf:about="http://ddahub.io/ontology/analysis"/>
+
+<owl:Class rdf:about="#DataAnalysis">
+  <rdfs:subClassOf rdf:resource="https://w3id.org/function/ontology#Function"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Transient">
+  <rdfs:subClassOf rdf:resource="#DataAnalysis"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DetectorLC">
+  <rdfs:subClassOf rdf:resource="#DataAnalysis"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="https://w3id.org/function/ontology#expects"/>
+      <owl:someValuesFrom rdf:resource="#Transient"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+
+</rdf:RDF>
