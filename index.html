@@ -1,74 +1,15 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 </head>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script>
-$.ajax({ 
-    url : 'http://strasbourg.odahub.io/api/v1.0/get/Time_series', 
-    dataType: 'json',
-}).always(function(b64data){
-    $("img#IMAGE_ID_1").attr("src", "data:image/png;base64,"+b64data.output.strain_png_content);
-});
-
-
-$.ajax({ 
-    url : 'http://strasbourg.odahub.io/api/v1.0/get/Time_series?event_name=GW170814', 
-    dataType: 'json',
-}).always(function(b64data){
-    $("img#IMAGE_ID_2").attr("src", "data:image/png;base64,"+b64data.output.strain_png_content);
-});
-
-$.ajax({ 
-    url : 'http://strasbourg.odahub.io/api/v1.0/get/Time_series?event_name=GW170817&delta_t_min=10', 
-    dataType: 'json',
-}).always(function(b64data){
-    $("img#IMAGE_ID_3").attr("src", "data:image/png;base64,"+b64data.output.strain_png_content);
-});
-
-</script>
 
 <body>
 
-
-<table class="table table-striped table-hover">
-<thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>
-        <img width="30%" id='IMAGE_ID_1' src="https://www.davidstenfors.com/media/image/_tutorial_images/animated_loading_icon_tutorial/Loading%20Icon.gif" />
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Mark</td>
-      <td>
-        <img width="30%" id='IMAGE_ID_2' src="https://www.davidstenfors.com/media/image/_tutorial_images/animated_loading_icon_tutorial/Loading%20Icon.gif" />
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Mark</td>
-      <td>
-        <img width="30%" id='IMAGE_ID_3' src="https://www.davidstenfors.com/media/image/_tutorial_images/animated_loading_icon_tutorial/Loading%20Icon.gif" />
-      </td>
-    </tr>
-  </tbody>
-
-
-
-</table>
+<iframe 
+    width="100%"
+    height="100%"
+    src="http://www.visualdataweb.de/webvowl/#iri=http://ontology.odahub.io/dda.owl">
+</iframe>
 
 </body>
 
