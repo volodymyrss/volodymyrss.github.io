@@ -12,14 +12,15 @@ $.ajax({
     url : 'http://strasbourg.odahub.io/api/v1.0/get/Time_series?event_name=GW150914&delta_t_min=1', 
     dataType: 'json',
 }).always(function(b64data){
-    $("img#IMAGE_ID_1").attr("src", "data:image/png;base64,"+b64data.output.strain_png_content);
+    
+    $("img#IMAGE_ID_1").attr("src", "data:image/png;base64,"+atob(b64data.output.strain_png_content));
 });
 
 $.ajax({ 
     url : 'http://strasbourg.odahub.io/api/v1.0/get/Spectrograms?event_name=GW150914&delta_t_min=1', 
     dataType: 'json',
 }).always(function(b64data){
-    $("img#IMAGE_S_ID_1").attr("src", "data:image/png;base64,"+b64data.output.spectrogram_content);
+    $("img#IMAGE_S_ID_1").attr("src", "data:image/png;base64,"+atob(b64data.output.spectrogram_content));
 });
 
 
@@ -27,28 +28,28 @@ $.ajax({
     url : 'http://strasbourg.odahub.io/api/v1.0/get/Time_series?event_name=GW170814&delta_t_min=1', 
     dataType: 'json',
 }).always(function(b64data){
-    $("img#IMAGE_ID_2").attr("src", "data:image/png;base64,"+b64data.output.strain_png_content);
+    $("img#IMAGE_ID_2").attr("src", "data:image/png;base64,"+atob(b64data.output.strain_png_content));
 });
 
 $.ajax({ 
     url : 'http://strasbourg.odahub.io/api/v1.0/get/Spectrograms?event_name=GW170814&delta_t_min=1', 
     dataType: 'json',
 }).always(function(b64data){
-    $("img#IMAGE_S_ID_2").attr("src", "data:image/png;base64,"+b64data.output.spectrogram_content);
+    $("img#IMAGE_S_ID_2").attr("src", "data:image/png;base64,"+atob(b64data.output.spectrogram_content));
 });
 
 $.ajax({ 
     url : 'http://strasbourg.odahub.io/api/v1.0/get/Time_series?event_name=GW170817&delta_t_min=30', 
     dataType: 'json',
 }).always(function(b64data){
-    $("img#IMAGE_ID_3").attr("src", "data:image/png;base64,"+b64data.output.strain_png_content);
+    $("img#IMAGE_ID_3").attr("src", "data:image/png;base64,"+atob(b64data.output.strain_png_content));
 });
 
 $.ajax({ 
     url : 'http://strasbourg.odahub.io/api/v1.0/get/Spectrograms?event_name=GW170817&delta_t_min=30', 
     dataType: 'json',
 }).always(function(b64data){
-    $("img#IMAGE_S_ID_3").attr("src", "data:image/png;base64,"+b64data.output.spectrogram_content);
+    $("img#IMAGE_S_ID_3").attr("src", "data:image/png;base64,"+atob(b64data.output.spectrogram_content));
 });
 
 </script>
