@@ -7,7 +7,6 @@ prefixes:
     - "PREFIX data: <http://ddahub.io/ontology/data#>"
     - "PREFIX oda: <http://odahub.io/ontology#>"
     - "PREFIX tns: <http://odahub.io/ontology/tns#>"
-    - "PREFIX local: <http://localhost/>"
     - "PREFIX onto: <https://w3id.org/function/ontology#>"
     - "PREFIX datalake: <http://odahub.io/datalake#>"
-    - "PREFIX data: <http://odahub.io/datalake/minio#>"
+    
