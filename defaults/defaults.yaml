@@ -9,4 +9,5 @@ prefixes:
     - "PREFIX tns: <http://odahub.io/ontology/tns#>"
     - "PREFIX onto: <https://w3id.org/function/ontology#>"
     - "PREFIX datalake: <http://odahub.io/datalake#>"
+    - "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
     
