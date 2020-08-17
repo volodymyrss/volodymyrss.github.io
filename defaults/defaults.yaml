@@ -11,3 +11,4 @@ prefixes:
     - "PREFIX datalake: <http://odahub.io/datalake#>"
     - "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
     - "PREFIX paper: <http://odahub.io/ontology/paper#>"
+    - "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
