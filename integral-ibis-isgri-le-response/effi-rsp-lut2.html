@@ -79,6 +79,11 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo-wide.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">IBIS/ISGRI modeling troubles</h1>
@@ -367,19 +372,7 @@
         
               <div>
                 
-  <div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter1d</span> <span class="k">as</span> <span class="n">g1d</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="isgri-calibration-reconstruction-invariance">
+  <div class="tex2jax_ignore mathjax_ignore section" id="isgri-calibration-reconstruction-invariance">
 <h1>ISGRI  Calibration Reconstruction Invariance<a class="headerlink" href="#isgri-calibration-reconstruction-invariance" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="isgri-observation-space-and-general-reconstruction-basics">
 <h2>ISGRI observation space and general reconstruction basics<a class="headerlink" href="#isgri-observation-space-and-general-reconstruction-basics" title="Permalink to this headline">¶</a></h2>
@@ -525,6 +518,7 @@ Imaging: CountSpectrumRec\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarrow
 Pixel settings change slightly every orbit.</p>
 <p>The function depends on the pixel setting and pixel type (there are two pixel types). Pixel setting and kind are the best tracers of divergence between pixel response. <img alt="pic here" src="_images/." /></p>
 <p>There is no straightforward way to predict this function preciesly, while it is also necessary, since low-energy efficiency is the single strongest factor in the entire spectral reconstruction. It also affects imaging quality at the lowest energies.</p>
+<p>TODO: LT in <code class="docutils literal notranslate"><span class="pre">PHA</span></code> is nearly constant, to determine why</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code> simultaneously affects spectral and imaging performance, which might compete. Before OSA11, spectral reconstruction from was rather theoretical and approximate, and time-dependent <span class="math notranslate nohighlight">\(Response\)</span> was accounting for spectral variations.</p>
@@ -568,7 +562,12 @@ Imaging: CountSpectrumRec1\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarro
 \[
 Imaging: CountSpectrumRec2\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarrow  CountSpectrumRec\left[\mathrm{SkySource, Energy}\right]
 \]</div>
-<p>Nomex is a structure supporting the mask. Its opacity is especially difficult to model, and was calibrated in-flight. In principle, it is part of <code class="docutils literal notranslate"><span class="pre">Imaging</span></code>, and subject to the same issues, just on a larger scale. Average transparency of NOMEX at 30 keV is about 30%. TODO:check</p>
+<p>Nomex is a structure supporting the mask. Its opacity is especially difficult to model, and was calibrated in-flight so that:</p>
+<ul class="simple">
+<li><p>Sources at different locations with respect to the satellite have the same reconstructed count rate</p></li>
+<li><p>Average count rate is derived from what was calibrated on-ground, and is difficult to verify.</p></li>
+</ul>
+<p>In principle, it is part of <code class="docutils literal notranslate"><span class="pre">Imaging</span></code>, and subject to the same issues, just on a larger scale. Average transparency of NOMEX at 30 keV is about 30%. TODO:check .</p>
 </div>
 <div class="section" id="summary">
 <h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
@@ -597,6 +596,43 @@ This normalization is selected to satisfy some additional conditions, which are 
 <p>imaging effi, model and show separately</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter1d</span> <span class="k">as</span> <span class="n">g1d</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">iconfig</span>
+<span class="n">ic_base</span> <span class="o">=</span> <span class="n">iconfig</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">rep_base_prod</span>
+
+<span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/mod/isgr_effi_mod_0002.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+
+<span class="kn">import</span> <span class="nn">nomex</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">nomex</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/isdc/arc/rev_3
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;nomex&#39; from &#39;/home/savchenk/integral-ibis-isgri-le-response/book/../nomex.py&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
 <span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -608,12 +644,16 @@ This normalization is selected to satisfy some additional conditions, which are 
 <span class="kn">import</span> <span class="nn">ogip.tools</span>
 <span class="kn">import</span> <span class="nn">ogip.spec</span>
 
-<span class="n">effi</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/isdc/arc/rev_3/ic/ibis/mod/isgr_effc_mod_0011.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">11</span><span class="p">][</span><span class="s1">&#39;EFFICIENCY&#39;</span><span class="p">]</span>
-<span class="n">ebds</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/isdc/arc/rev_3/ic/ibis/rsp/isgr_ebds_mod_0002.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
-<span class="n">matrix</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/isdc/arc/rev_3/ic/ibis/rsp/isgr_rmf_rsp_0043.fits&#39;</span><span class="p">)[</span><span class="s1">&#39;ISGR-RMF.-RSP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">ic_base</span> <span class="o">=</span> <span class="s2">&quot;/unsaved/astro/savchenk/osa11/ic-collection/beta&quot;</span>
+
+<span class="n">effi</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/mod/isgr_effc_mod_0235.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">11</span><span class="p">][</span><span class="s1">&#39;EFFICIENCY&#39;</span><span class="p">]</span>
+<span class="n">ebds</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/rsp/isgr_ebds_mod_0001.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/rsp/isgr_rmf_rsp_0235.fits&#39;</span><span class="p">)[</span><span class="s1">&#39;ISGR-RMF.-RSP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
 <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span> <span class="o">=</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MIN&#39;</span><span class="p">],</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MAX&#39;</span><span class="p">]</span>
 <span class="n">e1</span><span class="p">,</span> <span class="n">e2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_LO&#39;</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_HI&#39;</span><span class="p">]</span>
 <span class="n">rmf</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">RMF</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;MATRIX&#39;</span><span class="p">]),</span> <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">)</span>
+
+<span class="n">nomex_norm</span> <span class="o">=</span> <span class="n">nomex</span><span class="o">.</span><span class="n">read_nomex_norm</span><span class="p">(</span><span class="n">ebins</span><span class="o">=</span><span class="p">(</span><span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">))</span>
 
 <span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">PHAI</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
     <span class="n">exposure</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
@@ -629,14 +669,23 @@ This normalization is selected to satisfy some additional conditions, which are 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec&#39;</span>
 <span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">effi</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">effi</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec2&#39;</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">effi</span> <span class="o">*</span> <span class="n">nomex_norm</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec1&#39;</span>
 <span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -644,10 +693,10 @@ This normalization is selected to satisfy some additional conditions, which are 
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>assuming no systematic errors. Probably ok
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f8d8b0572b0&gt;
 </pre></div>
 </div>
-<img alt="_images/effi-rsp-lut2_6_2.png" src="_images/effi-rsp-lut2_6_2.png" />
+<img alt="_images/effi-rsp-lut2_7_2.png" src="_images/effi-rsp-lut2_7_2.png" />
 </div>
 </div>
 <p>effi imaging description</p>
