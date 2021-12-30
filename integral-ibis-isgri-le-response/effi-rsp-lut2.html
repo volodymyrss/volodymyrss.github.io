@@ -516,9 +516,9 @@ Imaging: CountSpectrumRec\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarrow
 <p>Each <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> pixel has a low-PHA threshold. Most the the pixels have threshold settings around 15. Specific <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PHA}\)</span> threshold value is different, but made to match <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PHA}\)</span> of about 15 keV at the early mission.</p>
 <p>The threshold is not sharp, it a smooth function, with width similar to the resolution.
 Pixel settings change slightly every orbit.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TODO:</span></code> In principle, LT in <code class="docutils literal notranslate"><span class="pre">PHA</span></code> is nearly constant, to determine why</p>
 <p>The function depends on the pixel setting and pixel type (there are two pixel types). Pixel setting and kind are the best tracers of divergence between pixel response. <img alt="pic here" src="_images/." /></p>
 <p>There is no straightforward way to predict this function preciesly, while it is also necessary, since low-energy efficiency is the single strongest factor in the entire spectral reconstruction. It also affects imaging quality at the lowest energies.</p>
-<p>TODO: LT in <code class="docutils literal notranslate"><span class="pre">PHA</span></code> is nearly constant, to determine why</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code> simultaneously affects spectral and imaging performance, which might compete. Before OSA11, spectral reconstruction from was rather theoretical and approximate, and time-dependent <span class="math notranslate nohighlight">\(Response\)</span> was accounting for spectral variations.</p>
