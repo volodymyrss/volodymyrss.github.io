@@ -673,7 +673,7 @@ Hence it is possible to produce <span class="math notranslate nohighlight">\(Eff
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Commonly used <code class="docutils literal notranslate"><span class="pre">xspec</span></code> <span id="id1">[<a class="reference internal" href="landing-page.html#id2">Arnaud, 1996</a>]</span> has <a class="reference external" href="https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node112.html">plot efficien</a> command which is used to:</p>
+<p>Commonly used <code class="docutils literal notranslate"><span class="pre">xspec</span></code> <span id="id1">[<a class="reference internal" href="landing-page.html#id3">Arnaud, 1996</a>]</span> has <a class="reference external" href="https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node112.html">plot efficien</a> command which is used to:</p>
 <blockquote>
 <div><p>Plot the total response efficiency versus incident photon energy</p>
 </div></blockquote>
@@ -698,24 +698,27 @@ ISGRI <code class="docutils literal notranslate"><span class="pre">Vignetting</s
 <li><p><code class="docutils literal notranslate"><span class="pre">ONTIME</span></code>:</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">EXPOSURE</span></code></p></li>
 </ul>
-<p>dead time</p>
+<p>#TODO: dead time</p>
 </div>
 <div class="section" id="full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux">
 <h2>Full, no forward-folding <span class="math notranslate nohighlight">\(Reconstruction\)</span>: count rate in <code class="docutils literal notranslate"><span class="pre">Crabs</span></code> and as proxy for flux<a class="headerlink" href="#full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux" title="Permalink to this headline">¶</a></h2>
 <p>There is a common way to derive approximate source flux by comparing source count rate with count rate of Crab, and assuming that the flux scales linearly with count rate.</p>
-<p>In terms of the description in <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>, this</p>
-<p>Facilitated by the</p>
-<p>This is only possible if the $Response ap
-. For example, if one desires to provide in i.e. <span class="xref myst"></span></p>
-<p>relieas on</p>
-<p>uncertainties in priors</p>
+<p>In terms of the description in <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>, this process corresponds to producing <span class="math notranslate nohighlight">\(ReconstructionComplete\)</span> so that <span class="math notranslate nohighlight">\(ResponceComplete\)</span> is close to unitary, and <span class="math notranslate nohighlight">\(CountSpectrumRecComplete\)</span> is numerically close to flux is the selected units.</p>
+<p>In ISGRI, <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> corresponds to approximately constant <span class="math notranslate nohighlight">\(ResponseRec\)</span>. If it is not constant, <span class="math notranslate nohighlight">\(ReconstructionComplete\)</span> can be designed to be valid in certain time range.</p>
+<p>In order to set limit in some <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span> range, the best sensitivity may be achieved by avoiding any selection on <span class="math notranslate nohighlight">\(\mathrm{Channel}\)</span>.
+E.g. to estimate 20 - 40 keV flux, there is no needto select count rate in 20 - 40 (channel)keV. But this is almost never done.</p>
+<p>Instead, it is thought to be natural to select count rate in certain optimal <span class="math notranslate nohighlight">\(\mathrm{Channel}\)</span> range. Correspondence between (channel)keV and keV is always inexact, but there is a natural correspondance, applicable for moderadly dispersive instrument like <a class="reference internal" href="landing-page.html#term-ISGRI"><span class="xref std std-term">ISGRI</span></a> and somewhat soft spectra.</p>
+<p>It can be shown that this selection minimizes dependence on the source model (TODO:to show?).</p>
 </div>
 <div class="section" id="from-response-and-reconstruction-uncertainty-to-model-uncertainty">
 <h2>From <span class="math notranslate nohighlight">\(Response\)</span> and <span class="math notranslate nohighlight">\(Reconstruction\)</span> uncertainty to <span class="math notranslate nohighlight">\(Model\)</span> uncertainty<a class="headerlink" href="#from-response-and-reconstruction-uncertainty-to-model-uncertainty" title="Permalink to this headline">¶</a></h2>
-<p>Measurement of <span class="math notranslate nohighlight">\(Model\)</span> is, in real situations, always uncertain.</p>
+<p>Measurement of <span class="math notranslate nohighlight">\(Model\)</span> is, in real situations, always uncertain. Much of the uncertainty is due to <span class="math notranslate nohighlight">\(Observation\)</span> being realization of some random process. This is so-called “statistical” uncertainty.
+In addition, <span class="math notranslate nohighlight">\(Response\)</span> is often also uncertain. <span class="math notranslate nohighlight">\(Response\)</span> uncertainty can be included in the reconstruction and inverse problem solving in different ways.</p>
 <div class="section" id="reconstruction-uncertainty">
 <h3>Reconstruction uncertainty<a class="headerlink" href="#reconstruction-uncertainty" title="Permalink to this headline">¶</a></h3>
-<p>Reconstruction uncertainty is</p>
+<p>Reconstruction is usually a deterministic process. Nevertheless, uncertainty is often included in the <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> by adding <code class="docutils literal notranslate"><span class="pre">systematic</span> <span class="pre">error</span></code>. <code class="docutils literal notranslate"><span class="pre">Systematic</span> <span class="pre">error</span></code> represents an assumption that <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> is affected by some unknown random process, typically assumed to be gaussian, which depends on unknown detector properties or other factors.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Systematic</span> <span class="pre">error</span></code> can be added in <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> of <a class="reference internal" href="landing-page.html#term-ISGRI"><span class="xref std std-term">ISGRI</span></a> as a normalization uncertainty in each bin. This approach does not allow to include uncertainty, for example, on energy reconstruction or resolution.
+<code class="docutils literal notranslate"><span class="pre">xspec</span></code> allows to add <code class="docutils literal notranslate"><span class="pre">systematic</span> <span class="pre">fraction</span></code> as constant fraction of flux, which is even more restrictive.</p>
 </div>
 <div class="section" id="response-uncertainty">
 <h3>Response uncertainty<a class="headerlink" href="#response-uncertainty" title="Permalink to this headline">¶</a></h3>

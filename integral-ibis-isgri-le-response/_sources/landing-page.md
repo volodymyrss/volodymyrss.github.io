@@ -2,7 +2,7 @@
 
 |||
 |:--:|:--:|
-|version|[3071eb4](https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/3071eb43e8d62341a7b090749524e632669af2df) 2022-01-04 16:13:31 +0100|
+|version|[14ea1db](https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/14ea1db66331ed7ba54aa160a5a17ef94047d7dc) 2022-01-04 16:38:53 +0100|
 |code origin|https://github.com/volodymyrss/integral-ibis-isgri-le-response|
 |public mirror|https://www.isdc.unige.ch/~savchenk/integral-ibis-isgri-le-response/|
 |public mirror|https://volodymyrss.github.io/integral-ibis-isgri-le-response/|
@@ -22,7 +22,7 @@
 
 ```{glossary}
 ISGRI
-  ISGRI
+  ISGRI {cite:p}`theisgri`
 
 OSA
   Offline Scientific Analysis
