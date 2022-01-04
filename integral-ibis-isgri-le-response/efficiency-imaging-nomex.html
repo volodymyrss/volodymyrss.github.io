@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ISGRI Low Energy efficiency &#8212; IBIS/ISGRI modeling troubles</title>
+    <title>ISGRI efficiency model &#8212; IBIS/ISGRI modeling troubles</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -101,7 +101,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="effi-rsp-lut2.html">
-   ISGRI  Calibration Reconstruction Invariance
+   ISGRI Calibration Reconstruction Invariance
   </a>
  </li>
  <li class="toctree-l1">
@@ -121,7 +121,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   ISGRI Low Energy efficiency
+   ISGRI efficiency model
   </a>
  </li>
 </ul>
@@ -228,8 +228,15 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   ISGRI Low Energy efficiency
+   ISGRI efficiency model
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#purpose-of-this-section">
+     Purpose of this section
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#effect-of-applying-nomex-correction-on-reconstructed-events">
@@ -257,7 +264,17 @@
         
               <div>
                 
-  <div class="cell docutils container">
+  <div class="tex2jax_ignore mathjax_ignore section" id="isgri-efficiency-model">
+<h1>ISGRI efficiency model<a class="headerlink" href="#isgri-efficiency-model" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="purpose-of-this-section">
+<h2>Purpose of this section<a class="headerlink" href="#purpose-of-this-section" title="Permalink to this headline">¶</a></h2>
+<p>to explain in a bit more detail efficiency shape</p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="effect-of-applying-nomex-correction-on-reconstructed-events">
+<h1>Effect of applying NOMEX correction on reconstructed events<a class="headerlink" href="#effect-of-applying-nomex-correction-on-reconstructed-events" title="Permalink to this headline">¶</a></h1>
+<p>TODO: do</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter1d</span> <span class="k">as</span> <span class="n">g1d</span>
@@ -267,12 +284,6 @@
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="isgri-low-energy-efficiency">
-<h1>ISGRI Low Energy efficiency<a class="headerlink" href="#isgri-low-energy-efficiency" title="Permalink to this headline">¶</a></h1>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="effect-of-applying-nomex-correction-on-reconstructed-events">
-<h1>Effect of applying NOMEX correction on reconstructed events<a class="headerlink" href="#effect-of-applying-nomex-correction-on-reconstructed-events" title="Permalink to this headline">¶</a></h1>
-<p>TODO: do</p>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="uniformity">
 <h1>Uniformity<a class="headerlink" href="#uniformity" title="Permalink to this headline">¶</a></h1>
@@ -280,21 +291,6 @@
 <div class="tex2jax_ignore mathjax_ignore section" id="effects-of-multi-lt">
 <h1>Effects of multi-lt<a class="headerlink" href="#effects-of-multi-lt" title="Permalink to this headline">¶</a></h1>
 <p>TODO: to be treated as imaging efficiecy problem</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#TODO: efficiency vs arf</span>
-<span class="c1">#TODO: problems of propagating efficiency</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#TODO: deduce gain evolution just from the first line, assuming constant offset.</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 
     <script type="text/x-thebe-config">

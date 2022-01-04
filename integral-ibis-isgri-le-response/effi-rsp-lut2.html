@@ -104,7 +104,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   ISGRI  Calibration Reconstruction Invariance
+   ISGRI Calibration Reconstruction Invariance
   </a>
  </li>
  <li class="toctree-l1">
@@ -124,7 +124,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="efficiency-imaging-nomex.html">
-   ISGRI Low Energy efficiency
+   ISGRI efficiency model
   </a>
  </li>
 </ul>
@@ -231,7 +231,7 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   ISGRI  Calibration Reconstruction Invariance
+   ISGRI Calibration Reconstruction Invariance
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
@@ -334,6 +334,11 @@
      and as proxy for flux
     </a>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#response-and-reconstruction-uncertainty">
+     Response and Reconstruction uncertainty
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -364,6 +369,23 @@
      Optimal transfomration
     </a>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#differences-in-reconstruction-between-osa10-and-osa11">
+     Differences in reconstruction between OSA10 and OSA11
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#lut2">
+       LUT2
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#efficency-and-arf">
+       Efficency and ARF
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
 </ul>
@@ -378,13 +400,15 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="isgri-calibration-reconstruction-invariance">
-<h1>ISGRI  Calibration Reconstruction Invariance<a class="headerlink" href="#isgri-calibration-reconstruction-invariance" title="Permalink to this headline">¶</a></h1>
+<h1>ISGRI Calibration Reconstruction Invariance<a class="headerlink" href="#isgri-calibration-reconstruction-invariance" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="purpose-of-this-section">
 <h2>Purpose of this section<a class="headerlink" href="#purpose-of-this-section" title="Permalink to this headline">¶</a></h2>
-<p>ISGRI uses unusual idea of reconstrcutoin. some of the conclusions are useful elsewhere</p>
+<p>ISGRI uses unusual idea of reconstrcutoin. This causes frequent confusion. I explain here some of the conclusions are useful elsewhere</p>
+<p>#TODO: efficiency vs arf
+#TODO: problems of propagating efficiency</p>
 </div>
 <div class="section" id="isgri-observation-space-and-general-reconstruction-basics">
-<h2>ISGRI observation space and general reconstruction basics<a class="headerlink" href="#isgri-observation-space-and-general-reconstruction-basics" title="Permalink to this headline">¶</a></h2>
+<span id="sec-theory"></span><h2>ISGRI observation space and general reconstruction basics<a class="headerlink" href="#isgri-observation-space-and-general-reconstruction-basics" title="Permalink to this headline">¶</a></h2>
 <p><span class="math notranslate nohighlight">\(Observation\)</span> (e.g. <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> spectral histograms) can be represented as transformation of some true <span class="math notranslate nohighlight">\(Model\)</span> with <span class="math notranslate nohighlight">\(Response\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -400,7 +424,7 @@ CountSpectrum\left[\mathrm{ISGRI\_PHA,~ISGRI\_RT}\right] = \sum_{Energy, Coordin
 <p>Where <span class="math notranslate nohighlight">\(CountSpectrum\)</span> is histogram from channel values as directly returned by the pixels.</p>
 <p>Here we assume that <span class="math notranslate nohighlight">\(CountSpectrum\)</span> is additive. This assumption is almost always valid, except when dead time effects due to source rate are relevant. The latter occurred, for example, in an extremely high-flux short bursts, and can be somewhat easily treated. To simplify the notation we disregard this possibility in what follows.</p>
 <p>This equation is valid for a single pixel at single moment of time. All pixels differ, and also evolve, in long term as well as in short disruptions of several different kinds.
-Were we assume that <span class="math notranslate nohighlight">\(ModelFlux\)</span> is constant in time, and there is only one source in the sky; this is reasonable since here we are primarily concerned with spectral reconstruction (see however the <span class="xref myst">NOMEX section</span>).
+Were we assume that <span class="math notranslate nohighlight">\(ModelFlux\)</span> is constant in time, and there is only one source in the sky; this is reasonable since here we are primarily concerned with spectral reconstruction (see however the <a class="reference internal" href="#sec-nomex"><span class="std std-ref">NOMEX reconstruction</span></a>).
 So it is almost always necessary to conside that</p>
 <div class="math notranslate nohighlight">
 \[
@@ -566,7 +590,7 @@ Imaging: CountSpectrumRec1\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarro
 <p>TODO: imaging quality note from PIF homogenuoity</p>
 </div>
 <div class="section" id="nomex-reconstruction">
-<h3><code class="docutils literal notranslate"><span class="pre">NOMEX</span></code> reconstruction<a class="headerlink" href="#nomex-reconstruction" title="Permalink to this headline">¶</a></h3>
+<span id="sec-nomex"></span><h3><code class="docutils literal notranslate"><span class="pre">NOMEX</span></code> reconstruction<a class="headerlink" href="#nomex-reconstruction" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[
 Imaging: CountSpectrumRec2\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarrow  CountSpectrumRec\left[\mathrm{SkySource, Energy}\right]
@@ -579,7 +603,7 @@ Imaging: CountSpectrumRec2\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarro
 <p>In principle, it is part of <code class="docutils literal notranslate"><span class="pre">Imaging</span></code>, and subject to the same issues, just on a larger scale. Average transparency of NOMEX at 30 keV is about 30%. TODO:check .</p>
 </div>
 <div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
 <p>All the above corrections aim to make <code class="docutils literal notranslate"><span class="pre">Response</span></code> as constant as possible. In this process, simple and conventional meaning of the <code class="docutils literal notranslate"><span class="pre">CountSpectrum</span></code> as event histogram is lost. Resulting <code class="docutils literal notranslate"><span class="pre">CountSpectrumRec</span></code> spectrum becomes almost constant, but additional freedom in energy-dependent (but not time-dependent) normalization remains.
 This normalization is selected to satisfy some additional conditions, which are poorly satisfied due to historical reasons. In any case, these conditions are difficult to interpret for a regular user.</p>
 <p>The only correction which has to remain in Response, is resolution. Indeed it is not possible to fully reconstruct-out broading of the spectrum (it is possible, but not advisable, to make all spectra equally broead and keep the response identical throughout the mission).</p>
@@ -587,8 +611,21 @@ This normalization is selected to satisfy some additional conditions, which are 
 </div>
 <div class="section" id="full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux">
 <h2>Full, no forward-folding <span class="math notranslate nohighlight">\(Reconstruction\)</span>: count rate in <code class="docutils literal notranslate"><span class="pre">Crabs</span></code> and as proxy for flux<a class="headerlink" href="#full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux" title="Permalink to this headline">¶</a></h2>
-<p>It is common. For example, if one desires to provide in ie</p>
+<p>There is a common way to derive approximate source flux by comparing source count rate with count rate of Crab, and assuming that the flux scales linearly with count rate.</p>
+<p>In terms of the description in <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>, this</p>
+<p>Facilitated by the</p>
+<p>This is only possible if the $Response ap
+. For example, if one desires to provide in i.e. <a class="reference internal" href="#summary"><span class="std std-ref">Summary</span></a></p>
+<p>relieas on</p>
 <p>uncertainties in priors</p>
+</div>
+<div class="section" id="response-and-reconstruction-uncertainty">
+<h2>Response and Reconstruction uncertainty<a class="headerlink" href="#response-and-reconstruction-uncertainty" title="Permalink to this headline">¶</a></h2>
+<p>Reconstruction uncertainty is assu</p>
+<p>Response uncertainty can be contained in nuissance parameters, if the response is fitted together with source.
+Response model based on <span class="xref myst">threeML</span> exists for <a class="reference external" href="https://github.com/volodymyrss/integral-response-model.git">ISGRI</a>.
+It is also possible to derive bayesian posterior following.
+Uncertainty in the response model response model has an advantage of providing handle on particular, motivated by components.</p>
 </div>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="practice-and-example-of-calibration-invariance">
@@ -705,7 +742,7 @@ This normalization is selected to satisfy some additional conditions, which are 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f8d8b0572b0&gt;
 </pre></div>
 </div>
-<img alt="_images/effi-rsp-lut2_7_2.png" src="_images/effi-rsp-lut2_7_2.png" />
+<img alt="_images/effi-rsp-lut2_8_2.png" src="_images/effi-rsp-lut2_8_2.png" />
 </div>
 </div>
 <p>effi imaging description</p>
@@ -737,6 +774,16 @@ TODO
 </pre></div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="differences-in-reconstruction-between-osa10-and-osa11">
+<h2>Differences in reconstruction between OSA10 and OSA11<a class="headerlink" href="#differences-in-reconstruction-between-osa10-and-osa11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lut2">
+<h3>LUT2<a class="headerlink" href="#lut2" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="efficency-and-arf">
+<h3>Efficency and ARF<a class="headerlink" href="#efficency-and-arf" title="Permalink to this headline">¶</a></h3>
+<p>As described above.</p>
 </div>
 </div>
 </div>
