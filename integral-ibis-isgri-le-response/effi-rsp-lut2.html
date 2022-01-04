@@ -320,6 +320,21 @@
     </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#effective-area">
+     Effective area
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vigentting-in-isgri">
+     Vigentting in ISGRI
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#effective-exposure-in">
+     Effective Exposure in
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux">
      Full, no forward-folding
      <span class="math notranslate nohighlight">
@@ -335,9 +350,33 @@
     </a>
    </li>
    <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#response-and-reconstruction-uncertainty">
-     Response and Reconstruction uncertainty
+    <a class="reference internal nav-link" href="#from-response-and-reconstruction-uncertainty-to-model-uncertainty">
+     From
+     <span class="math notranslate nohighlight">
+      \(Response\)
+     </span>
+     and
+     <span class="math notranslate nohighlight">
+      \(Reconstruction\)
+     </span>
+     uncertainty to
+     <span class="math notranslate nohighlight">
+      \(Model\)
+     </span>
+     uncertainty
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#reconstruction-uncertainty">
+       Reconstruction uncertainty
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#response-uncertainty">
+       Response uncertainty
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -403,8 +442,15 @@
 <h1>ISGRI Calibration Reconstruction Invariance<a class="headerlink" href="#isgri-calibration-reconstruction-invariance" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="purpose-of-this-section">
 <h2>Purpose of this section<a class="headerlink" href="#purpose-of-this-section" title="Permalink to this headline">¶</a></h2>
-<p>ISGRI uses unusual idea of reconstrcutoin. This causes frequent confusion. I explain here some of the conclusions are useful elsewhere</p>
-<p>#TODO: efficiency vs arf
+<p>Measurement consists in instrument converting some true physical <span class="math notranslate nohighlight">\(Model\)</span> in some <span class="math notranslate nohighlight">\(Observation\)</span>. Recovering the <span class="math notranslate nohighlight">\(Model\)</span> from <span class="math notranslate nohighlight">\(Observation\)</span> is the <strong>inverse problem</strong>.</p>
+<p>It is sometimes suggested that inverse problem should be ideally addressed with forward folding model and comparing the result with raw data.
+It is, however, not always realistically feasible. Instead, <span class="math notranslate nohighlight">\(Observation\)</span> is reduced and <strong>reconstructed</strong> at least part of the way before comparing with <span class="math notranslate nohighlight">\(Model\)</span> folded with <span class="math notranslate nohighlight">\(Response\)</span></p>
+<p>ISGRI uses particular assumptions for the <span class="math notranslate nohighlight">\(Reconstruction\)</span> processes, different from those used in other instruments. These assumptions are largely motivated by the coded mask process and particularly substantial variability if ISGRI detector comparing to other similar detectors.
+This situation causes regular confusion about the meaning of ISGRI reconstructed (“normalized”) count rate, applicable statistical models, meaning of response and efficiency.</p>
+<p>Here, after a brief introduction in terminology, I explain the entire ISGRI reconstruction process, as motivated by historical practice and as defined in OSA11.</p>
+<p>Some of the considetaion and conclusions discussed may be useful for other instruments, ep</p>
+<p>#TODO: efficiency vs arf, xspec-like
+#TODO: detection efficiency
 #TODO: problems of propagating efficiency</p>
 </div>
 <div class="section" id="isgri-observation-space-and-general-reconstruction-basics">
@@ -500,7 +546,7 @@ CountSpectrumRec\left[ChannelReconstruction\left[\mathrm{Channel}\right]\right] 
 Note, however, that <strong>this condition is intentionally not satisfied in <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code></strong>.</p>
 </div>
 <div class="section" id="structure-of-isgri-reconstruction">
-<h2>Structure of ISGRI <span class="math notranslate nohighlight">\(Reconstruction\)</span><a class="headerlink" href="#structure-of-isgri-reconstruction" title="Permalink to this headline">¶</a></h2>
+<span id="sec-isgri-recon"></span><h2>Structure of ISGRI <span class="math notranslate nohighlight">\(Reconstruction\)</span><a class="headerlink" href="#structure-of-isgri-reconstruction" title="Permalink to this headline">¶</a></h2>
 <p>(here and everywhere in this note, channel variable names correspond to those used in <code class="docutils literal notranslate"><span class="pre">OSA</span></code>, bold, etc TODO)</p>
 <p>As described above, there is a lot if freedom in how the reconstruction is done, as long as the response is generate accordingly. It might be desirable to follow some optimalily and regularily conditions, and we will apply in part at the end of this note.</p>
 <p>Historically, the reconstruction process in <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> was intented ad-hoc following scietific intuition. The result is not far from optimal.
@@ -541,7 +587,7 @@ LUT2\left[Time\right]: \mathrm{ISGRI\_PHA1, ISGRI\_RT}  \Rightarrow  \mathrm{ISG
 <p>Before <code class="docutils literal notranslate"><span class="pre">OSA11</span></code>, <code class="docutils literal notranslate"><span class="pre">LUT2</span></code> did not depend on time. Instead, a different correction was applied before <code class="docutils literal notranslate"><span class="pre">LUT2</span></code>.</p>
 </div>
 <div class="section" id="pixeleffieciency-reconstruction">
-<h3><code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code> reconstruction<a class="headerlink" href="#pixeleffieciency-reconstruction" title="Permalink to this headline">¶</a></h3>
+<span id="sec-pixelefficiency"></span><h3><code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code> reconstruction<a class="headerlink" href="#pixeleffieciency-reconstruction" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[
 Imaging: CountSpectrumRec\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarrow  CountSpectrumRec1\left[\mathrm{ISGRI\_PIXEL, Energy}\right]
@@ -576,7 +622,7 @@ t this time, reconstructed count rate <span class="math notranslate nohighlight"
 <p>Uniformity is equivalent to another component of <code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code>. It is currently set to all unity values (i.e. disabled)</p>
 </div>
 <div class="section" id="imaging-reconstruction">
-<h3><code class="docutils literal notranslate"><span class="pre">Imaging</span></code> reconstruction<a class="headerlink" href="#imaging-reconstruction" title="Permalink to this headline">¶</a></h3>
+<span id="sec-imaging"></span><h3><code class="docutils literal notranslate"><span class="pre">Imaging</span></code> reconstruction<a class="headerlink" href="#imaging-reconstruction" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[
 Imaging: CountSpectrumRec1\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarrow  CountSpectrumRec2\left[\mathrm{SkySource, Energy}\right]
@@ -603,11 +649,56 @@ Imaging: CountSpectrumRec2\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarro
 <p>In principle, it is part of <code class="docutils literal notranslate"><span class="pre">Imaging</span></code>, and subject to the same issues, just on a larger scale. Average transparency of NOMEX at 30 keV is about 30%. TODO:check .</p>
 </div>
 <div class="section" id="summary">
-<span id="id1"></span><h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
 <p>All the above corrections aim to make <code class="docutils literal notranslate"><span class="pre">Response</span></code> as constant as possible. In this process, simple and conventional meaning of the <code class="docutils literal notranslate"><span class="pre">CountSpectrum</span></code> as event histogram is lost. Resulting <code class="docutils literal notranslate"><span class="pre">CountSpectrumRec</span></code> spectrum becomes almost constant, but additional freedom in energy-dependent (but not time-dependent) normalization remains.
 This normalization is selected to satisfy some additional conditions, which are poorly satisfied due to historical reasons. In any case, these conditions are difficult to interpret for a regular user.</p>
 <p>The only correction which has to remain in Response, is resolution. Indeed it is not possible to fully reconstruct-out broading of the spectrum (it is possible, but not advisable, to make all spectra equally broead and keep the response identical throughout the mission).</p>
 </div>
+</div>
+<div class="section" id="effective-area">
+<h2>Effective area<a class="headerlink" href="#effective-area" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Effective</span> <span class="pre">area</span></code> is commonly understood as ratio of <strong>detected count rate</strong> for the given instrument, to the incident <strong>photon flux</strong>. Clearly this assertion depends on assumption of detector being linear.</p>
+<p>For some set of sky locations, energies, and time moments:</p>
+<div class="math notranslate nohighlight">
+\[
+EffectiveArea = \frac{\sum_{\mathrm{Energy},~\mathrm{SkySource},~\mathrm{Time}} CountSpectrum}{\sum_{\mathrm{Energy},~\mathrm{SkySource},~\mathrm{Time}} Model}
+\]</div>
+<p>But which count rate should be used in this ratio? It seems natural to use the true detector count rate (<span class="math notranslate nohighlight">\(CountSpectrum\)</span> as introduced <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>). For ISGRI, <span class="math notranslate nohighlight">\(EffectiveArea\)</span> define in this way would depend strongly on sky location, time and energy. Perhaps because of how variable it is, this quantity is rarely considered for ISGRI.</p>
+<p>As described in <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>, ISGRI relies on extensive <span class="math notranslate nohighlight">\(Reconstruction\)</span> to produce certain <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span>, also known as <strong>normalized count rate</strong>, for equivalent on-axis source, for non-lossy pixels.
+This <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> is written in ISGRI spectra, light curves, and image “flux” tables.
+Hence it is possible to produce <span class="math notranslate nohighlight">\(EffectiveAreaRec\)</span> for</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><span class="math notranslate nohighlight">\(EffectiveAreaRec\)</span> which corresponds to user-visible <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> is hardly a good measure of ISGRI instrument performance, since it is concealing hidden ISGRI efficiencies, accounted-for in the <span class="math notranslate nohighlight">\(Reconstruction\)</span>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Commonly used <code class="docutils literal notranslate"><span class="pre">xspec</span></code> <span id="id1">[<a class="reference internal" href="landing-page.html#id2">Arnaud, 1996</a>]</span> has <a class="reference external" href="https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node112.html">plot efficien</a> command which is used to:</p>
+<blockquote>
+<div><p>Plot the total response efficiency versus incident photon energy</p>
+</div></blockquote>
+<p>This <code class="docutils literal notranslate"><span class="pre">response</span> <span class="pre">efficiency</span></code> corresponds to <span class="math notranslate nohighlight">\(EffectiveAreaRec\)</span> in ISGRI.</p>
+<p>Instead, in <a class="reference internal" href="landing-page.html#term-ISGRI"><span class="xref std std-term">ISGRI</span></a>, term <span class="math notranslate nohighlight">\(Efficiency\)</span> is used to describe multiplicative <span class="math notranslate nohighlight">\(Reconstruction\)</span> component:  the function by which the <span class="math notranslate nohighlight">\(CountSpectrum\)</span> is divided (see <a class="reference internal" href="#sec-pixelefficiency"><span class="std std-ref">PixelEffieciency reconstruction</span></a> for details)
+This efficiency is meant to represent chance of photon interacting in ISGRI pixel to be converted to ISGRI count (for particular event class, i.e. <code class="docutils literal notranslate"><span class="pre">S1</span></code> scientific events). I.e. it is a <strong>photon detection efficiency</strong>, not taking into account incident photon absorption in NOMEX or other structures, and the chance of the photon to interract in the pixel.  These affects are instead contained in the <span class="math notranslate nohighlight">\(Response\)</span>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sometimes, it is worth considering <strong>source detection efficiency</strong>. This concept depends on the entire complete <span class="math notranslate nohighlight">\(Response\)</span> and also <span class="math notranslate nohighlight">\(Background\)</span> and is quite different from what is discussed in the present document.</p>
+</div>
+</div>
+<div class="section" id="vigentting-in-isgri">
+<h2>Vigentting in ISGRI<a class="headerlink" href="#vigentting-in-isgri" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Vignetting</span></code> is loss of effective area for off-axis observations. ISGRI experiences <code class="docutils literal notranslate"><span class="pre">vignetting</span></code> already in fully-coded FoV (due to NOMEX, <a class="reference internal" href="#sec-nomex"><span class="std std-ref">NOMEX reconstruction</span></a>) but especially in partially-coded FoV (see <a class="reference internal" href="#sec-imaging"><span class="std std-ref">Imaging reconstruction</span></a>.
+ISGRI <code class="docutils literal notranslate"><span class="pre">Vignetting</span></code> is completely hidden in <span class="math notranslate nohighlight">\(Reconstruction\)</span> process.</p>
+</div>
+<div class="section" id="effective-exposure-in">
+<span id="sec-exposure"></span><h2>Effective Exposure in<a class="headerlink" href="#effective-exposure-in" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TELAPSE</span></code>:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ONTIME</span></code>:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EXPOSURE</span></code></p></li>
+</ul>
+<p>dead time</p>
 </div>
 <div class="section" id="full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux">
 <h2>Full, no forward-folding <span class="math notranslate nohighlight">\(Reconstruction\)</span>: count rate in <code class="docutils literal notranslate"><span class="pre">Crabs</span></code> and as proxy for flux<a class="headerlink" href="#full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux" title="Permalink to this headline">¶</a></h2>
@@ -615,17 +706,24 @@ This normalization is selected to satisfy some additional conditions, which are 
 <p>In terms of the description in <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>, this</p>
 <p>Facilitated by the</p>
 <p>This is only possible if the $Response ap
-. For example, if one desires to provide in i.e. <a class="reference internal" href="#summary"><span class="std std-ref">Summary</span></a></p>
+. For example, if one desires to provide in i.e. <span class="xref myst"></span></p>
 <p>relieas on</p>
 <p>uncertainties in priors</p>
 </div>
-<div class="section" id="response-and-reconstruction-uncertainty">
-<h2>Response and Reconstruction uncertainty<a class="headerlink" href="#response-and-reconstruction-uncertainty" title="Permalink to this headline">¶</a></h2>
-<p>Reconstruction uncertainty is assu</p>
+<div class="section" id="from-response-and-reconstruction-uncertainty-to-model-uncertainty">
+<h2>From <span class="math notranslate nohighlight">\(Response\)</span> and <span class="math notranslate nohighlight">\(Reconstruction\)</span> uncertainty to <span class="math notranslate nohighlight">\(Model\)</span> uncertainty<a class="headerlink" href="#from-response-and-reconstruction-uncertainty-to-model-uncertainty" title="Permalink to this headline">¶</a></h2>
+<p>Measurement of <span class="math notranslate nohighlight">\(Model\)</span> is, in real situations, always uncertain.</p>
+<div class="section" id="reconstruction-uncertainty">
+<h3>Reconstruction uncertainty<a class="headerlink" href="#reconstruction-uncertainty" title="Permalink to this headline">¶</a></h3>
+<p>Reconstruction uncertainty is</p>
+</div>
+<div class="section" id="response-uncertainty">
+<h3>Response uncertainty<a class="headerlink" href="#response-uncertainty" title="Permalink to this headline">¶</a></h3>
 <p>Response uncertainty can be contained in nuissance parameters, if the response is fitted together with source.
 Response model based on <span class="xref myst">threeML</span> exists for <a class="reference external" href="https://github.com/volodymyrss/integral-response-model.git">ISGRI</a>.
 It is also possible to derive bayesian posterior following.
 Uncertainty in the response model response model has an advantage of providing handle on particular, motivated by components.</p>
+</div>
 </div>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="practice-and-example-of-calibration-invariance">
@@ -742,7 +840,7 @@ Uncertainty in the response model response model has an advantage of providing h
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f8d8b0572b0&gt;
 </pre></div>
 </div>
-<img alt="_images/effi-rsp-lut2_8_2.png" src="_images/effi-rsp-lut2_8_2.png" />
+<img alt="_images/effi-rsp-lut2_12_2.png" src="_images/effi-rsp-lut2_12_2.png" />
 </div>
 </div>
 <p>effi imaging description</p>

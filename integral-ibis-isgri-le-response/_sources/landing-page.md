@@ -2,7 +2,7 @@
 
 |||
 |:--:|:--:|
-|version|[32fa87e](https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/32fa87e21b46c7286603926f4d3dd35c697665af) 2022-01-04 10:51:35 +0100|
+|version|[3071eb4](https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/3071eb43e8d62341a7b090749524e632669af2df) 2022-01-04 16:13:31 +0100|
 |code origin|https://github.com/volodymyrss/integral-ibis-isgri-le-response|
 |public mirror|https://www.isdc.unige.ch/~savchenk/integral-ibis-isgri-le-response/|
 |public mirror|https://volodymyrss.github.io/integral-ibis-isgri-le-response/|
@@ -17,6 +17,19 @@
 |see also| [Requirements for calibration observations with ISGRI](https://www.overleaf.com/project/5db9c995dab87000015dbc8f) and [this](https://www.overleaf.com/project/5c4f34c9dcce396e146cc67d) (to develop and submit in next AO) |
 |see also| [relation to use in HILIGT](https://www.overleaf.com/project/5f33e78775157700016a8290), [HILIGT](https://doi.org/10.1016/j.ascom.2021.100529) |
 
-see [notebook](readme.ipynb) for details.
 
-See also a separate note on similar issue with energy resolution: model does not predict it sufficiently well. This effect is much easier to model that low-energy response centrality.
+## Glossary 
+
+```{glossary}
+ISGRI
+  ISGRI
+
+OSA
+  Offline Scientific Analysis
+```
+
+## Bibliography
+
+```{bibliography}
+:style: unsrt
+```
