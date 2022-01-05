@@ -396,6 +396,11 @@
   <a class="reference internal nav-link" href="#practice-and-example-of-calibration-invariance">
    Practice and example of Calibration Invariance
   </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo-non-variable-effetcts-except-for-resolution">
+   TODO: non-variable effetcts except for resolution
+  </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#misreconstruction">
@@ -450,19 +455,20 @@
         </div>
     </div>
 </div>
-    <!-- Table of contents that is only displayed when printing the page -->
-    <div id="jb-print-docs-body" class="onlyprint">
-        <h1>ISGRI Calibration Reconstruction Invariance</h1>
-        <!-- Table of contents -->
-        <div id="print-main-content" class="row">
-            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
-            <div id="jb-print-toc">
-                
-                <div>
-                    <h2> Contents </h2>
-                </div>
-                <nav aria-label="Page">
-                    <ul class="visible nav section-nav flex-column">
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>ISGRI Calibration Reconstruction Invariance</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
    ISGRI Calibration Reconstruction Invariance
@@ -630,6 +636,11 @@
   <a class="reference internal nav-link" href="#practice-and-example-of-calibration-invariance">
    Practice and example of Calibration Invariance
   </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo-non-variable-effetcts-except-for-resolution">
+   TODO: non-variable effetcts except for resolution
+  </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#misreconstruction">
@@ -680,7 +691,9 @@
  </li>
 </ul>
 
-                </nav>
+                        </nav>
+                    </div>
+                </div>
             </div>
             
               <div>
@@ -712,7 +725,7 @@ This situation causes regular confusion about the meaning of ISGRI reconstructed
 <p class="admonition-title">Note</p>
 <p>Particular questions which often come up are:</p>
 <ul class="simple">
-<li><p>What is the meaning of ISGRI count rates? How are they related to detector count rates?</p></li>
+<li><p>What is the meaning of ISGRI count rates? How are they related to detector count rates? (<a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>)</p></li>
 <li><p>What statisical model is applicable to ISGRI count rates?</p></li>
 <li><p>What is ISGRI Efficiency, how is it different from other notions of detector/detection efficiency?</p></li>
 <li><p>Is ISGRI ARF variable? Should it be? What does it mean?</p></li>
@@ -756,7 +769,7 @@ CountSpectrum\left[\mathrm{Channel}\right] = \sum_{Energy}~Response\left[\mathrm
 \]</div>
 <p>It means that <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> spectra are, in principle, always 4-dimensional. <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> is not unique in this, many other instruments/telescopes are in a similar situation, though not many have an extra dimension fo pulse properties (the rise time).</p>
 <p>When defined in this way, the entire transformation from the incident flux to observation is contained in the response function <span class="math notranslate nohighlight">\(Response\)</span>.</p>
-<p>A 4-dimensional <span class="math notranslate nohighlight">\(Observation\)</span> space becomes quite large, and <span class="math notranslate nohighlight">\(Response\)</span> is even larger. Assuming that detector variations in <span class="math notranslate nohighlight">\(\mathrm{Time}\)</span> are at most at 100~second timescale, there are <span class="math notranslate nohighlight">\(2048 \times 256 \times 128 \times 128 \times 24 \times 3600 / 100\)</span> there are in total about <span class="math notranslate nohighlight">\(10^{13}\)</span> bins in a <span class="math notranslate nohighlight">\(CountSpectrum\)</span>. There are only <span class="math notranslate nohighlight">\(10^{8}\)</span> <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> photons per day, so this spectrum is mostly empty. Without changing the essence of the approach, it is more feasible to compare time-tagged events. In this case, it is still necessary to compute per-event response, accounting for all 4 detector variables. This approach extracts the most out of ISGRI data, but is quite computationally expensive. It was exploited in <span class="xref myst">[1]</span> for about 1-second long event with very fine time structure. It does not currently appear very realistic to apply this method to multi-day observations. And even it if was feasible, it would not bring any benefits, since major uncertainty in ISGRI is associated with response uncertainties.</p>
+<p>A 4-dimensional <span class="math notranslate nohighlight">\(Observation\)</span> space becomes quite large, and <span class="math notranslate nohighlight">\(Response\)</span> is even larger. Assuming that detector variations in <span class="math notranslate nohighlight">\(\mathrm{Time}\)</span> are at most at 100~second timescale, there are <span class="math notranslate nohighlight">\(2048 \times 256 \times 128 \times 128 \times 24 \times 3600 / 100\)</span> there are in total about <span class="math notranslate nohighlight">\(10^{13}\)</span> bins in a <span class="math notranslate nohighlight">\(CountSpectrum\)</span>. There are only <span class="math notranslate nohighlight">\(10^{8}\)</span> <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> photons per day, so this spectrum is mostly empty. Without changing the essence of the approach, it is more feasible to compare time-tagged events. In this case, it is still necessary to compute per-event response, accounting for all 4 detector variables. This approach extracts the most out of ISGRI data, but is quite computationally expensive. It was exploited in <span id="id1">Mereghetti <em>et al.</em> [<a class="reference internal" href="landing-page.html#id15">2020</a>]</span> for about 1-second long event with very fine time structure. It does not currently appear very realistic to apply this method to multi-day observations. And even it if was feasible, it would not bring any benefits, since major uncertainty in ISGRI is associated with response uncertainties.</p>
 <p>Luckily, since the <span class="math notranslate nohighlight">\(Model\)</span> space is only 1-dimensional (for a single constant source) it is possible, with only some loss of information, to reduce the size of the observation space to 1 dimension, <span class="math notranslate nohighlight">\(CountSpectrum\)</span> in some reconstructed channel, <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span>.</p>
 <p>The transformation can be done with</p>
 <div class="math notranslate nohighlight">
@@ -919,7 +932,7 @@ Imaging: CountSpectrumRec2\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarro
 <li><p>Sources at different locations with respect to the satellite have the same reconstructed count rate</p></li>
 <li><p>Average count rate is derived from what was calibrated on-ground, and is difficult to verify.</p></li>
 </ul>
-<p>In principle, it is part of <code class="docutils literal notranslate"><span class="pre">Imaging</span></code>, and subject to the same issues, just on a larger scale. Average transparency of NOMEX at 30 keV is about 30%. TODO:check .</p>
+<p>In principle, it is part of <code class="docutils literal notranslate"><span class="pre">Imaging</span></code>, and subject to the same issues, just on a larger scale. Average transparency of NOMEX at 30 keV is about 50% and 20% at 100~keV.</p>
 </div>
 <div class="section" id="summary">
 <h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
@@ -947,7 +960,7 @@ Hence it is possible to produce <span class="math notranslate nohighlight">\(Eff
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Commonly used <code class="docutils literal notranslate"><span class="pre">xspec</span></code> <span id="id1">[<a class="reference internal" href="landing-page.html#id3">Arnaud, 1996</a>]</span> has <a class="reference external" href="https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node112.html">plot efficien</a> command which is used to:</p>
+<p>Commonly used <code class="docutils literal notranslate"><span class="pre">xspec</span></code> <span id="id2">[<a class="reference internal" href="landing-page.html#id3">Arnaud, 1996</a>]</span> has <a class="reference external" href="https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node112.html">plot efficien</a> command which is used to:</p>
 <blockquote>
 <div><p>Plot the total response efficiency versus incident photon energy</p>
 </div></blockquote>
@@ -1045,6 +1058,7 @@ Uncertainty in the response model response model has an advantage of providing h
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/isdc/arc/rev_3
+/isdc/arc/rev_3
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;nomex&#39; from &#39;/home/savchenk/integral-ibis-isgri-le-response/book/../nomex.py&#39;&gt;
@@ -1087,24 +1101,44 @@ Uncertainty in the response model response model has an advantage of providing h
     <span class="n">rmf</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">ce1</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec&#39;</span>
 <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">effi</span><span class="p">,</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">effi</span> <span class="o">*</span> <span class="n">nomex_norm</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">ce1</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec2&#39;</span>
 <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">effi</span> <span class="o">*</span> <span class="n">nomex_norm</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span>
-    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec1&#39;</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">effi</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;PixelEfficiency&#39;</span>
 <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">effi</span> <span class="o">*</span> <span class="n">nomex_norm</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;PixelEfficiency $\circ$ Nomex&#39;</span>
+<span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">nomex_norm</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Nomex&#39;</span>
+<span class="p">)</span>
+
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">ticks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ax2</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">())</span> <span class="o">+</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">]</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">.4g</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">()])</span> <span class="c1">#, rotation=&#39;vertical&#39;)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">15</span><span class="p">,</span> <span class="mi">800</span><span class="p">])</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
@@ -1114,10 +1148,82 @@ Uncertainty in the response model response model has an advantage of providing h
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>assuming no systematic errors. Probably ok
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f8d8b0572b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9a7f905910&gt;
 </pre></div>
 </div>
 <img alt="_images/effi-rsp-lut2_12_2.png" src="_images/effi-rsp-lut2_12_2.png" />
+</div>
+</div>
+<p>#TODO: multiple event efficiency and resolution efficinecy change with time</p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="todo-non-variable-effetcts-except-for-resolution">
+<h1>TODO: non-variable effetcts except for resolution<a class="headerlink" href="#todo-non-variable-effetcts-except-for-resolution" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-ddosa&#39;))</span>
+<span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-eddosa&#39;))</span>
+<span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../eddosa_tools/fit1d&#39;))</span>
+<span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-ddosa11calib&#39;))</span>
+<span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-ltdata&#39;))</span>
+<span class="c1"># os.environ[&#39;COMMON_INTEGRAL_SOFTDIR&#39;] = &quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">ast</span>
+<span class="n">mod_text</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../dda-ddosa11calib/ddosa11calib.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">mod_text</span><span class="p">)</span>
+
+<span class="n">produce_e_morph_def</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">body</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;produce_e_morph&quot;</span><span class="p">:</span>
+            <span class="n">produce_e_morph_def</span> <span class="o">=</span> <span class="n">i</span>
+            
+<span class="n">func_body</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mod_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="n">produce_e_morph_def</span><span class="o">.</span><span class="n">lineno</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">produce_e_morph_def</span><span class="o">.</span><span class="n">end_lineno</span><span class="p">])</span>
+<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;func_body.py&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">import numpy as np</span>
+<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">func_body</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">func_body</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">func_body</span><span class="p">)</span>
+
+<span class="n">emorph</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">func_body</span><span class="o">.</span><span class="n">produce_e_morph</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">3001</span><span class="p">)</span>
+<span class="c1"># this time-dependent variable</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span> 
+    <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec&#39;</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">emorph</span><span class="p">(</span><span class="n">ce1</span><span class="p">),</span> 
+    <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">emorph</span><span class="p">(</span><span class="n">ce2</span><span class="p">)</span><span class="o">-</span><span class="n">emorph</span><span class="p">(</span><span class="n">ce1</span><span class="p">)),</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec emorph-ed&#39;</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">800</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+
+<span class="c1">#TODO: compute spectrum with modiied RSP. compute spectrum with non-modified RSP. several time moments</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ast.FunctionDef object at 0x7f9a78c81b80&gt; get_cube_bins_anal
+&lt;ast.FunctionDef object at 0x7f9a78c7aee0&gt; get_cube_bins_table
+&lt;ast.FunctionDef object at 0x7f9a78c2ce80&gt; produce_e_morph
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+<img alt="_images/effi-rsp-lut2_14_2.png" src="_images/effi-rsp-lut2_14_2.png" />
 </div>
 </div>
 <p>effi imaging description</p>
@@ -1171,8 +1277,8 @@ TODO
 Given more recently availlable computing power, it might be achievable.</p>
 <p>Forward folding would help to:</p>
 <ul class="simple">
-<li><p>avoid consuequence of using of <span class="math notranslate nohighlight">\(\mathrm{ISGRI_ENERGY}\)</span> instead of <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span> in imaging (see <a class="reference internal" href="#sec-imaging"><span class="std std-ref">Imaging reconstruction</span></a>). The effect might be detectable for hard-spectra sources.</p></li>
-<li><p>take into account spectral-dependency of LUT2, perhaps marginally improving energy resolution</p></li>
+<li><p>avoid consequences of using of <span class="math notranslate nohighlight">\(\mathrm{ISGRI_ENERGY}\)</span> instead of <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span> in imaging (see <a class="reference internal" href="#sec-imaging"><span class="std std-ref">Imaging reconstruction</span></a>). The effect might be detectable for hard-spectra sources.</p></li>
+<li><p>take into account spectral-dependency of LUT2, perhaps (marginally?) improving energy resolution. If there is a hidden variable explaining unexpected resolution loss, it might be recoverable in this way.</p></li>
 <li><p>take into account efficiency uncertainty, for much better imaging</p></li>
 </ul>
 </div>
@@ -1200,531 +1306,8 @@ Given more recently availlable computing power, it might be achievable.</p>
 
               </div>
               
-            </div>
-        </div>
-    </div>
-    <div id="main-content" class="row noprint">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
-                
-  <div class="tex2jax_ignore mathjax_ignore section" id="isgri-calibration-reconstruction-invariance">
-<h1>ISGRI Calibration Reconstruction Invariance<a class="headerlink" href="#isgri-calibration-reconstruction-invariance" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="purpose-of-this-section">
-<h2>Purpose of this section<a class="headerlink" href="#purpose-of-this-section" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="general-considerations">
-<h3>General considerations<a class="headerlink" href="#general-considerations" title="Permalink to this headline">¶</a></h3>
-<p>Measurement consists in instrument converting some true physical <span class="math notranslate nohighlight">\(Model\)</span> in some <span class="math notranslate nohighlight">\(Observation\)</span>. Recovering the <span class="math notranslate nohighlight">\(Model\)</span> from <span class="math notranslate nohighlight">\(Observation\)</span> is the <strong>inverse problem</strong>.</p>
-<p>It is sometimes suggested that inverse problem should be ideally addressed with forward folding model and comparing the result with raw data. Mathematical elegance of this approach gave rise to considerable following.
-It is, however, not always realistically feasible.
-Instead, <span class="math notranslate nohighlight">\(Observation\)</span> is reduced and <strong>reconstructed</strong> at least part of the way before comparing with <span class="math notranslate nohighlight">\(Model\)</span> folded with <span class="math notranslate nohighlight">\(Response\)</span>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>I try to show that if applied correctly <span class="math notranslate nohighlight">\(Reconstruction\)</span> is a perfectly valid process, only possibly discarding some (often irrelevant) information in the data.
-I will also show what can be the optimization criteria for selecting <span class="math notranslate nohighlight">\(Reconstruction\)</span> .</p>
-</div>
-<p>It is interesting to note that many Machine Learning algorithms take form of a <span class="math notranslate nohighlight">\(Reconstruction\)</span>.
-It is curious that eventually inferred <span class="math notranslate nohighlight">\(Model\)</span> may be treated as a resconstructed <span class="math notranslate nohighlight">\(Observation\)</span> by a higher order <strong>inverse problem</strong>.</p>
-</div>
-<div class="section" id="frequent-confusion-about-isgri">
-<h3>Frequent confusion about ISGRI<a class="headerlink" href="#frequent-confusion-about-isgri" title="Permalink to this headline">¶</a></h3>
-<p>ISGRI uses particular assumptions for the <span class="math notranslate nohighlight">\(Reconstruction\)</span> processes, different from those used in other instruments. These assumptions are largely motivated by the coded mask process and particularly substantial variability if ISGRI detector comparing to other similar detectors.
-This situation causes regular confusion about the meaning of ISGRI reconstructed (“normalized”) count rate, applicable statistical models, meaning of response and efficiency.</p>
-<p>Here, after a brief introduction in terminology, I explain the entire ISGRI reconstruction process, as motivated by historical practice and as defined in OSA11.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Particular questions which often come up are:</p>
-<ul class="simple">
-<li><p>What is the meaning of ISGRI count rates? How are they related to detector count rates?</p></li>
-<li><p>What statisical model is applicable to ISGRI count rates?</p></li>
-<li><p>What is ISGRI Efficiency, how is it different from other notions of detector/detection efficiency?</p></li>
-<li><p>Is ISGRI ARF variable? Should it be? What does it mean?</p></li>
-<li><p>What is ISGRI effective area, is it the same as ISGRI ARF?</p></li>
-<li><p>What spectrum is assumed in computing ISGRI Efficiency and what is the effect of this choice?</p></li>
-<li><p>What spectrum is assumed in LUT2 generation and what is the effect of this choice? What is the difference between non-determenistic LUT2 in OSA10 and deterministic in OSA11?</p></li>
-</ul>
-</div>
-<p>#TODO: problems of propagating efficiency
-#TODO stable vs unstable
-#TODO other instruments</p>
-</div>
-</div>
-<div class="section" id="isgri-observation-space-and-general-reconstruction-basics">
-<span id="sec-theory"></span><h2>ISGRI observation space and general reconstruction basics<a class="headerlink" href="#isgri-observation-space-and-general-reconstruction-basics" title="Permalink to this headline">¶</a></h2>
-<p><span class="math notranslate nohighlight">\(Observation\)</span> (e.g. <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> spectral histograms) can be represented as transformation of some true <span class="math notranslate nohighlight">\(Model\)</span> with <span class="math notranslate nohighlight">\(Response\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[
-Observation~=~ Response \times Model
-\]</div>
-<p>Note that <span class="math notranslate nohighlight">\(Observation\)</span> does not belong to the same space as <span class="math notranslate nohighlight">\(Model\)</span>. For example, when <span class="math notranslate nohighlight">\(Model\)</span> is vectors of flux in incident photon energy bins, <span class="math notranslate nohighlight">\(Observation\)</span> is detected
-counts in detector channels.</p>
-<p>For <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code>, each pixel detector channels are biparametric, described by <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PHA}\)</span> and <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_RT}\)</span> integers. <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> stores channel values for each event, but it is often useful to consider histogram of these detected values.</p>
-<div class="math notranslate nohighlight">
-\[
-CountSpectrum\left[\mathrm{ISGRI\_PHA,~ISGRI\_RT}\right] = \sum_{Energy, Coordinate}~Response\left[\mathrm{ISGRI\_PHA,~ISGRI\_RT},~\mathrm{Energy, Coordinate}\right] \times ModelFlux\left[\mathrm{Energy, Coordinate}\right]
-\]</div>
-<p>Where <span class="math notranslate nohighlight">\(CountSpectrum\)</span> is histogram from channel values as directly returned by the pixels.</p>
-<p>Here we assume that <span class="math notranslate nohighlight">\(CountSpectrum\)</span> is additive. This assumption is almost always valid, except when dead time effects due to source rate are relevant. The latter occurred, for example, in an extremely high-flux short bursts, and can be somewhat easily treated. To simplify the notation we disregard this possibility in what follows.</p>
-<p>This equation is valid for a single pixel at single moment of time. All pixels differ, and also evolve, in long term as well as in short disruptions of several different kinds.
-Were we assume that <span class="math notranslate nohighlight">\(ModelFlux\)</span> is constant in time, and there is only one source in the sky; this is reasonable since here we are primarily concerned with spectral reconstruction (see however the <a class="reference internal" href="#sec-nomex"><span class="std std-ref">NOMEX reconstruction</span></a>).
-So it is almost always necessary to conside that</p>
-<div class="math notranslate nohighlight">
-\[
-CountSpectrum\left[\mathrm{Channel}\right] = \sum_{Energy}~Response\left[\mathrm{Channel},~\mathrm{Energy}\right] \times ModelFlux\left[\mathrm{Energy}\right]
-\]</div>
-<p>where</p>
-<div class="math notranslate nohighlight">
-\[
-\mathrm{Channel} = \left[\mathrm{ISGRI\_PHA,~ISGRI\_RT,~ISGRI\_PIXEL,~Time}\right]
-\]</div>
-<p>It means that <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> spectra are, in principle, always 4-dimensional. <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> is not unique in this, many other instruments/telescopes are in a similar situation, though not many have an extra dimension fo pulse properties (the rise time).</p>
-<p>When defined in this way, the entire transformation from the incident flux to observation is contained in the response function <span class="math notranslate nohighlight">\(Response\)</span>.</p>
-<p>A 4-dimensional <span class="math notranslate nohighlight">\(Observation\)</span> space becomes quite large, and <span class="math notranslate nohighlight">\(Response\)</span> is even larger. Assuming that detector variations in <span class="math notranslate nohighlight">\(\mathrm{Time}\)</span> are at most at 100~second timescale, there are <span class="math notranslate nohighlight">\(2048 \times 256 \times 128 \times 128 \times 24 \times 3600 / 100\)</span> there are in total about <span class="math notranslate nohighlight">\(10^{13}\)</span> bins in a <span class="math notranslate nohighlight">\(CountSpectrum\)</span>. There are only <span class="math notranslate nohighlight">\(10^{8}\)</span> <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> photons per day, so this spectrum is mostly empty. Without changing the essence of the approach, it is more feasible to compare time-tagged events. In this case, it is still necessary to compute per-event response, accounting for all 4 detector variables. This approach extracts the most out of ISGRI data, but is quite computationally expensive. It was exploited in <span class="xref myst">[1]</span> for about 1-second long event with very fine time structure. It does not currently appear very realistic to apply this method to multi-day observations. And even it if was feasible, it would not bring any benefits, since major uncertainty in ISGRI is associated with response uncertainties.</p>
-<p>Luckily, since the <span class="math notranslate nohighlight">\(Model\)</span> space is only 1-dimensional (for a single constant source) it is possible, with only some loss of information, to reduce the size of the observation space to 1 dimension, <span class="math notranslate nohighlight">\(CountSpectrum\)</span> in some reconstructed channel, <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span>.</p>
-<p>The transformation can be done with</p>
-<div class="math notranslate nohighlight">
-\[
-CountSpectrumRec\left[\mathrm{ISGRI\_ENERGY}\right] = \sum_{\mathrm{Channel}}~Reconstruction\left[\mathrm{ISGRI\_ENERGY, Channel}\right] \times CountSpectrum\left[\mathrm{Channel}\right]
-\]</div>
-<p>in order to preserve the relation between data and model</p>
-<div class="math notranslate nohighlight">
-\[
-CountSpectrumRec\left[\mathrm{ISGRI\_ENERGY}\right] = \sum_{Energy}~Response\left[\mathrm{ISGRI\_ENERGY},~\mathrm{Energy}\right] \times ModelFlux\left[\mathrm{Energy}\right]
-\]</div>
-<p>response should satisfy</p>
-<div class="math notranslate nohighlight">
-\[
-ResponseRec\left[\mathrm{ISGRI\_ENERGY, Energy}\right] = \sum_{\mathrm{Channel}}~Reconstruction\left[\mathrm{ISGRI\_ENERGY, Channel}\right] \times Response\left[\mathrm{Channel, Energy}\right]
-\]</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Note that all this is valid for any <span class="math notranslate nohighlight">\(Reconstruction\)</span> function. Using some peculiar <span class="math notranslate nohighlight">\(Reconstruction\)</span> it is possible to build a very unusual but still valid channel spectra in <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span> which will yeild accurate (even if possibly not very precise) <span class="math notranslate nohighlight">\(Model\)</span>.</p>
-<p>This constitutes <strong>considerable invariance of accurate inferrence on <span class="math notranslate nohighlight">\(Reconstruction\)</span> process</strong></p>
-<p>In practice, reconstruction segmented and is selected to:</p>
-<ul class="simple">
-<li><p>reduce information loss (e.g. improve resolution - reduce overlap between useful representations of interesting variables in the reconstructed space TODO)</p></li>
-<li><p>fit scientific intuition</p></li>
-<li><p>reduce dependence on systematic uncertainties</p></li>
-</ul>
-<p>All this is only relevant when some reconstruction is applied, i.e. when complete forward folding is not possible (see e.g. <span class="xref myst">here</span> for complete forward process).</p>
-</div>
-<p>For example degenerate <span class="math notranslate nohighlight">\(Reconstruction\)</span> which discards any information about other variables but <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PHA}\)</span> will produce not an unreasonable spectrum. This spectrum will have rather washed-out (broadened) spectral features and will evolve with time even for a constant source. Appropriate response would have to be incorporate in a suitable response.</p>
-<p>In <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code>, <span class="math notranslate nohighlight">\(ChannelReconstruction\)</span> has two kinds of anomalous properties:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span> is a monotonous function of <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PHA}\)</span> only below some critical <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_RT}_{reversal}\)</span>. This is because high-depth high-energy interactions produce high RT and low PHA, and PHA may be come lower than that of a low-energy interaction (which reach large RT due to RT resolution, without out much change in PHA).</p></li>
-<li><p>absorbtion edges at 30 keV</p></li>
-</ul>
-<p>In both cases, to avoid using irregular function, it is sufficient to choose simpler reconstrciton.
-It may seem that these anomalies, especially that at 30 keV, could help in characterizing the instrument. Unfortunately, the expected features in the data are quite <code class="docutils literal notranslate"><span class="pre">TODO:</span> <span class="pre">describe</span></code></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Note that even with some motivated <span class="math notranslate nohighlight">\(Reconstruction\)</span>, the reconstructed channel <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span> is very different from incident photon energy.
-In principle, the reconstruction may be selected so that <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span> approximates incident <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span>. This would correspond to some optimal <span class="math notranslate nohighlight">\(Reconstruction_{optimal}\)</span>.</p>
-</div>
-<p>While any <span class="math notranslate nohighlight">\(Reconstruction\)</span> discards information, some of them will provide more information than the other. It is, therefore, possible to pick optimal maximally-informative <span class="math notranslate nohighlight">\(Reconstruction_{optimal}\)</span> (see below).</p>
-<p>We are interested in particular <span class="xref myst">[2]</span> case of this transformation, which enables relation between original and reconstructed channels:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\mathrm{ISGRI\_ENERGY} = ChannelReconstruction\left[\mathrm{Channel}\right] \\
-\end{split}\]</div>
-<p>If <span class="math notranslate nohighlight">\(CountSpectrum\)</span> is an arbitrary function of <span class="math notranslate nohighlight">\(Channel\)</span>, some <span class="math notranslate nohighlight">\(ChannelReconstruction\)</span> may be incompatible with some single-valued <span class="math notranslate nohighlight">\(Reconstruction\)</span> functions. For example, if   it is required that function value is preserved across the transformation</p>
-<div class="math notranslate nohighlight">
-\[
-CountSpectrumRec\left[ChannelReconstruction\left[\mathrm{Channel}\right]\right] = CountSpectrum\left[\mathrm{Channel}\right]
-\]</div>
-<p>Clearly, if <span class="math notranslate nohighlight">\(CountSpectrum\)</span> changes as function of <span class="math notranslate nohighlight">\(\mathrm{Channel}\)</span> along tranjectories of constant <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span>, single-valued <span class="math notranslate nohighlight">\(CountSpectrumRec\left[\mathrm{ISGRI\_ENERGY}\right]\)</span> can not exist.</p>
-<p>On the other hand, if <span class="math notranslate nohighlight">\(CountSpectrum\)</span> is the density on <span class="math notranslate nohighlight">\(\mathrm{Channel}\)</span> space, it will satisfy</p>
-<div class="math notranslate nohighlight">
-\[
-CountSpectrumRec\left[ChannelReconstruction\left[\mathrm{Channel}\right]\right] \times ChannelReconstruction'\left[\mathrm{Channel}\right] = CountSpectrum\left[\mathrm{Channel}\right]
-\]</div>
-<p>This equation can be solved together with <span class="xref myst">the one above</span> to derive <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span>, in some cases. <code class="docutils literal notranslate"><span class="pre">TODO:</span> <span class="pre">elaborate</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">condition</span> <span class="pre">required</span> <span class="pre">for</span> <span class="pre">this</span></code>
-Note, however, that <strong>this condition is intentionally not satisfied in <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code></strong>.</p>
-</div>
-<div class="section" id="structure-of-isgri-reconstruction">
-<span id="sec-isgri-recon"></span><h2>Structure of ISGRI <span class="math notranslate nohighlight">\(Reconstruction\)</span><a class="headerlink" href="#structure-of-isgri-reconstruction" title="Permalink to this headline">¶</a></h2>
-<p>(here and everywhere in this note, channel variable names correspond to those used in <code class="docutils literal notranslate"><span class="pre">OSA</span></code>, bold, etc TODO)</p>
-<p>As described above, there is a lot if freedom in how the reconstruction is done, as long as the response is generate accordingly. It might be desirable to follow some optimalily and regularily conditions, and we will apply in part at the end of this note.</p>
-<p>Historically, the reconstruction process in <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> was intented ad-hoc following scietific intuition. The result is not far from optimal.
-It consists of multiple stages.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\mathrm{ISGRI\_ENERGY} = (\mathrm{LUT2} \circ \mathrm{LUT1}) \left[\mathrm{Channel}\right]\\
-\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[
-CountSpectrumRec = (\mathrm{NOMEX} \circ \mathrm{Imaging} \circ \mathrm{Uniformity} \circ \mathrm{PixelEfficiency}) \left[CountSpectrum\right]
-\]</div>
-<p>Below each component is described briefly, clarifying which dimensions they discard, and what optimizations are selected:</p>
-<div class="section" id="lut1-reconstruction">
-<h3><code class="docutils literal notranslate"><span class="pre">LUT1</span></code> reconstruction<a class="headerlink" href="#lut1-reconstruction" title="Permalink to this headline">¶</a></h3>
-<div class="math notranslate nohighlight">
-\[
-LUT1\left[Time\right]: \mathrm{ISGRI\_PHA , ISGRI\_PIXEL}  \Rightarrow  \mathrm{ISGRI\_PHA1},  \mathrm{ISGRI\_RISE} \Rightarrow \mathrm{ISGRI\_RT}
-\]</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">LUT1</span></code> discards <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PIXEL}\)</span> dimension</p></li>
-<li><p>It uses detector temperature, which is a function of <code class="docutils literal notranslate"><span class="pre">Time</span></code>.</p></li>
-<li><p>The transformation is optimizing energy resolution. It does not explicitly depend on time (except for the temperature).</p></li>
-<li><p>Resulting <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PHA1}\)</span> values are close to those average <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PHA}\)</span>.</p></li>
-</ul>
-</div>
-<div class="section" id="lut2-reconstruction">
-<h3><code class="docutils literal notranslate"><span class="pre">LUT2</span></code> reconstruction<a class="headerlink" href="#lut2-reconstruction" title="Permalink to this headline">¶</a></h3>
-<div class="math notranslate nohighlight">
-\[
-LUT2\left[Time\right]: \mathrm{ISGRI\_PHA1, ISGRI\_RT}  \Rightarrow  \mathrm{ISGRI\_ENERGY}
-\]</div>
-<p><code class="docutils literal notranslate"><span class="pre">LUT2</span></code> discards <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_RT}\)</span> dimension (since <code class="docutils literal notranslate"><span class="pre">OSA11</span></code>, it is a function function of <code class="docutils literal notranslate"><span class="pre">Time</span></code>), and optimizes to:</p>
-<ul class="simple">
-<li><p>Iprove energy resolution</p></li>
-<li><p>Make response have a strong diagonal component: photopeak interactions reconstruct <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span> close to incident <code class="docutils literal notranslate"><span class="pre">Energy</span></code></p></li>
-</ul>
-<p>Before <code class="docutils literal notranslate"><span class="pre">OSA11</span></code>, <code class="docutils literal notranslate"><span class="pre">LUT2</span></code> did not depend on time. Instead, a different correction was applied before <code class="docutils literal notranslate"><span class="pre">LUT2</span></code>.</p>
-</div>
-<div class="section" id="pixeleffieciency-reconstruction">
-<span id="sec-pixelefficiency"></span><h3><code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code> reconstruction<a class="headerlink" href="#pixeleffieciency-reconstruction" title="Permalink to this headline">¶</a></h3>
-<div class="math notranslate nohighlight">
-\[
-Imaging: CountSpectrumRec\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarrow  CountSpectrumRec1\left[\mathrm{ISGRI\_PIXEL, Energy}\right]
-\]</div>
-<p>Each <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> pixel has a low-PHA threshold. Most the the pixels have threshold settings around 15. Specific <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PHA}\)</span> threshold value is different, but made to match <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_PHA}\)</span> of about 15 keV at the early mission.</p>
-<p>The threshold is not sharp, it a smooth function, with width similar to the resolution.
-Pixel settings change slightly every orbit.</p>
-<p><code class="docutils literal notranslate"><span class="pre">TODO:</span></code> In principle, LT in <code class="docutils literal notranslate"><span class="pre">PHA</span></code> is nearly constant, to determine why</p>
-<p>The function depends on the pixel setting and pixel type (there are two pixel types). Pixel setting and kind are the best tracers of divergence between pixel response. <img alt="pic here" src="_images/." /></p>
-<p>There is no straightforward way to predict this function preciesly, while it is also necessary, since low-energy efficiency is the single strongest factor in the entire spectral reconstruction. It also affects imaging quality at the lowest energies.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code> simultaneously affects spectral and imaging performance, which might compete. Before OSA11, spectral reconstruction from was rather theoretical and approximate, and time-dependent <span class="math notranslate nohighlight">\(Response\)</span> was accounting for spectral variations.</p>
-<p>With OSA11, <code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code> is calibrated in-flight with sufficient precision to avoid the need for modifications in ARF to compensate for <code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code> incompleteless.
-<code class="docutils literal notranslate"><span class="pre">TODO:</span> <span class="pre">there</span> <span class="pre">is</span> <span class="pre">stil</span> <span class="pre">something</span> <span class="pre">unclear</span> </code></p>
-</div>
-<p>Further imaging-specific adjustments to <code class="docutils literal notranslate"><span class="pre">PixelEfficiency</span></code> might be necessary. Though right now, it seems that imaging performance is the same as <code class="docutils literal notranslate"><span class="pre">OSA10</span></code>, meaning that the difference is irrelevant. Instead, imaging improved with a dedicated additional, per-orbit efficiency model derived from detailed sky models <a class="reference external" href="https://github.com/volodymyrss/dda-deconstruction">as done here</a>. See also <code class="docutils literal notranslate"><span class="pre">sextractor</span></code>-based reconstruction ISGRI imaging in <span class="xref myst">there</span>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><code class="docutils literal notranslate"><span class="pre">PixelEfficiency</span></code> divides <span class="math notranslate nohighlight">\(CountSpectrum\)</span> by some theoretical or calibrated function, with no change to the channel variable.
-t this time, reconstructed count rate <span class="math notranslate nohighlight">\(CountSpectrumRec1\)</span> no more has the meaning of number of counts in some channel rate. Imaging and NOMEX corrections futher exhaugurate this condition. Other X-ray instruments typically choose to avoid this sort of transformation, since it complicates intepretation. But in coded-mask instruments, with strongly overlapping <code class="docutils literal notranslate"><span class="pre">PSF</span></code>, it can be useful.</p>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">PixelEfficiency</span></code> is selected to make sure that:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(CountSpectrumRec1\)</span> of a source with constant flux does not change very much with mission life time</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PIF</span></code> are compatible with what would be expected from if all pixels were identical (note interplay with NOMEX)</p></li>
-</ul>
-<p>It would be possible to rely more on <code class="docutils literal notranslate"><span class="pre">PixelEfficiency</span></code> even before <code class="docutils literal notranslate"><span class="pre">OSA11</span></code>. But before several reconstruction troubles were addressed which time-dependent <code class="docutils literal notranslate"><span class="pre">LUT2</span></code>, it was very hard to model reasonably-structured efficiency.</p>
-</div>
-<div class="section" id="uniformity-reconstruction">
-<h3><code class="docutils literal notranslate"><span class="pre">Uniformity</span></code> reconstruction<a class="headerlink" href="#uniformity-reconstruction" title="Permalink to this headline">¶</a></h3>
-<p>Uniformity is equivalent to another component of <code class="docutils literal notranslate"><span class="pre">PixelEffieciency</span></code>. It is currently set to all unity values (i.e. disabled)</p>
-</div>
-<div class="section" id="imaging-reconstruction">
-<span id="sec-imaging"></span><h3><code class="docutils literal notranslate"><span class="pre">Imaging</span></code> reconstruction<a class="headerlink" href="#imaging-reconstruction" title="Permalink to this headline">¶</a></h3>
-<div class="math notranslate nohighlight">
-\[
-Imaging: CountSpectrumRec1\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarrow  CountSpectrumRec2\left[\mathrm{SkySource, Energy}\right]
-\]</div>
-<p>This reconstruction converts functions of detector pixel into functions of sky locations. Position-dependent factors are introduced at this time, so that:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(CountSpectrumRec2\)</span> represents count rate the same source if it was for on-axis with all-open mask and no NOMEX. TODO</p></li>
-</ul>
-<p>Due to energy-dependence of <code class="docutils literal notranslate"><span class="pre">Imaging</span></code>, it needs to use mostly incident <code class="docutils literal notranslate"><span class="pre">Energy</span></code> values, for example to compute opacity of mask elements, shield, etc. But these values are not known at this stage. So instead, <code class="docutils literal notranslate"><span class="pre">Imaging</span></code> simply uses <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span>. For example, photon with <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span> = 200 keV will no trouble getting through the shield, but it is most likely to deposit lower energy, e.g. <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span> == 30 keV, and the opacity used for this photon will be much higher than was actually experienced.</p>
-<p>Luckily, this is usually sufficient, since energy dependence is not large at low energy (where reconstruction precision requirements are the highest). Also since most sources are soft, for <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span> = 30 keV, only a minority of photos will have much higher incident energy, and they can be disregarded in the reconstruction. Similarly, for <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span> = 200 keV, most photons will come from <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span> = 200 keV. I.e. for soft sources, average <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span> in a bin is a good indicator of average <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span>. For particularly hard sources, this might not be the case.</p>
-<p>TODO: imaging quality note from PIF homogenuoity</p>
-</div>
-<div class="section" id="nomex-reconstruction">
-<span id="sec-nomex"></span><h3><code class="docutils literal notranslate"><span class="pre">NOMEX</span></code> reconstruction<a class="headerlink" href="#nomex-reconstruction" title="Permalink to this headline">¶</a></h3>
-<div class="math notranslate nohighlight">
-\[
-Imaging: CountSpectrumRec2\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarrow  CountSpectrumRec\left[\mathrm{SkySource, Energy}\right]
-\]</div>
-<p>Nomex is a structure supporting the mask. Its opacity is especially difficult to model, and was calibrated in-flight so that:</p>
-<ul class="simple">
-<li><p>Sources at different locations with respect to the satellite have the same reconstructed count rate</p></li>
-<li><p>Average count rate is derived from what was calibrated on-ground, and is difficult to verify.</p></li>
-</ul>
-<p>In principle, it is part of <code class="docutils literal notranslate"><span class="pre">Imaging</span></code>, and subject to the same issues, just on a larger scale. Average transparency of NOMEX at 30 keV is about 30%. TODO:check .</p>
-</div>
-<div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
-<p>All the above corrections aim to make <code class="docutils literal notranslate"><span class="pre">Response</span></code> as constant as possible. In this process, simple and conventional meaning of the <code class="docutils literal notranslate"><span class="pre">CountSpectrum</span></code> as event histogram is lost. Resulting <code class="docutils literal notranslate"><span class="pre">CountSpectrumRec</span></code> spectrum becomes almost constant, but additional freedom in energy-dependent (but not time-dependent) normalization remains.
-This normalization is selected to satisfy some additional conditions, which are poorly satisfied due to historical reasons. In any case, these conditions are difficult to interpret for a regular user.</p>
-<p>The only correction which has to remain in Response, is resolution. Indeed it is not possible to fully reconstruct-out broading of the spectrum (it is possible, but not advisable, to make all spectra equally broead and keep the response identical throughout the mission).</p>
-</div>
-</div>
-<div class="section" id="effective-area">
-<h2>Effective area<a class="headerlink" href="#effective-area" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">Effective</span> <span class="pre">area</span></code> is commonly understood as ratio of <strong>detected count rate</strong> for the given instrument, to the incident <strong>photon flux</strong>. Clearly this assertion depends on assumption of detector being linear.</p>
-<p>For some set of sky locations, energies, and time moments:</p>
-<div class="math notranslate nohighlight">
-\[
-EffectiveArea = \frac{\sum_{\mathrm{Energy},~\mathrm{SkySource},~\mathrm{Time}} CountSpectrum}{\sum_{\mathrm{Energy},~\mathrm{SkySource},~\mathrm{Time}} Model}
-\]</div>
-<p>But which count rate should be used in this ratio? It seems natural to use the true detector count rate (<span class="math notranslate nohighlight">\(CountSpectrum\)</span> as introduced <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>). For ISGRI, <span class="math notranslate nohighlight">\(EffectiveArea\)</span> define in this way would depend strongly on sky location, time and energy. It would have been possible to generate this <span class="math notranslate nohighlight">\(Response\)</span> for every given observation, but due to strong correlation of sources in coded mask process, responses for all sources would have to be generated in each observation, and fitted all at once.
-Perhaps because of how variable it is, this quantity is rarely considered for ISGRI.</p>
-<p>As described in <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>, ISGRI relies on extensive <span class="math notranslate nohighlight">\(Reconstruction\)</span> to produce certain <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span>, also known as <strong>normalized count rate</strong>, for equivalent on-axis source, for non-lossy pixels.
-This <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> is written in ISGRI spectra, light curves, and image “flux” tables.
-Hence it is possible to produce <span class="math notranslate nohighlight">\(EffectiveAreaRec\)</span> for</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><span class="math notranslate nohighlight">\(EffectiveAreaRec\)</span> which corresponds to user-visible <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> is hardly a good measure of ISGRI instrument performance, since it is concealing hidden ISGRI efficiencies, accounted-for in the <span class="math notranslate nohighlight">\(Reconstruction\)</span>.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Commonly used <code class="docutils literal notranslate"><span class="pre">xspec</span></code> <span id="id1">[<a class="reference internal" href="landing-page.html#id3">Arnaud, 1996</a>]</span> has <a class="reference external" href="https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node112.html">plot efficien</a> command which is used to:</p>
-<blockquote>
-<div><p>Plot the total response efficiency versus incident photon energy</p>
-</div></blockquote>
-<p>This <code class="docutils literal notranslate"><span class="pre">response</span> <span class="pre">efficiency</span></code> corresponds to <span class="math notranslate nohighlight">\(EffectiveAreaRec\)</span> in ISGRI.</p>
-<p>Instead, in <a class="reference internal" href="landing-page.html#term-ISGRI"><span class="xref std std-term">ISGRI</span></a>, term <span class="math notranslate nohighlight">\(Efficiency\)</span> is used to describe multiplicative <span class="math notranslate nohighlight">\(Reconstruction\)</span> component:  the function by which the <span class="math notranslate nohighlight">\(CountSpectrum\)</span> is divided (see <a class="reference internal" href="#sec-pixelefficiency"><span class="std std-ref">PixelEffieciency reconstruction</span></a> for details)
-This efficiency is meant to represent chance of photon interacting in ISGRI pixel to be converted to ISGRI count (for particular event class, i.e. <code class="docutils literal notranslate"><span class="pre">S1</span></code> scientific events). I.e. it is a <strong>photon detection efficiency</strong>, not taking into account incident photon absorption in NOMEX or other structures, and the chance of the photon to interract in the pixel.  These affects are instead contained in the <span class="math notranslate nohighlight">\(Response\)</span>.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Sometimes, it is worth considering <strong>source detection efficiency</strong>. This concept depends on the entire complete <span class="math notranslate nohighlight">\(Response\)</span> and also <span class="math notranslate nohighlight">\(Background\)</span> and is quite different from what is discussed in the present document.</p>
-</div>
-</div>
-<div class="section" id="vigentting-in-isgri">
-<h2>Vigentting in ISGRI<a class="headerlink" href="#vigentting-in-isgri" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">Vignetting</span></code> is loss of effective area for off-axis observations. ISGRI experiences <code class="docutils literal notranslate"><span class="pre">vignetting</span></code> already in fully-coded FoV (due to NOMEX, <a class="reference internal" href="#sec-nomex"><span class="std std-ref">NOMEX reconstruction</span></a>) but especially in partially-coded FoV (see <a class="reference internal" href="#sec-imaging"><span class="std std-ref">Imaging reconstruction</span></a>.
-ISGRI <code class="docutils literal notranslate"><span class="pre">Vignetting</span></code> is completely hidden in <span class="math notranslate nohighlight">\(Reconstruction\)</span> process.</p>
-</div>
-<div class="section" id="effective-exposure-in-isgri">
-<span id="sec-exposure"></span><h2>Effective Exposure in ISGRI<a class="headerlink" href="#effective-exposure-in-isgri" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">TELAPSE</span></code>:</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ONTIME</span></code>:</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">EXPOSURE</span></code></p></li>
-</ul>
-<p>#TODO: dead time</p>
-</div>
-<div class="section" id="full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux">
-<h2>Full, no forward-folding <span class="math notranslate nohighlight">\(Reconstruction\)</span>: count rate in <code class="docutils literal notranslate"><span class="pre">Crabs</span></code> and as proxy for flux<a class="headerlink" href="#full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux" title="Permalink to this headline">¶</a></h2>
-<p>There is a common way to derive approximate source flux by comparing source count rate with count rate of Crab, and assuming that the flux scales linearly with count rate.</p>
-<p>In terms of the description in <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>, this process corresponds to producing <span class="math notranslate nohighlight">\(ReconstructionComplete\)</span> so that <span class="math notranslate nohighlight">\(ResponceComplete\)</span> is close to unitary, and <span class="math notranslate nohighlight">\(CountSpectrumRecComplete\)</span> is numerically close to flux is the selected units.</p>
-<p>In ISGRI, <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> corresponds to approximately constant <span class="math notranslate nohighlight">\(ResponseRec\)</span>. If it is not constant, <span class="math notranslate nohighlight">\(ReconstructionComplete\)</span> can be designed to be valid in certain time range.</p>
-<p>In order to set limit in some <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span> range, the best sensitivity may be achieved by avoiding any selection on <span class="math notranslate nohighlight">\(\mathrm{Channel}\)</span>.
-E.g. to estimate 20 - 40 keV flux, there is no needto select count rate in 20 - 40 (channel)keV. But this is almost never done.</p>
-<p>Instead, it is thought to be natural to select count rate in certain optimal <span class="math notranslate nohighlight">\(\mathrm{Channel}\)</span> range. Correspondence between (channel)keV and keV is always inexact, but there is a natural correspondance, applicable for moderadly dispersive instrument like <a class="reference internal" href="landing-page.html#term-ISGRI"><span class="xref std std-term">ISGRI</span></a> and somewhat soft spectra.</p>
-<p>It can be shown that this selection minimizes dependence on the source model (TODO:to show?).</p>
-</div>
-<div class="section" id="from-response-and-reconstruction-uncertainty-to-model-uncertainty">
-<h2>From <span class="math notranslate nohighlight">\(Response\)</span> and <span class="math notranslate nohighlight">\(Reconstruction\)</span> uncertainty to <span class="math notranslate nohighlight">\(Model\)</span> uncertainty<a class="headerlink" href="#from-response-and-reconstruction-uncertainty-to-model-uncertainty" title="Permalink to this headline">¶</a></h2>
-<p>Measurement of <span class="math notranslate nohighlight">\(Model\)</span> is, in real situations, always uncertain. Much of the uncertainty is due to <span class="math notranslate nohighlight">\(Observation\)</span> being realization of some random process. This is so-called “statistical” uncertainty.
-In addition, <span class="math notranslate nohighlight">\(Response\)</span> is often also uncertain. <span class="math notranslate nohighlight">\(Response\)</span> uncertainty can be included in the reconstruction and inverse problem solving in different ways.</p>
-<div class="section" id="reconstruction-uncertainty">
-<h3>Reconstruction uncertainty<a class="headerlink" href="#reconstruction-uncertainty" title="Permalink to this headline">¶</a></h3>
-<p>Reconstruction is usually a deterministic process. Nevertheless, uncertainty is often included in the <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> by adding <code class="docutils literal notranslate"><span class="pre">systematic</span> <span class="pre">error</span></code>. <code class="docutils literal notranslate"><span class="pre">Systematic</span> <span class="pre">error</span></code> represents an assumption that <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> is affected by some unknown random process, typically assumed to be gaussian, which depends on unknown detector properties or other factors.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Systematic</span> <span class="pre">error</span></code> can be added in <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> of <a class="reference internal" href="landing-page.html#term-ISGRI"><span class="xref std std-term">ISGRI</span></a> as a normalization uncertainty in each bin. This approach does not allow to include uncertainty, for example, on energy reconstruction or resolution.
-<code class="docutils literal notranslate"><span class="pre">xspec</span></code> allows to add <code class="docutils literal notranslate"><span class="pre">systematic</span> <span class="pre">fraction</span></code> as constant fraction of flux, which is even more restrictive.</p>
-</div>
-<div class="section" id="response-uncertainty">
-<h3>Response uncertainty<a class="headerlink" href="#response-uncertainty" title="Permalink to this headline">¶</a></h3>
-<p>Response uncertainty can be contained in nuissance parameters, if the response is fitted together with source.
-Response model based on <span class="xref myst">threeML</span> exists for <a class="reference external" href="https://github.com/volodymyrss/integral-response-model.git">ISGRI</a>.
-It is also possible to derive bayesian posterior following.
-Uncertainty in the response model response model has an advantage of providing handle on particular, motivated by components.</p>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="practice-and-example-of-calibration-invariance">
-<h1>Practice and example of Calibration Invariance<a class="headerlink" href="#practice-and-example-of-calibration-invariance" title="Permalink to this headline">¶</a></h1>
-<p>below we show process of selecting additional optimization of the reconstruction</p>
-<p>TODO: it’s useful to stack spectra</p>
-<p>TODO:</p>
-<ul class="simple">
-<li><p>lut3d to physicality smooth</p></li>
-<li><p>efficiency as expect, response, “true” ISGRI efficiency</p></li>
-</ul>
-<p>lt in pha, model and show</p>
-<p>called effi in several place</p>
-<p>imaging effi, model and show separately</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter1d</span> <span class="k">as</span> <span class="n">g1d</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
-<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span>
-<span class="kn">import</span> <span class="nn">importlib</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">iconfig</span>
-<span class="n">ic_base</span> <span class="o">=</span> <span class="n">iconfig</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">rep_base_prod</span>
-
-<span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/mod/isgr_effi_mod_0002.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
-
-<span class="kn">import</span> <span class="nn">nomex</span>
-<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">nomex</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/isdc/arc/rev_3
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;nomex&#39; from &#39;/home/savchenk/integral-ibis-isgri-le-response/book/../nomex.py&#39;&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
-<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;HOME&#39;</span><span class="p">),</span> <span class="s1">&#39;ogip&#39;</span><span class="p">))</span>
-
-<span class="kn">import</span> <span class="nn">ogip</span>
-<span class="kn">import</span> <span class="nn">ogip.tools</span>
-<span class="kn">import</span> <span class="nn">ogip.spec</span>
-
-<span class="n">ic_base</span> <span class="o">=</span> <span class="s2">&quot;/unsaved/astro/savchenk/osa11/ic-collection/beta&quot;</span>
-
-<span class="n">effi</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/mod/isgr_effc_mod_0235.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">11</span><span class="p">][</span><span class="s1">&#39;EFFICIENCY&#39;</span><span class="p">]</span>
-<span class="n">ebds</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/rsp/isgr_ebds_mod_0001.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
-<span class="n">matrix</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/rsp/isgr_rmf_rsp_0235.fits&#39;</span><span class="p">)[</span><span class="s1">&#39;ISGR-RMF.-RSP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
-<span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span> <span class="o">=</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MIN&#39;</span><span class="p">],</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MAX&#39;</span><span class="p">]</span>
-<span class="n">e1</span><span class="p">,</span> <span class="n">e2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_LO&#39;</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_HI&#39;</span><span class="p">]</span>
-<span class="n">rmf</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">RMF</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;MATRIX&#39;</span><span class="p">]),</span> <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">)</span>
-
-<span class="n">nomex_norm</span> <span class="o">=</span> <span class="n">nomex</span><span class="o">.</span><span class="n">read_nomex_norm</span><span class="p">(</span><span class="n">ebins</span><span class="o">=</span><span class="p">(</span><span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">))</span>
-
-<span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">PHAI</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
-    <span class="n">exposure</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-    <span class="n">rate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">ce1</span><span class="p">),</span>
-    <span class="n">stat_err</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">ce1</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="n">rate</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
-    <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">crab_ph_cm2_s_kev</span><span class="p">,</span>
-    <span class="n">rmf</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
-    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec&#39;</span>
-<span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">effi</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec2&#39;</span>
-<span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">effi</span> <span class="o">*</span> <span class="n">nomex_norm</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span>
-    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec1&#39;</span>
-<span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>assuming no systematic errors. Probably ok
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f8d8b0572b0&gt;
-</pre></div>
-</div>
-<img alt="_images/effi-rsp-lut2_12_2.png" src="_images/effi-rsp-lut2_12_2.png" />
-</div>
-</div>
-<p>effi imaging description</p>
-<div class="section" id="misreconstruction">
-<h2>Misreconstruction<a class="headerlink" href="#misreconstruction" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="changing-from-one-reconstruction-to-another-relation-between-channelreconstruction-and-reconstruction">
-<h2>Changing from one reconstruction to another: relation between <span class="math notranslate nohighlight">\(ChannelReconstruction\)</span> and <span class="math notranslate nohighlight">\(Reconstruction\)</span>:<a class="headerlink" href="#changing-from-one-reconstruction-to-another-relation-between-channelreconstruction-and-reconstruction" title="Permalink to this headline">¶</a></h2>
-<p>Relation between <span class="math notranslate nohighlight">\(ChannelReconstruction\)</span> and <span class="math notranslate nohighlight">\(Reconstruction\)</span></p>
-<div class="math notranslate nohighlight">
-\[
-TODO
-\]</div>
-</div>
-<div class="section" id="optimal-transfomration">
-<h2>Optimal transfomration<a class="headerlink" href="#optimal-transfomration" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: measure or mimick gain from HE line alone, and from LE line alone. find which one mismatches</span>
-
-<span class="c1"># TODO:</span>
-<span class="c1"># * reconstruct with det</span>
-<span class="c1"># * reconstruct with det and morph</span>
-
-<span class="c1"># TODO: </span>
-<span class="c1"># reconstruct effi</span>
-<span class="c1"># reconstruct lut2</span>
-<span class="c1"># reconstruct rsp</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="differences-in-reconstruction-between-osa10-and-osa11">
-<h2>Differences in reconstruction between OSA10 and OSA11<a class="headerlink" href="#differences-in-reconstruction-between-osa10-and-osa11" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="lut2">
-<h3>LUT2<a class="headerlink" href="#lut2" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="efficency-and-arf">
-<h3>Efficency and ARF<a class="headerlink" href="#efficency-and-arf" title="Permalink to this headline">¶</a></h3>
-<p>As described above.</p>
-</div>
-</div>
-<div class="section" id="possibility-of-complete-forward-folding-in-isgri">
-<h2>Possibility of Complete forward folding in ISGRI<a class="headerlink" href="#possibility-of-complete-forward-folding-in-isgri" title="Permalink to this headline">¶</a></h2>
-<p>It is <strong>theoretially simple</strong>, and most <strong>information-saving</strong> to avoid any reconstruction.</p>
-<p>This means that complete multi-dimensional <span class="math notranslate nohighlight">\(Response\)</span> (see <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>) would be required, and would have to be combined with complete sky and spectral <span class="math notranslate nohighlight">\(Model\)</span> to produce preducted raw detector counts.</p>
-<p>It is not possible to produce complete matrix in this way, but it would be possible to reverse ISGRI reconstruction (see <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>) to produce <span class="math notranslate nohighlight">\(Model\)</span> count rate for every detected count. Sky model would have to include all sources with their spectra. This approach would be similar to that used in Fermi/LAT.</p>
-<p>With full forward folding, binning data would not possible, since binned histogram with in all necessary dimensions would be very large and mostly empty (see <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>). Single-event treatment would be therefore be not only most advisable but also most efficient.</p>
-<p>The primary challenge in this case would be sheer number of photons. ISGRI count rate is about 100 times larger than that of Fermi/LAT (800 vs 8 events/s).
-Given more recently availlable computing power, it might be achievable.</p>
-<p>Forward folding would help to:</p>
-<ul class="simple">
-<li><p>avoid consuequence of using of <span class="math notranslate nohighlight">\(\mathrm{ISGRI_ENERGY}\)</span> instead of <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span> in imaging (see <a class="reference internal" href="#sec-imaging"><span class="std std-ref">Imaging reconstruction</span></a>). The effect might be detectable for hard-spectra sources.</p></li>
-<li><p>take into account spectral-dependency of LUT2, perhaps marginally improving energy resolution</p></li>
-<li><p>take into account efficiency uncertainty, for much better imaging</p></li>
-</ul>
-</div>
-</div>
-
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            kernelName: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
-    }
-    </script>
-    <script>kernelName = 'python3'</script>
-
-              </div>
-              
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="landing-page.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -1741,7 +1324,7 @@ Given more recently availlable computing power, it might be achievable.</p>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
