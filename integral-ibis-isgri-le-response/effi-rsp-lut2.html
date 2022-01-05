@@ -238,6 +238,18 @@
     <a class="reference internal nav-link" href="#purpose-of-this-section">
      Purpose of this section
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#general-considerations">
+       General considerations
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#frequent-confusion-about-isgri">
+       Frequent confusion about ISGRI
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#isgri-observation-space-and-general-reconstruction-basics">
@@ -460,6 +472,18 @@
     <a class="reference internal nav-link" href="#purpose-of-this-section">
      Purpose of this section
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#general-considerations">
+       General considerations
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#frequent-confusion-about-isgri">
+       Frequent confusion about ISGRI
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#isgri-observation-space-and-general-reconstruction-basics">
@@ -665,19 +689,42 @@
 <h1>ISGRI Calibration Reconstruction Invariance<a class="headerlink" href="#isgri-calibration-reconstruction-invariance" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="purpose-of-this-section">
 <h2>Purpose of this section<a class="headerlink" href="#purpose-of-this-section" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-considerations">
+<h3>General considerations<a class="headerlink" href="#general-considerations" title="Permalink to this headline">¶</a></h3>
 <p>Measurement consists in instrument converting some true physical <span class="math notranslate nohighlight">\(Model\)</span> in some <span class="math notranslate nohighlight">\(Observation\)</span>. Recovering the <span class="math notranslate nohighlight">\(Model\)</span> from <span class="math notranslate nohighlight">\(Observation\)</span> is the <strong>inverse problem</strong>.</p>
-<p>It is sometimes suggested that inverse problem should be ideally addressed with forward folding model and comparing the result with raw data.
-It is, however, not always realistically feasible. Instead, <span class="math notranslate nohighlight">\(Observation\)</span> is reduced and <strong>reconstructed</strong> at least part of the way before comparing with <span class="math notranslate nohighlight">\(Model\)</span> folded with <span class="math notranslate nohighlight">\(Response\)</span></p>
+<p>It is sometimes suggested that inverse problem should be ideally addressed with forward folding model and comparing the result with raw data. Mathematical elegance of this approach gave rise to considerable following.
+It is, however, not always realistically feasible.
+Instead, <span class="math notranslate nohighlight">\(Observation\)</span> is reduced and <strong>reconstructed</strong> at least part of the way before comparing with <span class="math notranslate nohighlight">\(Model\)</span> folded with <span class="math notranslate nohighlight">\(Response\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I try to show that if applied correctly <span class="math notranslate nohighlight">\(Reconstruction\)</span> is a perfectly valid process, only possibly discarding some (often irrelevant) information in the data.
+I will also show what can be the optimization criteria for selecting <span class="math notranslate nohighlight">\(Reconstruction\)</span> .</p>
+</div>
+<p>It is interesting to note that many Machine Learning algorithms take form of a <span class="math notranslate nohighlight">\(Reconstruction\)</span>.
+It is curious that eventually inferred <span class="math notranslate nohighlight">\(Model\)</span> may be treated as a resconstructed <span class="math notranslate nohighlight">\(Observation\)</span> by a higher order <strong>inverse problem</strong>.</p>
+</div>
+<div class="section" id="frequent-confusion-about-isgri">
+<h3>Frequent confusion about ISGRI<a class="headerlink" href="#frequent-confusion-about-isgri" title="Permalink to this headline">¶</a></h3>
 <p>ISGRI uses particular assumptions for the <span class="math notranslate nohighlight">\(Reconstruction\)</span> processes, different from those used in other instruments. These assumptions are largely motivated by the coded mask process and particularly substantial variability if ISGRI detector comparing to other similar detectors.
 This situation causes regular confusion about the meaning of ISGRI reconstructed (“normalized”) count rate, applicable statistical models, meaning of response and efficiency.</p>
 <p>Here, after a brief introduction in terminology, I explain the entire ISGRI reconstruction process, as motivated by historical practice and as defined in OSA11.</p>
-<p>Some of the considetaion and conclusions discussed may be useful for other instruments, ep</p>
-<p>#TODO: efficiency vs arf, xspec-like
-#TODO: detection efficiency
-#TODO: problems of propagating efficiency
-#TODO: fb for full forward buity
-#TODO: full forward as recon
-#TODO: ml as recon</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Particular questions which often come up are:</p>
+<ul class="simple">
+<li><p>What is the meaning of ISGRI count rates? How are they related to detector count rates?</p></li>
+<li><p>What statisical model is applicable to ISGRI count rates?</p></li>
+<li><p>What is ISGRI Efficiency, how is it different from other notions of detector/detection efficiency?</p></li>
+<li><p>Is ISGRI ARF variable? Should it be? What does it mean?</p></li>
+<li><p>What is ISGRI effective area, is it the same as ISGRI ARF?</p></li>
+<li><p>What spectrum is assumed in computing ISGRI Efficiency and what is the effect of this choice?</p></li>
+<li><p>What spectrum is assumed in LUT2 generation and what is the effect of this choice? What is the difference between non-determenistic LUT2 in OSA10 and deterministic in OSA11?</p></li>
+</ul>
+</div>
+<p>#TODO: problems of propagating efficiency
+#TODO stable vs unstable
+#TODO other instruments</p>
+</div>
 </div>
 <div class="section" id="isgri-observation-space-and-general-reconstruction-basics">
 <span id="sec-theory"></span><h2>ISGRI observation space and general reconstruction basics<a class="headerlink" href="#isgri-observation-space-and-general-reconstruction-basics" title="Permalink to this headline">¶</a></h2>
@@ -1118,15 +1165,15 @@ TODO
 <h2>Possibility of Complete forward folding in ISGRI<a class="headerlink" href="#possibility-of-complete-forward-folding-in-isgri" title="Permalink to this headline">¶</a></h2>
 <p>It is <strong>theoretially simple</strong>, and most <strong>information-saving</strong> to avoid any reconstruction.</p>
 <p>This means that complete multi-dimensional <span class="math notranslate nohighlight">\(Response\)</span> (see <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>) would be required, and would have to be combined with complete sky and spectral <span class="math notranslate nohighlight">\(Model\)</span> to produce preducted raw detector counts.</p>
-<p>It is not possible to produce complete matrix in this way, but it would be possible to reverse ISGRI reconstruction (see <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>) to produce <span class="math notranslate nohighlight">\(Model\)</span> count rate for every detected count. Sky model would have to include convergence</p>
-<p>This approach would be similar to that used in Fermi/LAT.
-The primary challenge in this case would be sheer number of photons. ISGRI count rate is about 100 times larger than that of Fermi/LAT (800 vs 8 events/s).
-Given availlable computing power, it should be possible to do this.</p>
+<p>It is not possible to produce complete matrix in this way, but it would be possible to reverse ISGRI reconstruction (see <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>) to produce <span class="math notranslate nohighlight">\(Model\)</span> count rate for every detected count. Sky model would have to include all sources with their spectra. This approach would be similar to that used in Fermi/LAT.</p>
+<p>With full forward folding, binning data would not possible, since binned histogram with in all necessary dimensions would be very large and mostly empty (see <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>). Single-event treatment would be therefore be not only most advisable but also most efficient.</p>
+<p>The primary challenge in this case would be sheer number of photons. ISGRI count rate is about 100 times larger than that of Fermi/LAT (800 vs 8 events/s).
+Given more recently availlable computing power, it might be achievable.</p>
 <p>Forward folding would help to:</p>
 <ul class="simple">
-<li><p>avoid misuse of ISGRI_E for En in img</p></li>
-<li><p>spectrum-dependent lut2 and efficiency</p></li>
-<li><p>treat consistently uncertainties in spectral and imaging elements of response/efficiency</p></li>
+<li><p>avoid consuequence of using of <span class="math notranslate nohighlight">\(\mathrm{ISGRI_ENERGY}\)</span> instead of <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span> in imaging (see <a class="reference internal" href="#sec-imaging"><span class="std std-ref">Imaging reconstruction</span></a>). The effect might be detectable for hard-spectra sources.</p></li>
+<li><p>take into account spectral-dependency of LUT2, perhaps marginally improving energy resolution</p></li>
+<li><p>take into account efficiency uncertainty, for much better imaging</p></li>
 </ul>
 </div>
 </div>
@@ -1165,19 +1212,42 @@ Given availlable computing power, it should be possible to do this.</p>
 <h1>ISGRI Calibration Reconstruction Invariance<a class="headerlink" href="#isgri-calibration-reconstruction-invariance" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="purpose-of-this-section">
 <h2>Purpose of this section<a class="headerlink" href="#purpose-of-this-section" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-considerations">
+<h3>General considerations<a class="headerlink" href="#general-considerations" title="Permalink to this headline">¶</a></h3>
 <p>Measurement consists in instrument converting some true physical <span class="math notranslate nohighlight">\(Model\)</span> in some <span class="math notranslate nohighlight">\(Observation\)</span>. Recovering the <span class="math notranslate nohighlight">\(Model\)</span> from <span class="math notranslate nohighlight">\(Observation\)</span> is the <strong>inverse problem</strong>.</p>
-<p>It is sometimes suggested that inverse problem should be ideally addressed with forward folding model and comparing the result with raw data.
-It is, however, not always realistically feasible. Instead, <span class="math notranslate nohighlight">\(Observation\)</span> is reduced and <strong>reconstructed</strong> at least part of the way before comparing with <span class="math notranslate nohighlight">\(Model\)</span> folded with <span class="math notranslate nohighlight">\(Response\)</span></p>
+<p>It is sometimes suggested that inverse problem should be ideally addressed with forward folding model and comparing the result with raw data. Mathematical elegance of this approach gave rise to considerable following.
+It is, however, not always realistically feasible.
+Instead, <span class="math notranslate nohighlight">\(Observation\)</span> is reduced and <strong>reconstructed</strong> at least part of the way before comparing with <span class="math notranslate nohighlight">\(Model\)</span> folded with <span class="math notranslate nohighlight">\(Response\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I try to show that if applied correctly <span class="math notranslate nohighlight">\(Reconstruction\)</span> is a perfectly valid process, only possibly discarding some (often irrelevant) information in the data.
+I will also show what can be the optimization criteria for selecting <span class="math notranslate nohighlight">\(Reconstruction\)</span> .</p>
+</div>
+<p>It is interesting to note that many Machine Learning algorithms take form of a <span class="math notranslate nohighlight">\(Reconstruction\)</span>.
+It is curious that eventually inferred <span class="math notranslate nohighlight">\(Model\)</span> may be treated as a resconstructed <span class="math notranslate nohighlight">\(Observation\)</span> by a higher order <strong>inverse problem</strong>.</p>
+</div>
+<div class="section" id="frequent-confusion-about-isgri">
+<h3>Frequent confusion about ISGRI<a class="headerlink" href="#frequent-confusion-about-isgri" title="Permalink to this headline">¶</a></h3>
 <p>ISGRI uses particular assumptions for the <span class="math notranslate nohighlight">\(Reconstruction\)</span> processes, different from those used in other instruments. These assumptions are largely motivated by the coded mask process and particularly substantial variability if ISGRI detector comparing to other similar detectors.
 This situation causes regular confusion about the meaning of ISGRI reconstructed (“normalized”) count rate, applicable statistical models, meaning of response and efficiency.</p>
 <p>Here, after a brief introduction in terminology, I explain the entire ISGRI reconstruction process, as motivated by historical practice and as defined in OSA11.</p>
-<p>Some of the considetaion and conclusions discussed may be useful for other instruments, ep</p>
-<p>#TODO: efficiency vs arf, xspec-like
-#TODO: detection efficiency
-#TODO: problems of propagating efficiency
-#TODO: fb for full forward buity
-#TODO: full forward as recon
-#TODO: ml as recon</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Particular questions which often come up are:</p>
+<ul class="simple">
+<li><p>What is the meaning of ISGRI count rates? How are they related to detector count rates?</p></li>
+<li><p>What statisical model is applicable to ISGRI count rates?</p></li>
+<li><p>What is ISGRI Efficiency, how is it different from other notions of detector/detection efficiency?</p></li>
+<li><p>Is ISGRI ARF variable? Should it be? What does it mean?</p></li>
+<li><p>What is ISGRI effective area, is it the same as ISGRI ARF?</p></li>
+<li><p>What spectrum is assumed in computing ISGRI Efficiency and what is the effect of this choice?</p></li>
+<li><p>What spectrum is assumed in LUT2 generation and what is the effect of this choice? What is the difference between non-determenistic LUT2 in OSA10 and deterministic in OSA11?</p></li>
+</ul>
+</div>
+<p>#TODO: problems of propagating efficiency
+#TODO stable vs unstable
+#TODO other instruments</p>
+</div>
 </div>
 <div class="section" id="isgri-observation-space-and-general-reconstruction-basics">
 <span id="sec-theory"></span><h2>ISGRI observation space and general reconstruction basics<a class="headerlink" href="#isgri-observation-space-and-general-reconstruction-basics" title="Permalink to this headline">¶</a></h2>
@@ -1618,15 +1688,15 @@ TODO
 <h2>Possibility of Complete forward folding in ISGRI<a class="headerlink" href="#possibility-of-complete-forward-folding-in-isgri" title="Permalink to this headline">¶</a></h2>
 <p>It is <strong>theoretially simple</strong>, and most <strong>information-saving</strong> to avoid any reconstruction.</p>
 <p>This means that complete multi-dimensional <span class="math notranslate nohighlight">\(Response\)</span> (see <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>) would be required, and would have to be combined with complete sky and spectral <span class="math notranslate nohighlight">\(Model\)</span> to produce preducted raw detector counts.</p>
-<p>It is not possible to produce complete matrix in this way, but it would be possible to reverse ISGRI reconstruction (see <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>) to produce <span class="math notranslate nohighlight">\(Model\)</span> count rate for every detected count. Sky model would have to include convergence</p>
-<p>This approach would be similar to that used in Fermi/LAT.
-The primary challenge in this case would be sheer number of photons. ISGRI count rate is about 100 times larger than that of Fermi/LAT (800 vs 8 events/s).
-Given availlable computing power, it should be possible to do this.</p>
+<p>It is not possible to produce complete matrix in this way, but it would be possible to reverse ISGRI reconstruction (see <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>) to produce <span class="math notranslate nohighlight">\(Model\)</span> count rate for every detected count. Sky model would have to include all sources with their spectra. This approach would be similar to that used in Fermi/LAT.</p>
+<p>With full forward folding, binning data would not possible, since binned histogram with in all necessary dimensions would be very large and mostly empty (see <a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>). Single-event treatment would be therefore be not only most advisable but also most efficient.</p>
+<p>The primary challenge in this case would be sheer number of photons. ISGRI count rate is about 100 times larger than that of Fermi/LAT (800 vs 8 events/s).
+Given more recently availlable computing power, it might be achievable.</p>
 <p>Forward folding would help to:</p>
 <ul class="simple">
-<li><p>avoid misuse of ISGRI_E for En in img</p></li>
-<li><p>spectrum-dependent lut2 and efficiency</p></li>
-<li><p>treat consistently uncertainties in spectral and imaging elements of response/efficiency</p></li>
+<li><p>avoid consuequence of using of <span class="math notranslate nohighlight">\(\mathrm{ISGRI_ENERGY}\)</span> instead of <span class="math notranslate nohighlight">\(\mathrm{Energy}\)</span> in imaging (see <a class="reference internal" href="#sec-imaging"><span class="std std-ref">Imaging reconstruction</span></a>). The effect might be detectable for hard-spectra sources.</p></li>
+<li><p>take into account spectral-dependency of LUT2, perhaps marginally improving energy resolution</p></li>
+<li><p>take into account efficiency uncertainty, for much better imaging</p></li>
 </ul>
 </div>
 </div>
