@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ISGRI efficiency model &#8212; IBIS/ISGRI modeling troubles</title>
+    <title>&lt;no title&gt; &#8212; IBIS/ISGRI modeling troubles</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,11 +53,10 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
-    <link rel="canonical" href="https://www.isdc.unige.ch/~savchenk/integral-ibis-isgri-le-response/efficiency-imaging-nomex.html" />
+    <link rel="canonical" href="https://www.isdc.unige.ch/~savchenk/integral-ibis-isgri-le-response/cross-calibration-summary.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Response model" href="response-model.html" />
-    <link rel="prev" title="Intra-revolution polarization" href="rapid-polarization.html" />
+    <link rel="prev" title="Response model" href="response-model.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -101,7 +100,7 @@
   </a>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="effi-rsp-lut2.html">
    ISGRI Calibration Reconstruction Invariance
@@ -122,8 +121,8 @@
    Intra-revolution polarization
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="efficiency-imaging-nomex.html">
    ISGRI efficiency model
   </a>
  </li>
@@ -169,7 +168,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/efficiency-imaging-nomex.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/cross-calibration-summary.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -189,10 +188,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/volodymyrss/integral-ibis-isgri-le-response/issues/new?title=Issue%20on%20page%20%2Fefficiency-imaging-nomex.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/volodymyrss/integral-ibis-isgri-le-response/issues/new?title=Issue%20on%20page%20%2Fcross-calibration-summary.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/volodymyrss/integral-ibis-isgri-le-response/edit/master/book/efficiency-imaging-nomex.ipynb"><button
+        <a class="edit-button" href="https://github.com/volodymyrss/integral-ibis-isgri-le-response/edit/master/book/cross-calibration-summary.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -207,23 +206,6 @@
 
             <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/volodymyrss/integral-ibis-isgri-le-response/master?urlpath=tree/book/efficiency-imaging-nomex.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
         </div>
 
         <!-- Table of contents -->
@@ -233,34 +215,7 @@
                 <i class="fas fa-list"></i> Contents
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   ISGRI efficiency model
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#purpose-of-this-section">
-     Purpose of this section
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#effect-of-applying-nomex-correction-on-reconstructed-events">
-   Effect of applying NOMEX correction on reconstructed events
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#uniformity">
-   Uniformity
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#effects-of-multi-lt">
-   Effects of multi-lt
-  </a>
- </li>
+                <ul class="simple visible nav section-nav flex-column">
 </ul>
 
             </nav>
@@ -271,7 +226,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>ISGRI efficiency model</h1>
+                <h1><no title></h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -280,34 +235,7 @@
                             <h2> Contents </h2>
                         </div>
                         <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   ISGRI efficiency model
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#purpose-of-this-section">
-     Purpose of this section
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#effect-of-applying-nomex-correction-on-reconstructed-events">
-   Effect of applying NOMEX correction on reconstructed events
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#uniformity">
-   Uniformity
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#effects-of-multi-lt">
-   Effects of multi-lt
-  </a>
- </li>
+                            <ul class="simple visible nav section-nav flex-column">
 </ul>
 
                         </nav>
@@ -317,35 +245,7 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="isgri-efficiency-model">
-<h1>ISGRI efficiency model<a class="headerlink" href="#isgri-efficiency-model" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="purpose-of-this-section">
-<h2>Purpose of this section<a class="headerlink" href="#purpose-of-this-section" title="Permalink to this headline">¶</a></h2>
-<p>to explain in a bit more detail efficiency shape</p>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="effect-of-applying-nomex-correction-on-reconstructed-events">
-<h1>Effect of applying NOMEX correction on reconstructed events<a class="headerlink" href="#effect-of-applying-nomex-correction-on-reconstructed-events" title="Permalink to this headline">¶</a></h1>
-<p>TODO: do</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter1d</span> <span class="k">as</span> <span class="n">g1d</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="uniformity">
-<h1>Uniformity<a class="headerlink" href="#uniformity" title="Permalink to this headline">¶</a></h1>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="effects-of-multi-lt">
-<h1>Effects of multi-lt<a class="headerlink" href="#effects-of-multi-lt" title="Permalink to this headline">¶</a></h1>
-<p>TODO: to be treated as imaging efficiecy problem</p>
-</div>
-
+  
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -371,19 +271,12 @@
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="rapid-polarization.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="response-model.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Intra-revolution polarization</p>
+            <p class="prev-next-title">Response model</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="response-model.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Response model</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             

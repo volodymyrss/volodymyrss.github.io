@@ -53,6 +53,8 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="canonical" href="https://www.isdc.unige.ch/~savchenk/integral-ibis-isgri-le-response/effi-rsp-lut2.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -125,6 +127,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="efficiency-imaging-nomex.html">
    ISGRI efficiency model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="response-model.html">
+   Response model
   </a>
  </li>
 </ul>
@@ -396,11 +403,6 @@
   <a class="reference internal nav-link" href="#practice-and-example-of-calibration-invariance">
    Practice and example of Calibration Invariance
   </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#todo-non-variable-effetcts-except-for-resolution">
-   TODO: non-variable effetcts except for resolution
-  </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#misreconstruction">
@@ -640,11 +642,6 @@
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#practice-and-example-of-calibration-invariance">
    Practice and example of Calibration Invariance
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#todo-non-variable-effetcts-except-for-resolution">
-   TODO: non-variable effetcts except for resolution
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
@@ -951,6 +948,38 @@ Imaging: CountSpectrumRec2\left[\mathrm{ISGRI\_PIXEL, Energy}\right]  \Rightarro
 <p>All the above corrections aim to make <code class="docutils literal notranslate"><span class="pre">Response</span></code> as constant as possible. In this process, simple and conventional meaning of the <code class="docutils literal notranslate"><span class="pre">CountSpectrum</span></code> as event histogram is lost. Resulting <code class="docutils literal notranslate"><span class="pre">CountSpectrumRec</span></code> spectrum becomes almost constant, but additional freedom in energy-dependent (but not time-dependent) normalization remains.
 This normalization is selected to satisfy some additional conditions, which are poorly satisfied due to historical reasons. In any case, these conditions are difficult to interpret for a regular user.</p>
 <p>The only correction which has to remain in Response, is resolution. Indeed it is not possible to fully reconstruct-out broading of the spectrum (it is possible, but not advisable, to make all spectra equally broead and keep the response identical throughout the mission).</p>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-header docutils">
+<p class="card-text">CountSpectrum Reconstruction</p>
+</div>
+<div class="card-body docutils">
+<div class="mermaid">
+            graph TD
+    CountSpectrum[Raw Event Rate]  --&gt; |PixelEfficiency/ii_shadow_build| ChannelRec1[CountSpectrumRec1];
+    ChannelRec1[CountSpectrumRec1]  --&gt; |Imaging/NOMEX| ChannelRec2[CountSpectrumRec];
+        </div></div>
+</div>
+</div>
+<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-header docutils">
+<p class="card-text">Channel Reconstruction</p>
+</div>
+<div class="card-body docutils">
+<div class="mermaid">
+            graph TD
+    Channel[ISGRI_PHA, ISGRI_RT]  --&gt; |LUT1, temperature| ChannelRec1[ISGRI_PHA1];   
+    ChannelRec1[ISGRI_PHA1, ISGRI_RT1] --&gt; |drift/OSA10| ChannelRec2[ISGRI_PHA2, ISGRI_PI];  
+    ChannelRec2[ISGRI_PHA2, ISGRI_PI] --&gt; |LUT2/OSA10| ChannelRec[ISGRI_ENERGY, ISGRI_PI];  
+    ChannelRec1[ISGRI_PHA1, ISGRI_RT1] --&gt; |LUT2/OSA11| ChannelRec[ISGRI_ENERGY, ISGRI_PI];  
+        </div></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="effective-area">
@@ -1067,6 +1096,7 @@ TODO: what does misuse mean?</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">iconfig</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">iconfig</span><span class="p">)</span>
 <span class="n">ic_base</span> <span class="o">=</span> <span class="n">iconfig</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">rep_base_prod</span>
 
 <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/mod/isgr_effi_mod_0002.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
@@ -1078,7 +1108,6 @@ TODO: what does misuse mean?</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/isdc/arc/rev_3
-/isdc/arc/rev_3
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;nomex&#39; from &#39;/home/savchenk/integral-ibis-isgri-le-response/book/../nomex.py&#39;&gt;
@@ -1099,7 +1128,7 @@ TODO: what does misuse mean?</p>
 <span class="kn">import</span> <span class="nn">ogip.tools</span>
 <span class="kn">import</span> <span class="nn">ogip.spec</span>
 
-<span class="n">ic_base</span> <span class="o">=</span> <span class="s2">&quot;/unsaved/astro/savchenk/osa11/ic-collection/beta&quot;</span>
+<span class="n">ic_base</span> <span class="o">=</span> <span class="n">iconfig</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ic_base</span>
 
 <span class="n">effi</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/mod/isgr_effc_mod_0235.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">11</span><span class="p">][</span><span class="s1">&#39;EFFICIENCY&#39;</span><span class="p">]</span>
 <span class="n">ebds</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/rsp/isgr_ebds_mod_0001.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
@@ -1165,68 +1194,530 @@ TODO: what does misuse mean?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>assuming no systematic errors. Probably ok
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:root:assuming no systematic errors. Probably ok
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9a7f905910&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9a78a508b0&gt;
 </pre></div>
 </div>
-<img alt="_images/effi-rsp-lut2_12_2.png" src="_images/effi-rsp-lut2_12_2.png" />
+<img alt="_images/effi-rsp-lut2_13_2.png" src="_images/effi-rsp-lut2_13_2.png" />
 </div>
 </div>
-<p>#TODO: multiple event efficiency and resolution efficinecy change with time</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="todo-non-variable-effetcts-except-for-resolution">
-<h1>TODO: non-variable effetcts except for resolution<a class="headerlink" href="#todo-non-variable-effetcts-except-for-resolution" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-ddosa&#39;))</span>
-<span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-eddosa&#39;))</span>
-<span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../eddosa_tools/fit1d&#39;))</span>
-<span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-ddosa11calib&#39;))</span>
-<span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-ltdata&#39;))</span>
-<span class="c1"># os.environ[&#39;COMMON_INTEGRAL_SOFTDIR&#39;] = &quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.time</span> <span class="kn">import</span> <span class="n">Time</span>
 
-<span class="kn">import</span> <span class="nn">ast</span>
-<span class="n">mod_text</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;../dda-ddosa11calib/ddosa11calib.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="n">mod</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">mod_text</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
-<span class="n">produce_e_morph_def</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">body</span><span class="p">:</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;produce_e_morph&quot;</span><span class="p">:</span>
-            <span class="n">produce_e_morph_def</span> <span class="o">=</span> <span class="n">i</span>
-            
-<span class="n">func_body</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mod_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="n">produce_e_morph_def</span><span class="o">.</span><span class="n">lineno</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">produce_e_morph_def</span><span class="o">.</span><span class="n">end_lineno</span><span class="p">])</span>
-<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;func_body.py&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">import numpy as np</span>
-<span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">func_body</span><span class="p">)</span>
+<span class="n">byrev</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="kn">import</span> <span class="nn">func_body</span>
-<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">func_body</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">rsp_fn</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">iconfig</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ic_base</span><span class="p">)</span> <span class="o">/</span> <span class="s1">&#39;ic/ibis/rsp/isgr_rmf_rsp_*.fits&#39;</span><span class="p">))):</span>
+    <span class="c1"># if &#39;5.fits&#39; not in rsp_fn: continue</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rsp_fn</span><span class="p">)</span>
 
-<span class="n">emorph</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">func_body</span><span class="o">.</span><span class="n">produce_e_morph</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">3001</span><span class="p">)</span>
-<span class="c1"># this time-dependent variable</span>
+    <span class="n">rev</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rsp_fn</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 
+    <span class="n">f_rsp</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">rsp_fn</span><span class="p">)</span>
+
+    <span class="c1">#if Time(f_rsp[1].header[&#39;DATE&#39;]) &lt; Time(&#39;2021-10-01&#39;): continue</span>
+
+
+    <span class="c1"># plt.plot(</span>
+    <span class="c1">#      f_rsp[1].data[&#39;ENERG_LO&#39;]</span>
+    <span class="c1"># )</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">f_rsp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ENERG_LO&#39;</span><span class="p">][</span><span class="mi">10</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">f_rsp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ENERG_LO&#39;</span><span class="p">]))</span>
+
+    <span class="c1"># plt.plot(</span>
+    <span class="c1">#     f_rsp[1].data[&#39;ENERG_LO&#39;],</span>
+    <span class="c1">#     np.stack(f_rsp[1].data[&#39;MATRIX&#39;]).sum(1)</span>
+    <span class="c1"># )</span>
+
+    <span class="c1"># plt.semilogx()</span>
+
+    <span class="n">byrev</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">rev</span><span class="o">=</span><span class="n">rev</span><span class="p">,</span> 
+        <span class="n">fn</span><span class="o">=</span><span class="n">rsp_fn</span><span class="p">,</span>
+        <span class="n">vstart</span><span class="o">=</span><span class="n">f_rsp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;VSTART&#39;</span><span class="p">],</span>
+        <span class="n">version</span><span class="o">=</span><span class="n">f_rsp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;VERSION&#39;</span><span class="p">],</span>
+        <span class="n">e0</span><span class="o">=</span><span class="n">f_rsp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ENERG_LO&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="n">byrev</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">byrev</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">byrev</span><span class="o">.</span><span class="n">rev</span><span class="p">,</span>
+    <span class="n">byrev</span><span class="o">.</span><span class="n">e0</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0031.fits
+5.0 2200
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0032.fits
+5.0 2200
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0033.fits
+5.0 2200
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0153.fits
+16.967052 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0163.fits
+16.92437 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0176.fits
+16.869368 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0177.fits
+16.865158 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0180.fits
+16.852556 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0182.fits
+16.844173 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0191.fits
+16.806597 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0194.fits
+16.794127 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0195.fits
+16.789976 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0229.fits
+16.65073 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0235.fits
+16.626518 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0254.fits
+16.550566 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0265.fits
+16.507092 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0275.fits
+16.467878 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0294.fits
+16.394224 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0312.fits
+16.32544 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0314.fits
+16.317854 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0316.fits
+16.310284 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0325.fits
+16.276356 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0327.fits
+16.268848 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0330.fits
+16.257608 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0366.fits
+16.124807 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0372.fits
+16.10305 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0390.fits
+16.038425 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0393.fits
+16.027746 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0394.fits
+16.02419 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0406.fits
+15.981771 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0419.fits
+15.936302 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0430.fits
+15.898212 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0436.fits
+15.877583 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0440.fits
+15.863883 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0466.fits
+15.775955 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0467.fits
+15.77261 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0468.fits
+15.769268 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0490.fits
+15.696489 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0511.fits
+15.628245 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0530.fits
+15.56757 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0553.fits
+15.4955 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0563.fits
+15.464634 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0564.fits
+15.461562 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0587.fits
+15.391697 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0622.fits
+15.288266 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0650.fits
+15.207987 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0662.fits
+15.174259 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0665.fits
+17.787 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0673.fits
+15.143698 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0690.fits
+15.097126 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0708.fits
+15.048686 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0716.fits
+15.02745 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0724.fits
+15.006393 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0790.fits
+14.839509 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0799.fits
+14.817696 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0808.fits
+14.796105 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0812.fits
+14.786581 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0852.fits
+14.693798 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0865.fits
+14.664602 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0868.fits
+14.657927 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0874.fits
+14.644661 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0882.fits
+14.627125 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0889.fits
+14.611926 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0919.fits
+14.548354 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0923.fits
+14.540065 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0944.fits
+14.497295 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0945.fits
+14.495291 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0949.fits
+14.487294 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0971.fits
+14.444123 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0986.fits
+14.415456 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_0987.fits
+14.413567 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1008.fits
+14.374542 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1057.fits
+14.2882395 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1059.fits
+14.284859 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1070.fits
+14.266469 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1073.fits
+14.261513 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1074.fits
+14.259867 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1083.fits
+14.245171 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1097.fits
+14.2227545 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1098.fits
+14.221174 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1137.fits
+14.161715 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1143.fits
+14.152941 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1173.fits
+14.11058 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1179.fits
+14.102408 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1181.fits
+14.099707 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1182.fits
+14.09836 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1184.fits
+14.095675 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1187.fits
+14.091668 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1191.fits
+14.086366 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1203.fits
+14.070722 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1231.fits
+14.03578 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1238.fits
+14.027386 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1245.fits
+14.019127 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1255.fits
+14.007564 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1288.fits
+13.971376 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1300.fits
+13.958973 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1307.fits
+13.951923 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1308.fits
+13.950927 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1314.fits
+13.945009 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1315.fits
+13.944033 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1317.fits
+13.942089 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1352.fits
+13.909849 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1359.fits
+13.903808 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1362.fits
+13.901262 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1376.fits
+13.889704 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1383.fits
+13.884132 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1419.fits
+13.857623 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1421.fits
+13.856256 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1435.fits
+13.847001 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1438.fits
+13.84509 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1445.fits
+13.840725 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1447.fits
+13.839504 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1463.fits
+13.830131 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1483.fits
+13.819412 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1488.fits
+13.816906 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1496.fits
+13.8130455 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1535.fits
+13.798201 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1537.fits
+13.79754 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1565.fits
+13.789203 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1572.fits
+13.787388 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1576.fits
+13.7864 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1583.fits
+13.784754 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1584.fits
+13.784529 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1592.fits
+13.782798 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1594.fits
+13.782387 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1597.fits
+13.781788 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1610.fits
+13.779417 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1616.fits
+13.77845 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1630.fits
+13.776499 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1638.fits
+13.775578 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1678.fits
+13.773081 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1692.fits
+13.773037 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1694.fits
+13.773066 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1708.fits
+13.773516 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1713.fits
+13.773781 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1717.fits
+13.774033 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1725.fits
+13.774641 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1753.fits
+13.777882 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1756.fits
+13.77833 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1759.fits
+13.778799 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1762.fits
+13.779287 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1779.fits
+13.782433 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1811.fits
+13.790073 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1819.fits
+13.7923355 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1834.fits
+13.796955 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1848.fits
+13.801714 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1865.fits
+13.808072 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1872.fits
+13.810875 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1879.fits
+13.813786 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1881.fits
+13.814638 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1889.fits
+13.818132 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1893.fits
+13.819933 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1895.fits
+13.820846 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1915.fits
+13.830461 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1956.fits
+13.852917 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1958.fits
+13.854107 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1968.fits
+13.860188 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_1984.fits
+13.870374 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2002.fits
+13.882509 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2037.fits
+13.908145 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2075.fits
+13.939018 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2078.fits
+13.941592 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2079.fits
+13.942453 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2088.fits
+13.950312 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2099.fits
+13.960157 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2100.fits
+13.961065 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2104.fits
+13.964718 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2107.fits
+13.967483 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2110.fits
+13.970266 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2116.fits
+13.975891 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2119.fits
+13.978735 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2124.fits
+13.983517 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2155.fits
+14.014393 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2158.fits
+14.017494 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2192.fits
+14.054017 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2194.fits
+14.056245 2466
+/unsaved/astro/savchenk/osa11/ic-collection/beta/ic/ibis/rsp/isgr_rmf_rsp_2197.fits
+14.059603 2466
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f9a7897c520&gt;]
+</pre></div>
+</div>
+<img alt="_images/effi-rsp-lut2_14_2.png" src="_images/effi-rsp-lut2_14_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">produce_e_morph</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">byrev</span><span class="o">.</span><span class="n">vstart</span><span class="p">,</span>
+    <span class="n">byrev</span><span class="o">.</span><span class="n">e0</span> <span class="o">-</span> <span class="mi">13</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+    <span class="n">Time</span><span class="p">(</span><span class="s2">&quot;2003-01-01&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mjd</span> <span class="o">-</span> <span class="mi">51544</span><span class="p">,</span>
+    <span class="n">Time</span><span class="p">(</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mjd</span> <span class="o">-</span> <span class="mi">51544</span>
+    <span class="p">)</span>
+
+<span class="n">eref</span> <span class="o">=</span> <span class="mi">15</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">i</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">produce_e_morph</span><span class="o">.</span><span class="n">produce_e_morph</span><span class="p">(</span><span class="n">_i</span><span class="p">,</span> <span class="n">_i</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">](</span><span class="n">eref</span><span class="p">)</span> <span class="o">-</span> <span class="n">eref</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">i</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f9a6e63c880&gt;]
+</pre></div>
+</div>
+<img alt="_images/effi-rsp-lut2_15_1.png" src="_images/effi-rsp-lut2_15_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ref_fn</span> <span class="o">=</span> <span class="n">byrev</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">byrev</span><span class="o">.</span><span class="n">e0</span><span class="o">.</span><span class="n">argmax</span><span class="p">()]</span><span class="o">.</span><span class="n">fn</span>
+<span class="n">ref_rsp_f</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ref_fn</span><span class="p">)</span>
+
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">ref_rsp_f</span><span class="p">[</span><span class="s1">&#39;ISGR-RMF.-RSP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span> <span class="o">=</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MIN&#39;</span><span class="p">],</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MAX&#39;</span><span class="p">]</span>
+<span class="n">ref_e1</span><span class="p">,</span> <span class="n">ref_e2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_LO&#39;</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_HI&#39;</span><span class="p">]</span>
+
+<span class="n">ref_e1</span><span class="p">,</span> <span class="n">ref_e2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  13.    ,   13.4787,   13.9574, ..., 1192.0381, 1192.5168,
+       1192.9955], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rsp_f</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">byrev</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">50</span><span class="p">][</span><span class="s1">&#39;fn&#39;</span><span class="p">])</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">rsp_f</span><span class="p">[</span><span class="s1">&#39;ISGR-RMF.-RSP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span> <span class="o">=</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MIN&#39;</span><span class="p">],</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MAX&#39;</span><span class="p">]</span>
+<span class="n">e1</span><span class="p">,</span> <span class="n">e2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_LO&#39;</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_HI&#39;</span><span class="p">]</span>
+<span class="n">rmf</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">RMF</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;MATRIX&#39;</span><span class="p">]),</span> <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">)</span>
+
+<span class="n">rate</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+    <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">crab_ph_cm2_s_kev</span><span class="p">,</span>
+    <span class="n">rmf</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">ce1</span><span class="p">,</span> 
     <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
-    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec&#39;</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrum&#39;</span>
 <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">emorph</span><span class="p">(</span><span class="n">ce1</span><span class="p">),</span> 
-    <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">emorph</span><span class="p">(</span><span class="n">ce2</span><span class="p">)</span><span class="o">-</span><span class="n">emorph</span><span class="p">(</span><span class="n">ce1</span><span class="p">)),</span>
-    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrumRec emorph-ed&#39;</span>
-<span class="p">)</span>
+<span class="c1"># need to restore else heasoft summing does not work well across large time range. TODO: what will it even do? first rsp bins?</span>
+
+<span class="c1"># it does not matter how it&#39;s transformed as long as response is accordingly. </span>
+<span class="c1"># but need to preserve counts evolution</span>
+<span class="c1"># new effi from morph</span>
+
+<span class="c1"># here need to imitate what will OSA produce when binning and reconstructing</span>
+<span class="c1"># def emorph_rate(ce1, ce2, rate, emorph):</span>
+<span class="c1">#     edges = np.concatenate([ce1, ce2[-1]])</span>
+<span class="c1">#     cumrate = np.cumsum(rate)</span>
+<span class="c1">#     cumrate_emorph = interp1d(</span>
+<span class="c1">#         emorph(edges),</span>
+<span class="c1">#         cumrate,</span>
+<span class="c1">#     )(edges)</span>
+<span class="c1"># need to adapt morph until response is central</span>
+
+<span class="c1"># em_rate = e</span>
+
+<span class="c1"># plt.plot(</span>
+<span class="c1">#     emorph(ce1), </span>
+<span class="c1">#     em_rate/(ce2-ce1) * effi * nomex_norm[&#39;norm&#39;],</span>
+<span class="c1">#     label=&#39;CountSpectrum modified&#39;</span>
+<span class="c1"># )</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">800</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">900</span><span class="p">])</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
 
@@ -1235,15 +1726,10 @@ TODO: what does misuse mean?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ast.FunctionDef object at 0x7f9a78c81b80&gt; get_cube_bins_anal
-&lt;ast.FunctionDef object at 0x7f9a78c7aee0&gt; get_cube_bins_table
-&lt;ast.FunctionDef object at 0x7f9a78c2ce80&gt; produce_e_morph
-</pre></div>
-</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
 </pre></div>
 </div>
-<img alt="_images/effi-rsp-lut2_14_2.png" src="_images/effi-rsp-lut2_14_2.png" />
+<img alt="_images/effi-rsp-lut2_17_1.png" src="_images/effi-rsp-lut2_17_1.png" />
 </div>
 </div>
 <p>effi imaging description</p>
