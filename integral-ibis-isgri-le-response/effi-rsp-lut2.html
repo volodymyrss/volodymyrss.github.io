@@ -447,6 +447,11 @@
      Possibility of Complete forward folding in ISGRI
     </a>
    </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multiple-events">
+     Multiple events
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -685,6 +690,11 @@
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#possibility-of-complete-forward-folding-in-isgri">
      Possibility of Complete forward folding in ISGRI
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multiple-events">
+     Multiple events
     </a>
    </li>
   </ul>
@@ -969,6 +979,12 @@ Hence it is possible to produce <span class="math notranslate nohighlight">\(Eff
 <p>This <code class="docutils literal notranslate"><span class="pre">response</span> <span class="pre">efficiency</span></code> corresponds to <span class="math notranslate nohighlight">\(EffectiveAreaRec\)</span> in ISGRI.</p>
 <p>Instead, in <a class="reference internal" href="landing-page.html#term-ISGRI"><span class="xref std std-term">ISGRI</span></a>, term <span class="math notranslate nohighlight">\(Efficiency\)</span> is used to describe multiplicative <span class="math notranslate nohighlight">\(Reconstruction\)</span> component:  the function by which the <span class="math notranslate nohighlight">\(CountSpectrum\)</span> is divided (see <a class="reference internal" href="#sec-pixelefficiency"><span class="std std-ref">PixelEffieciency reconstruction</span></a> for details)
 This efficiency is meant to represent chance of photon interacting in ISGRI pixel to be converted to ISGRI count (for particular event class, i.e. <code class="docutils literal notranslate"><span class="pre">S1</span></code> scientific events). I.e. it is a <strong>photon detection efficiency</strong>, not taking into account incident photon absorption in NOMEX or other structures, and the chance of the photon to interract in the pixel.  These affects are instead contained in the <span class="math notranslate nohighlight">\(Response\)</span>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Many instruments, including ISGRI before OSA10, adjust Effective area (in ARF) during in-flight calibration. Since “true” ARF is variable, the result is not necessarily strange.
+Since it is hard to deal with raw counts in ISGRI, and complex reconstruction has been always used, it might make sense to absorb as much variable detector properties as possible into efficiency, while let <span class="math notranslate nohighlight">\(Response\)</span> (and hence ARF) to account for particle transport (including detector geometry). Notably, it is not possible to include resolution degradation in reconstruciton, which is why response will always remain variable. It is possible to artifically make effective area constant but absorbing resolution-induces efficiency effects in reconstruction, but this makes little sense.
+Note that in ISGRI, due to complex interplay of low threshold, detector polarization, resolution, and multiple event suppression, these efficiency effects spread up to 100 keV (see <a class="reference internal" href="#sec-multiple-events"><span class="std std-ref">Multiple events</span></a>).</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1285,6 +1301,9 @@ Given more recently availlable computing power, it might be achievable.</p>
 <li><p>take into account spectral-dependency of LUT2, perhaps (marginally?) improving energy resolution. If there is a hidden variable explaining unexpected resolution loss, it might be recoverable in this way.</p></li>
 <li><p>take into account efficiency uncertainty, for much better imaging</p></li>
 </ul>
+</div>
+<div class="section" id="multiple-events">
+<span id="sec-multiple-events"></span><h2>Multiple events<a class="headerlink" href="#multiple-events" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
