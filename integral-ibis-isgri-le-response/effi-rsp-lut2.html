@@ -703,7 +703,7 @@
 <div class="section" id="purpose-of-this-section">
 <h2>Purpose of this section<a class="headerlink" href="#purpose-of-this-section" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="general-considerations">
-<h3>General considerations<a class="headerlink" href="#general-considerations" title="Permalink to this headline">¶</a></h3>
+<span id="sec-purpose-general"></span><h3>General considerations<a class="headerlink" href="#general-considerations" title="Permalink to this headline">¶</a></h3>
 <p>Measurement consists in instrument converting some true physical <span class="math notranslate nohighlight">\(Model\)</span> in some <span class="math notranslate nohighlight">\(Observation\)</span>. Recovering the <span class="math notranslate nohighlight">\(Model\)</span> from <span class="math notranslate nohighlight">\(Observation\)</span> is the <strong>inverse problem</strong>.</p>
 <p>It is sometimes suggested that inverse problem should be ideally addressed with forward folding model and comparing the result with raw data. Mathematical elegance of this approach gave rise to considerable following.
 It is, however, not always realistically feasible.
@@ -713,8 +713,8 @@ Instead, <span class="math notranslate nohighlight">\(Observation\)</span> is re
 <p>I try to show that if applied correctly <span class="math notranslate nohighlight">\(Reconstruction\)</span> is a perfectly valid process, only possibly discarding some (often irrelevant) information in the data.
 I will also show what can be the optimization criteria for selecting <span class="math notranslate nohighlight">\(Reconstruction\)</span> .</p>
 </div>
-<p>It is interesting to note that many Machine Learning algorithms take form of a <span class="math notranslate nohighlight">\(Reconstruction\)</span>.
-It is curious that eventually inferred <span class="math notranslate nohighlight">\(Model\)</span> may be treated as a resconstructed <span class="math notranslate nohighlight">\(Observation\)</span> by a higher order <strong>inverse problem</strong>.</p>
+<p>It is interesting to note that many Machine Learning algorithms take form of a <span class="math notranslate nohighlight">\(Reconstruction\)</span>.</p>
+<p>It is curious that eventually inferred <span class="math notranslate nohighlight">\(Model\)</span> may be treated as a resconstructed <span class="math notranslate nohighlight">\(Observation\)</span> by a higher order <strong>inverse problem</strong>. For example, if <span class="math notranslate nohighlight">\(Model\)</span> recovered in the inverse problem is spectral model, but further modelling is done to apply physical model. Such a hierarichal process is often used to reduce needed resources but also to developed structured understanding of the problem.</p>
 </div>
 <div class="section" id="frequent-confusion-about-isgri">
 <h3>Frequent confusion about ISGRI<a class="headerlink" href="#frequent-confusion-about-isgri" title="Permalink to this headline">¶</a></h3>
@@ -727,6 +727,8 @@ This situation causes regular confusion about the meaning of ISGRI reconstructed
 <ul class="simple">
 <li><p>What is the meaning of ISGRI count rates? How are they related to detector count rates? (<a class="reference internal" href="#sec-isgri-recon"><span class="std std-ref">Structure of ISGRI Reconstruction</span></a>)</p></li>
 <li><p>What statisical model is applicable to ISGRI count rates?</p></li>
+<li><p>How to interpret ISGRI data in very small time and energy bins?</p></li>
+<li><p>Is it possible to combine ISGRI spectra in small bins?</p></li>
 <li><p>What is ISGRI Efficiency, how is it different from other notions of detector/detection efficiency?</p></li>
 <li><p>Is ISGRI ARF variable? Should it be? What does it mean?</p></li>
 <li><p>What is ISGRI effective area, is it the same as ISGRI ARF?</p></li>
@@ -988,7 +990,7 @@ ISGRI <code class="docutils literal notranslate"><span class="pre">Vignetting</s
 <p>#TODO: dead time</p>
 </div>
 <div class="section" id="full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux">
-<h2>Full, no forward-folding <span class="math notranslate nohighlight">\(Reconstruction\)</span>: count rate in <code class="docutils literal notranslate"><span class="pre">Crabs</span></code> and as proxy for flux<a class="headerlink" href="#full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux" title="Permalink to this headline">¶</a></h2>
+<span id="sec-full-recon"></span><h2>Full, no forward-folding <span class="math notranslate nohighlight">\(Reconstruction\)</span>: count rate in <code class="docutils literal notranslate"><span class="pre">Crabs</span></code> and as proxy for flux<a class="headerlink" href="#full-no-forward-folding-reconstruction-count-rate-in-crabs-and-as-proxy-for-flux" title="Permalink to this headline">¶</a></h2>
 <p>There is a common way to derive approximate source flux by comparing source count rate with count rate of Crab, and assuming that the flux scales linearly with count rate.</p>
 <p>In terms of the description in <a class="reference internal" href="#sec-theory"><span class="std std-ref">ISGRI observation space and general reconstruction basics</span></a>, this process corresponds to producing <span class="math notranslate nohighlight">\(ReconstructionComplete\)</span> so that <span class="math notranslate nohighlight">\(ResponceComplete\)</span> is close to unitary, and <span class="math notranslate nohighlight">\(CountSpectrumRecComplete\)</span> is numerically close to flux is the selected units.</p>
 <p>In ISGRI, <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> corresponds to approximately constant <span class="math notranslate nohighlight">\(ResponseRec\)</span>. If it is not constant, <span class="math notranslate nohighlight">\(ReconstructionComplete\)</span> can be designed to be valid in certain time range.</p>
@@ -1006,13 +1008,15 @@ In addition, <span class="math notranslate nohighlight">\(Response\)</span> is o
 <p>Reconstruction is usually a deterministic process. Nevertheless, uncertainty is often included in the <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> by adding <code class="docutils literal notranslate"><span class="pre">systematic</span> <span class="pre">error</span></code>. <code class="docutils literal notranslate"><span class="pre">Systematic</span> <span class="pre">error</span></code> represents an assumption that <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> is affected by some unknown random process, typically assumed to be gaussian, which depends on unknown detector properties or other factors.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Systematic</span> <span class="pre">error</span></code> can be added in <span class="math notranslate nohighlight">\(CountSpectrumRec\)</span> of <a class="reference internal" href="landing-page.html#term-ISGRI"><span class="xref std std-term">ISGRI</span></a> as a normalization uncertainty in each bin. This approach does not allow to include uncertainty, for example, on energy reconstruction or resolution.
 <code class="docutils literal notranslate"><span class="pre">xspec</span></code> allows to add <code class="docutils literal notranslate"><span class="pre">systematic</span> <span class="pre">fraction</span></code> as constant fraction of flux, which is even more restrictive.</p>
+<p>When the entire counts-to-model process is viewed as <span class="math notranslate nohighlight">\(Reconstruction\)</span> (as in <a class="reference internal" href="#sec-full-recon"><span class="std std-ref">Full, no forward-folding Reconstruction: count rate in Crabs and as proxy for flux</span></a> and <a class="reference internal" href="#sec-purpose-general"><span class="std std-ref">General considerations</span></a>), the entire uncertainty is in the reconstruction uncertinainty.</p>
 </div>
 <div class="section" id="response-uncertainty">
 <h3>Response uncertainty<a class="headerlink" href="#response-uncertainty" title="Permalink to this headline">¶</a></h3>
 <p>Response uncertainty can be contained in nuissance parameters, if the response is fitted together with source.
 Response model based on <span class="xref myst">threeML</span> exists for <a class="reference external" href="https://github.com/volodymyrss/integral-response-model.git">ISGRI</a>.
-It is also possible to derive bayesian posterior following.
 Uncertainty in the response model response model has an advantage of providing handle on particular, motivated by components.</p>
+<p>With ISGRI Response uncertainty, it is possible to expess lack of knowledge in a way which is not achievable with simple <code class="docutils literal notranslate"><span class="pre">systematic</span> <span class="pre">error</span></code>. The latter is limited to uncertainity of count spectrum of normalization, while ISGRI uncertainty is largely in energy reconstruction and resolution.
+TODO: what does misuse mean?</p>
 </div>
 </div>
 </div>
