@@ -244,6 +244,11 @@
      Multiple Events
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#low-energy-effective-area-drop">
+     Low-energy effective area drop
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -281,6 +286,11 @@
      Multiple Events
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#low-energy-effective-area-drop">
+     Low-energy effective area drop
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -303,7 +313,46 @@
 <h2>Particle transport simulation (GEANT Mont-Carlo)<a class="headerlink" href="#particle-transport-simulation-geant-mont-carlo" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="multiple-events">
 <h3>Multiple Events<a class="headerlink" href="#multiple-events" title="Permalink to this headline">¶</a></h3>
-<p>When two events trigger</p>
+<ul class="simple">
+<li><p>When two events trigger in a single ISGRI module, both are <strong>discarded</strong> by MDU and do not appear in ISGRI S1.</p></li>
+<li><p>When one event triggers in ISGRI and another in PICsIT, both are attributed to <code class="docutils literal notranslate"><span class="pre">Compton</span></code> event class, and <strong>removed from ISGRI S1</strong>.</p></li>
+<li><p>When event RT is above pre-set threshold, it is <strong>discarded</strong> from ISGRI S1.</p></li>
+<li><p>if event hits IBIS/VETO, it is discarded</p></li>
+<li><p>If event is coincident with VETO block counting 511 keV calibration source (inactive since ~2010), it’s attributed to ISGRI S2. Even if it does pass RT threshold #TODO: check other condition overlap, what’s in S2</p></li>
+</ul>
+<p>Multiple event rejection allows to substantially suppress background in ISGRI. It was, in fact, one of the major advances of ISGRI comparing to e.g. SIGMA. Many small pixels allow to count much of particle interactions as multiple events, and hence reject them.</p>
+<p>Note that on the MDU border, coincidences are possible. Also, suppression is further reduced at the outer detector border, especially in the corners.
+This creates particular features in background shape, changing with energy as contribution of multiple events changes. (see <span class="xref myst"></span> for more).</p>
+<p>Multiple events come from:</p>
+<ul class="simple">
+<li><p>Compton events</p></li>
+<li><p>Fluorescence</p></li>
+<li><p>random coincidences (non-negligible because of high ISGRI rate)</p></li>
+</ul>
+<p>Most unusual effects happen due to 22 keV Cd fluorescence line. The line is generated in the pixels themselves, with a short delay following a deposition larger than 22 keV.
+The 22 keV photon may escape the pixel and interact in the adjustent one. Normally, this results in a double interraction and is removed by ISGRI.
+However, if the depositoion in the primary pixel is below pixel PH or RT threshold, the event counts as single, since pixel threshold is applied before the MDU effects.</p>
+<p>So, any photon above 22 + LT keV might be rejected. This results in suppression of effective area of <code class="docutils literal notranslate"><span class="pre">XX</span></code>.
+Since LT changes with time, suppression happens from 22 + 14 = 36 keV in early mission, and 22 + 25 = 47 keV in the late mission.
+Hence region from 36 to 47 keV gains effective area with time.</p>
+<p>TODO: Depth of deposition and polarization
+TODO: multiple event response feasibility</p>
+<div class="mermaid">
+            graph TD;
+    A[energy deposition]--&gt;B[pixel Low Threshold];
+    B--&gt;C[MDU multiple event rejection];
+    B--&gt;C1[counter of total pre-rejection MDU events];
+    C--&gt;D[combined IBIS ISGRI-PICsIT-VETO classification];
+    D--&gt;C2[ISGRI events S1];
+    D--&gt;C3[ISGRI calibration events S2];
+    D--&gt;C4[Compton events S5];
+    D--&gt;C5[VETO histograms];
+        </div></div>
+<div class="section" id="low-energy-effective-area-drop">
+<h3>Low-energy effective area drop<a class="headerlink" href="#low-energy-effective-area-drop" title="Permalink to this headline">¶</a></h3>
+<p>MC effective area at low energy is small. But gain loss means that LT raises into region of high MC effective area.</p>
+<p>Multiple event response for ISGRI</p>
+<p>This rejection and classification is done by XXX system.</p>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Click here!</p>
 <p>Here’s what’s inside!</p>
@@ -347,13 +396,13 @@
 <p class="attribution">—From me, Jo the Jovyan</p>
 </div></blockquote>
 <div class="tabbed-set docutils">
-<input checked="checked" id="2a6aadef-aee4-4dd7-8a12-e52698e7174e" name="b8f853d7-f9eb-495b-859d-117c9687aded" type="radio">
-</input><label class="tabbed-label" for="2a6aadef-aee4-4dd7-8a12-e52698e7174e">
+<input checked="checked" id="d590f1c3-fe88-4581-8a26-7e51b7c632c7" name="cbea2b6e-384d-4381-ba6c-48e28ca7d61f" type="radio">
+</input><label class="tabbed-label" for="d590f1c3-fe88-4581-8a26-7e51b7c632c7">
 Tab 1 title</label><div class="tabbed-content docutils">
 <p>My first tab</p>
 </div>
-<input id="cc3abf5e-c8e2-4429-ad7b-6a3cc9e378cf" name="b8f853d7-f9eb-495b-859d-117c9687aded" type="radio">
-</input><label class="tabbed-label" for="cc3abf5e-c8e2-4429-ad7b-6a3cc9e378cf">
+<input id="7c2807f9-6849-41b7-9587-71bc14416f76" name="cbea2b6e-384d-4381-ba6c-48e28ca7d61f" type="radio">
+</input><label class="tabbed-label" for="7c2807f9-6849-41b7-9587-71bc14416f76">
 Tab 2 title</label><div class="tabbed-content docutils">
 <p>My second tab with <code class="docutils literal notranslate"><span class="pre">some</span> <span class="pre">code</span></code>!</p>
 </div>
