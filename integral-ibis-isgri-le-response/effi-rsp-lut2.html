@@ -1657,7 +1657,10 @@ TODO: what does misuse mean?</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ref_fn</span> <span class="o">=</span> <span class="n">byrev</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">byrev</span><span class="o">.</span><span class="n">e0</span><span class="o">.</span><span class="n">argmax</span><span class="p">()]</span><span class="o">.</span><span class="n">fn</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ref_fn = byrev.loc[byrev.e0.argmax()].fn</span>
+
+<span class="n">ref_fn</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">iconfig</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ic_base</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;ic/ibis/rsp/isgr_rmf_rsp_0665.fits&quot;</span> 
+
 <span class="n">ref_rsp_f</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ref_fn</span><span class="p">)</span>
 
 <span class="n">matrix</span> <span class="o">=</span> <span class="n">ref_rsp_f</span><span class="p">[</span><span class="s1">&#39;ISGR-RMF.-RSP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
@@ -1669,64 +1672,24 @@ TODO: what does misuse mean?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  13.    ,   13.4787,   13.9574, ..., 1192.0381, 1192.5168,
-       1192.9955], dtype=float32)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([  13.    ,   13.4787,   13.9574, ..., 1192.0381, 1192.5168,
+        1192.9955], dtype=float32),
+ array([  13.4787,   13.9574,   14.4361, ..., 1192.5168, 1192.9955,
+        1193.4742], dtype=float32))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rsp_f</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">byrev</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">50</span><span class="p">][</span><span class="s1">&#39;fn&#39;</span><span class="p">])</span>
-<span class="n">matrix</span> <span class="o">=</span> <span class="n">rsp_f</span><span class="p">[</span><span class="s1">&#39;ISGR-RMF.-RSP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
-<span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span> <span class="o">=</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MIN&#39;</span><span class="p">],</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MAX&#39;</span><span class="p">]</span>
-<span class="n">e1</span><span class="p">,</span> <span class="n">e2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_LO&#39;</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_HI&#39;</span><span class="p">]</span>
-<span class="n">rmf</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">RMF</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;MATRIX&#39;</span><span class="p">]),</span> <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">)</span>
-
-<span class="n">rate</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
-    <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">crab_ph_cm2_s_kev</span><span class="p">,</span>
-    <span class="n">rmf</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> 
-    <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
-    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrum&#39;</span>
+    <span class="n">e1</span><span class="p">,</span>
+    <span class="n">e1</span> <span class="o">-</span> <span class="n">ref_e1</span>
 <span class="p">)</span>
 
-<span class="c1"># need to restore else heasoft summing does not work well across large time range. TODO: what will it even do? first rsp bins?</span>
-
-<span class="c1"># it does not matter how it&#39;s transformed as long as response is accordingly. </span>
-<span class="c1"># but need to preserve counts evolution</span>
-<span class="c1"># new effi from morph</span>
-
-<span class="c1"># here need to imitate what will OSA produce when binning and reconstructing</span>
-<span class="c1"># def emorph_rate(ce1, ce2, rate, emorph):</span>
-<span class="c1">#     edges = np.concatenate([ce1, ce2[-1]])</span>
-<span class="c1">#     cumrate = np.cumsum(rate)</span>
-<span class="c1">#     cumrate_emorph = interp1d(</span>
-<span class="c1">#         emorph(edges),</span>
-<span class="c1">#         cumrate,</span>
-<span class="c1">#     )(edges)</span>
-<span class="c1"># need to adapt morph until response is central</span>
-
-<span class="c1"># em_rate = e</span>
-
-<span class="c1"># plt.plot(</span>
-<span class="c1">#     emorph(ce1), </span>
-<span class="c1">#     em_rate/(ce2-ce1) * effi * nomex_norm[&#39;norm&#39;],</span>
-<span class="c1">#     label=&#39;CountSpectrum modified&#39;</span>
-<span class="c1"># )</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">900</span><span class="p">])</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
-
-<span class="c1">#TODO: compute spectrum with modiied RSP. compute spectrum with non-modified RSP. several time moments</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1735,6 +1698,242 @@ TODO: what does misuse mean?</p>
 </pre></div>
 </div>
 <img alt="_images/effi-rsp-lut2_17_1.png" src="_images/effi-rsp-lut2_17_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;matplotlib.legend&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
+
+<span class="c1"># just an example</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">byrev</span><span class="p">)</span><span class="o">/</span><span class="mi">50</span><span class="p">)):</span>
+    <span class="n">rsp_f</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">byrev</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">10</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="mi">50</span><span class="p">][</span><span class="s1">&#39;fn&#39;</span><span class="p">])</span>
+
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">rsp_f</span><span class="p">[</span><span class="s1">&#39;ISGR-RMF.-RSP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span> <span class="o">=</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MIN&#39;</span><span class="p">],</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MAX&#39;</span><span class="p">]</span>
+    <span class="n">e1</span><span class="p">,</span> <span class="n">e2</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_LO&#39;</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;ENERG_HI&#39;</span><span class="p">]</span>
+    <span class="n">rmf</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">RMF</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;MATRIX&#39;</span><span class="p">]),</span> <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">)</span>
+    <span class="n">arf</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">ARF</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">e1</span><span class="p">))</span>
+
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+        <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">crab_ph_cm2_s_kev</span><span class="p">,</span>
+        <span class="n">rmf</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">rate_line</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">e0</span><span class="p">:</span> <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+        <span class="n">norm</span><span class="p">(</span><span class="n">e0</span><span class="p">,</span> <span class="n">e0</span><span class="o">*</span><span class="mf">0.01</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span>
+        <span class="n">rmf</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">bias_recover_ref</span><span class="p">(</span><span class="n">en</span><span class="p">):</span>
+        <span class="n">en</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">ref_e1</span><span class="p">,</span> <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">)(</span><span class="n">en</span><span class="p">)</span>
+        <span class="n">en</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">en</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">en</span>
+
+    <span class="n">rmf_to_ref</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">transform_rmf</span><span class="p">(</span>
+        <span class="n">rmf</span><span class="p">,</span> <span class="n">arf</span><span class="p">,</span> <span class="n">bias_recover_ref</span><span class="p">,</span>
+        <span class="n">preserved_projection</span><span class="o">=</span><span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">crab_ph_cm2_s_kev</span>
+    <span class="p">)</span>
+
+    <span class="n">rate_with_rmf_to_ref</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+        <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">crab_ph_cm2_s_kev</span><span class="p">,</span>
+        <span class="n">rmf_to_ref</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">rate_line_with_rmf_to_ref</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">e0</span><span class="p">:</span> <span class="n">ogip</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+        <span class="n">norm</span><span class="p">(</span><span class="n">e0</span><span class="p">,</span> <span class="n">e0</span><span class="o">*</span><span class="mf">0.01</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span>
+        <span class="n">rmf_to_ref</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># want to preserve lines between rmfs</span>
+
+
+    <span class="n">kwa</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">ce1</span><span class="p">,</span> 
+        <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrum&#39;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwa</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">i</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_color</span><span class="p">()</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">ce1</span><span class="p">,</span> 
+        <span class="n">rate_line</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwa</span>
+    <span class="p">)</span>
+
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">rmf</span><span class="o">.</span><span class="n">_energ_lo</span><span class="p">,</span>
+        <span class="n">rmf</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwa</span>
+    <span class="p">)</span>
+
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">ce1</span><span class="p">,</span> 
+        <span class="n">rate_with_rmf_to_ref</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">c</span>
+    <span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">ce1</span><span class="p">,</span> 
+        <span class="n">rate_line_with_rmf_to_ref</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">c</span>
+    <span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">rmf_to_ref</span><span class="o">.</span><span class="n">_energ_lo</span><span class="p">,</span>
+        <span class="n">rmf_to_ref</span><span class="o">.</span><span class="n">_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">c</span>
+    <span class="p">)</span>
+
+    <span class="c1">#TODO: why response values go in pairs??</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+
+    <span class="c1"># need to restore else heasoft summing does not work well across large time range. TODO: what will it even do? first rsp bins?</span>
+
+    <span class="c1"># it does not matter how it&#39;s transformed as long as response is accordingly. </span>
+    <span class="c1"># but need to preserve counts evolution</span>
+    <span class="c1"># new effi from morph</span>
+
+    <span class="c1"># here need to imitate what will OSA produce when binning and reconstructing</span>
+    <span class="c1"># def emorph_rate(ce1, ce2, rate, emorph):</span>
+    <span class="c1">#     edges = np.concatenate([ce1, ce2[-1]])</span>
+    <span class="c1">#     cumrate = np.cumsum(rate)</span>
+    <span class="c1">#     cumrate_emorph = interp1d(</span>
+    <span class="c1">#         emorph(edges),</span>
+    <span class="c1">#         cumrate,</span>
+    <span class="c1">#     )(edges)</span>
+    <span class="c1"># need to adapt morph until response is central</span>
+
+    <span class="c1"># em_rate = e</span>
+
+    <span class="c1"># plt.plot(</span>
+    <span class="c1">#     emorph(ce1), </span>
+    <span class="c1">#     em_rate/(ce2-ce1) * effi * nomex_norm[&#39;norm&#39;],</span>
+    <span class="c1">#     label=&#39;CountSpectrum modified&#39;</span>
+    <span class="c1"># )</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">900</span><span class="p">])</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">1e-3</span><span class="p">,</span> <span class="mi">300</span><span class="p">])</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+
+    <span class="c1">#TODO: compute spectrum with modiied RSP. compute spectrum with non-modified RSP. several time moments</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;/tmp/ipykernel_6772/3541355491.py&quot;</span><span class="gt">, line </span><span class="mi">51</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="o">^</span>
+<span class="ne">SyntaxError</span>: keyword argument repeated: label
+</pre></div>
+</div>
+<img alt="_images/effi-rsp-lut2_18_1.png" src="_images/effi-rsp-lut2_18_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gaussian<span class="o">?</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span> gaussian<span class=" -Color -Color-Blue">(*</span>args<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">**</span>kwargs<span class=" -Color -Color-Blue">)</span>
+<span class=" -Color -Color-Red">Docstring:</span>
+Return a Gaussian window.
+
+.. warning:: scipy.signal.gaussian is deprecated,
+             use scipy.signal.windows.gaussian instead.
+
+Parameters
+----------
+M : int
+    Number of points in the output window. If zero or less, an empty
+    array is returned.
+std : float
+    The standard deviation, sigma.
+sym : bool, optional
+    When True (default), generates a symmetric window, for use in filter
+    design.
+    When False, generates a periodic window, for use in spectral analysis.
+
+Returns
+-------
+w : ndarray
+    The window, with the maximum value normalized to 1 (though the value 1
+    does not appear if `M` is even and `sym` is True).
+
+Notes
+-----
+The Gaussian window is defined as
+
+.. math::  w(n) = e^{ -\frac{1}{2}\left(\frac{n}{\sigma}\right)^2 }
+
+Examples
+--------
+Plot the window and its frequency response:
+
+&gt;&gt;&gt; from scipy import signal
+&gt;&gt;&gt; from scipy.fft import fft, fftshift
+&gt;&gt;&gt; import matplotlib.pyplot as plt
+
+&gt;&gt;&gt; window = signal.windows.gaussian(51, std=7)
+&gt;&gt;&gt; plt.plot(window)
+&gt;&gt;&gt; plt.title(r&quot;Gaussian window ($\sigma$=7)&quot;)
+&gt;&gt;&gt; plt.ylabel(&quot;Amplitude&quot;)
+&gt;&gt;&gt; plt.xlabel(&quot;Sample&quot;)
+
+&gt;&gt;&gt; plt.figure()
+&gt;&gt;&gt; A = fft(window, 2048) / (len(window)/2.0)
+&gt;&gt;&gt; freq = np.linspace(-0.5, 0.5, len(A))
+&gt;&gt;&gt; response = 20 * np.log10(np.abs(fftshift(A / abs(A).max())))
+&gt;&gt;&gt; plt.plot(freq, response)
+&gt;&gt;&gt; plt.axis([-0.5, 0.5, -120, 0])
+&gt;&gt;&gt; plt.title(r&quot;Frequency response of the Gaussian window ($\sigma$=7)&quot;)
+&gt;&gt;&gt; plt.ylabel(&quot;Normalized magnitude [dB]&quot;)
+&gt;&gt;&gt; plt.xlabel(&quot;Normalized frequency [cycles per sample]&quot;)
+<span class=" -Color -Color-Red">File:</span>      ~/.pyenv/versions/3.9.6/lib/python3.9/site-packages/scipy/signal/__init__.py
+<span class=" -Color -Color-Red">Type:</span>      function
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># bias_recover_ref(100)</span>
+
+<span class="k">def</span> <span class="nf">immitate_lut2_shift</span><span class="p">(</span><span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    only has an effect on rate. but efficiency effect is complex, since it is applied in standard energies</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">,</span> <span class="n">rate</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+<img alt="_images/effi-rsp-lut2_20_1.png" src="_images/effi-rsp-lut2_20_1.png" />
 </div>
 </div>
 <p>effi imaging description</p>
