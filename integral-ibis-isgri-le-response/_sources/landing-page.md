@@ -2,7 +2,7 @@
 
 |||
 |:--:|:--:|
-|version|[91704e6](https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/91704e6fc3d8cc108337b35a1f821622242eea5b) 2022-01-06 21:36:57 +0100|
+|version|[63c7a9f](https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/63c7a9fad349d7dca0aeef363e2fca8e95950c97) 2022-02-02 17:03:27 +0100|
 |code origin|https://github.com/volodymyrss/integral-ibis-isgri-le-response|
 |public mirror|https://www.isdc.unige.ch/~savchenk/integral-ibis-isgri-le-response/|
 |public mirror|https://volodymyrss.github.io/integral-ibis-isgri-le-response/|
