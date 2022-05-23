@@ -38,21 +38,23 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="canonical" href="https://www.isdc.unige.ch/~savchenk/integral-ibis-isgri-le-response/effi-rsp-lut2.html" />
@@ -783,7 +785,7 @@ CountSpectrum\left[\mathrm{Channel}\right] = \sum_{Energy}~Response\left[\mathrm
 \]</div>
 <p>It means that <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> spectra are, in principle, always 4-dimensional. <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> is not unique in this, many other instruments/telescopes are in a similar situation, though not many have an extra dimension fo pulse properties (the rise time).</p>
 <p>When defined in this way, the entire transformation from the incident flux to observation is contained in the response function <span class="math notranslate nohighlight">\(Response\)</span>.</p>
-<p>A 4-dimensional <span class="math notranslate nohighlight">\(Observation\)</span> space becomes quite large, and <span class="math notranslate nohighlight">\(Response\)</span> is even larger. Assuming that detector variations in <span class="math notranslate nohighlight">\(\mathrm{Time}\)</span> are at most at 100~second timescale, there are <span class="math notranslate nohighlight">\(2048 \times 256 \times 128 \times 128 \times 24 \times 3600 / 100\)</span> there are in total about <span class="math notranslate nohighlight">\(10^{13}\)</span> bins in a <span class="math notranslate nohighlight">\(CountSpectrum\)</span>. There are only <span class="math notranslate nohighlight">\(10^{8}\)</span> <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> photons per day, so this spectrum is mostly empty. Without changing the essence of the approach, it is more feasible to compare time-tagged events. In this case, it is still necessary to compute per-event response, accounting for all 4 detector variables. This approach extracts the most out of ISGRI data, but is quite computationally expensive. It was exploited in <span id="id1">Mereghetti <em>et al.</em> [<a class="reference internal" href="landing-page.html#id15">2020</a>]</span> for about 1-second long event with very fine time structure. It does not currently appear very realistic to apply this method to multi-day observations. And even it if was feasible, it would not bring any benefits, since major uncertainty in ISGRI is associated with response uncertainties.</p>
+<p>A 4-dimensional <span class="math notranslate nohighlight">\(Observation\)</span> space becomes quite large, and <span class="math notranslate nohighlight">\(Response\)</span> is even larger. Assuming that detector variations in <span class="math notranslate nohighlight">\(\mathrm{Time}\)</span> are at most at 100~second timescale, there are <span class="math notranslate nohighlight">\(2048 \times 256 \times 128 \times 128 \times 24 \times 3600 / 100\)</span> there are in total about <span class="math notranslate nohighlight">\(10^{13}\)</span> bins in a <span class="math notranslate nohighlight">\(CountSpectrum\)</span>. There are only <span class="math notranslate nohighlight">\(10^{8}\)</span> <code class="docutils literal notranslate"><span class="pre">ISGRI</span></code> photons per day, so this spectrum is mostly empty. Without changing the essence of the approach, it is more feasible to compare time-tagged events. In this case, it is still necessary to compute per-event response, accounting for all 4 detector variables. This approach extracts the most out of ISGRI data, but is quite computationally expensive. It was exploited in <span id="id1">Mereghetti <em>et al.</em> [<a class="reference internal" href="landing-page.html#id15" title="S. Mereghetti, V. Savchenko, C. Ferrigno, D. Götz, M. Rigoselli, A. Tiengo, A. Bazzano, E. Bozzo, A. Coleiro, T. J. -L. Courvoisier, M. Doyle, A. Goldwurm, L. Hanlon, E. Jourdain, A. von Kienlin, A. Lutovinov, A. Martin-Carrillo, S. Molkov, L. Natalucci, F. Onori, F. Panessa, J. Rodi, J. Rodriguez, C. Sánchez-Fernández, R. Sunyaev, and P. Ubertini. INTEGRAL Discovery of a Burst with Associated Radio Emission from the Magnetar SGR 1935+2154. The Astrophysical Journal, 898:L29, August 2020. doi:10.3847/2041-8213/aba2cf.">2020</a>]</span> for about 1-second long event with very fine time structure. It does not currently appear very realistic to apply this method to multi-day observations. And even it if was feasible, it would not bring any benefits, since major uncertainty in ISGRI is associated with response uncertainties.</p>
 <p>Luckily, since the <span class="math notranslate nohighlight">\(Model\)</span> space is only 1-dimensional (for a single constant source) it is possible, with only some loss of information, to reduce the size of the observation space to 1 dimension, <span class="math notranslate nohighlight">\(CountSpectrum\)</span> in some reconstructed channel, <span class="math notranslate nohighlight">\(\mathrm{ISGRI\_ENERGY}\)</span>.</p>
 <p>The transformation can be done with</p>
 <div class="math notranslate nohighlight">
@@ -1006,7 +1008,7 @@ Hence it is possible to produce <span class="math notranslate nohighlight">\(Eff
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Commonly used <code class="docutils literal notranslate"><span class="pre">xspec</span></code> <span id="id2">[<a class="reference internal" href="landing-page.html#id3">Arnaud, 1996</a>]</span> has <a class="reference external" href="https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node112.html">plot efficien</a> command which is used to:</p>
+<p>Commonly used <code class="docutils literal notranslate"><span class="pre">xspec</span></code> <span id="id2">[<a class="reference internal" href="landing-page.html#id3" title="K. A. Arnaud. XSPEC: The first ten years. In George H. Jacoby and Jeannette Barnes, editors, Astronomical Data Analysis Software and Systems v, volume 101 of Astronomical Society of the Pacific Conference Series, 17. January 1996.">Arnaud, 1996</a>]</span> has <a class="reference external" href="https://heasarc.gsfc.nasa.gov/xanadu/xspec/manual/node112.html">plot efficien</a> command which is used to:</p>
 <blockquote>
 <div><p>Plot the total response efficiency versus incident photon energy</p>
 </div></blockquote>
@@ -1143,6 +1145,7 @@ TODO: what does misuse mean?</p>
 <span class="n">rmf</span> <span class="o">=</span> <span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">RMF</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="s1">&#39;MATRIX&#39;</span><span class="p">]),</span> <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">)</span>
 
 <span class="n">nomex_norm</span> <span class="o">=</span> <span class="n">nomex</span><span class="o">.</span><span class="n">read_nomex_norm</span><span class="p">(</span><span class="n">ebins</span><span class="o">=</span><span class="p">(</span><span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">))</span>
+<span class="n">nomex_offaxis</span> <span class="o">=</span> <span class="n">nomex</span><span class="o">.</span><span class="n">read_nomex_norm</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">ebins</span><span class="o">=</span><span class="p">(</span><span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">))</span>
 
 <span class="n">ogip</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">PHAI</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
     <span class="n">exposure</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
@@ -1182,6 +1185,11 @@ TODO: what does misuse mean?</p>
     <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Nomex&#39;</span>
 <span class="p">)</span>
 
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span> <span class="n">nomex_offaxis</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Nomex off-axis&#39;</span>
+<span class="p">)</span>
+
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">])</span>
@@ -1202,7 +1210,7 @@ TODO: what does misuse mean?</p>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:root:assuming no systematic errors. Probably ok
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9a78a508b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9a6ec38eb0&gt;
 </pre></div>
 </div>
 <img alt="_images/effi-rsp-lut2_13_2.png" src="_images/effi-rsp-lut2_13_2.png" />
@@ -1755,9 +1763,9 @@ TODO: what does misuse mean?</p>
     <span class="n">c</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
         <span class="n">ce1</span><span class="p">,</span> 
         <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
-        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrum&#39;</span><span class="p">,</span>
+        <span class="c1"># label=&#39;CountSpectrum&#39;,</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwa</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="n">i</span>
         <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_color</span><span class="p">()</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
         <span class="n">ce1</span><span class="p">,</span> 
@@ -1832,90 +1840,24 @@ TODO: what does misuse mean?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;/tmp/ipykernel_6772/3541355491.py&quot;</span><span class="gt">, line </span><span class="mi">51</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-        <span class="o">^</span>
-<span class="ne">SyntaxError</span>: keyword argument repeated: label
-</pre></div>
-</div>
-<img alt="_images/effi-rsp-lut2_18_1.png" src="_images/effi-rsp-lut2_18_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gaussian<span class="o">?</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span> gaussian<span class=" -Color -Color-Blue">(*</span>args<span class=" -Color -Color-Blue">,</span> <span class=" -Color -Color-Blue">**</span>kwargs<span class=" -Color -Color-Blue">)</span>
-<span class=" -Color -Color-Red">Docstring:</span>
-Return a Gaussian window.
-
-.. warning:: scipy.signal.gaussian is deprecated,
-             use scipy.signal.windows.gaussian instead.
-
-Parameters
-----------
-M : int
-    Number of points in the output window. If zero or less, an empty
-    array is returned.
-std : float
-    The standard deviation, sigma.
-sym : bool, optional
-    When True (default), generates a symmetric window, for use in filter
-    design.
-    When False, generates a periodic window, for use in spectral analysis.
-
-Returns
--------
-w : ndarray
-    The window, with the maximum value normalized to 1 (though the value 1
-    does not appear if `M` is even and `sym` is True).
-
-Notes
------
-The Gaussian window is defined as
-
-.. math::  w(n) = e^{ -\frac{1}{2}\left(\frac{n}{\sigma}\right)^2 }
-
-Examples
---------
-Plot the window and its frequency response:
-
-&gt;&gt;&gt; from scipy import signal
-&gt;&gt;&gt; from scipy.fft import fft, fftshift
-&gt;&gt;&gt; import matplotlib.pyplot as plt
-
-&gt;&gt;&gt; window = signal.windows.gaussian(51, std=7)
-&gt;&gt;&gt; plt.plot(window)
-&gt;&gt;&gt; plt.title(r&quot;Gaussian window ($\sigma$=7)&quot;)
-&gt;&gt;&gt; plt.ylabel(&quot;Amplitude&quot;)
-&gt;&gt;&gt; plt.xlabel(&quot;Sample&quot;)
-
-&gt;&gt;&gt; plt.figure()
-&gt;&gt;&gt; A = fft(window, 2048) / (len(window)/2.0)
-&gt;&gt;&gt; freq = np.linspace(-0.5, 0.5, len(A))
-&gt;&gt;&gt; response = 20 * np.log10(np.abs(fftshift(A / abs(A).max())))
-&gt;&gt;&gt; plt.plot(freq, response)
-&gt;&gt;&gt; plt.axis([-0.5, 0.5, -120, 0])
-&gt;&gt;&gt; plt.title(r&quot;Frequency response of the Gaussian window ($\sigma$=7)&quot;)
-&gt;&gt;&gt; plt.ylabel(&quot;Normalized magnitude [dB]&quot;)
-&gt;&gt;&gt; plt.xlabel(&quot;Normalized frequency [cycles per sample]&quot;)
-<span class=" -Color -Color-Red">File:</span>      ~/.pyenv/versions/3.9.6/lib/python3.9/site-packages/scipy/signal/__init__.py
-<span class=" -Color -Color-Red">Type:</span>      function
-</pre></div>
-</div>
+<img alt="_images/effi-rsp-lut2_18_0.png" src="_images/effi-rsp-lut2_18_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># bias_recover_ref(100)</span>
 
-<span class="k">def</span> <span class="nf">immitate_lut2_shift</span><span class="p">(</span><span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">imitate_lut2_shift</span><span class="p">(</span><span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    only has an effect on rate. but efficiency effect is complex, since it is applied in standard energies</span>
+<span class="sd">    only has an effect on rate. </span>
+<span class="sd">    but efficiency effect is complex, since it is applied in standard energies</span>
+<span class="sd">    need to eliminate energy-dependent correction (efficiency and nomex but not imaging), then can move like histogram</span>
+
+<span class="sd">    TODO: does nomex variability affect efficiency?..</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">rate</span> <span class="o">*</span> <span class="n">nomex_norm</span> <span class="o">*</span> <span class="n">effi</span>
+
     <span class="k">return</span> <span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">,</span> <span class="n">rate</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
@@ -1925,6 +1867,41 @@ Plot the window and its frequency response:
     <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span>
 <span class="p">)</span>
 
+<span class="n">count_rate</span> <span class="o">=</span> <span class="n">rate</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nomex_norm</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">effi</span>
+
+<span class="c1"># cum_count_rate = np.cumsum(count_rate)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span>
+    <span class="n">count_rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">),</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;count_rate_kev_emorphed </span><span class="si">{</span><span class="p">(</span><span class="n">count_rate_kev_emorphed</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># plt.plot(</span>
+<span class="c1">#     ce1[1:],</span>
+<span class="c1">#     (cum_count_rate[1:] - cum_count_rate[:-1])/((ce2-ce1)[1:]),</span>
+<span class="c1">#     lw=10, alpha=0.3</span>
+<span class="c1"># )</span>
+
+<span class="n">ce_morph</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">en</span><span class="p">:</span> <span class="n">emorph</span><span class="p">(</span><span class="n">en</span><span class="p">)</span>
+
+<span class="n">count_rate_kev</span> <span class="o">=</span> <span class="n">count_rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span>
+<span class="n">count_rate_kev_emorphed</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">ce_morph</span><span class="p">(</span><span class="n">ce1</span><span class="p">),</span> <span class="n">count_rate_kev</span><span class="p">,</span> <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">)(</span><span class="n">ce1</span><span class="p">)</span>
+
+
+<span class="c1"># may be able to produce weighted approx. should exist</span>
+<span class="c1"># if it does not exist, this may be related to propageateion issue</span>
+<span class="c1"># cum_count_rate_cemorphed = interp1d(ce_morph(ce1), cum_count_rate, bounds_error=False)(ce1)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ce1</span><span class="p">,</span>
+    <span class="n">count_rate_kev_emorphed</span><span class="p">,</span>
+    <span class="n">lw</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;count_rate_kev_emorphed </span><span class="si">{</span><span class="p">(</span><span class="n">count_rate_kev_emorphed</span><span class="o">*</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1933,7 +1910,7 @@ Plot the window and its frequency response:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
 </pre></div>
 </div>
-<img alt="_images/effi-rsp-lut2_20_1.png" src="_images/effi-rsp-lut2_20_1.png" />
+<img alt="_images/effi-rsp-lut2_19_1.png" src="_images/effi-rsp-lut2_19_1.png" />
 </div>
 </div>
 <p>effi imaging description</p>

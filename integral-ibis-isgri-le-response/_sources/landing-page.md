@@ -2,7 +2,7 @@
 
 |||
 |:--:|:--:|
-|version|[63c7a9f](https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/63c7a9fad349d7dca0aeef363e2fca8e95950c97) 2022-02-02 17:03:27 +0100|
+|version|[9f30b0d](https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/9f30b0d0005d09a5cc456ca74eb193a1613ee3cb) 2022-05-23 10:17:08 +0200|
 |code origin|https://github.com/volodymyrss/integral-ibis-isgri-le-response|
 |public mirror|https://www.isdc.unige.ch/~savchenk/integral-ibis-isgri-le-response/|
 |public mirror|https://volodymyrss.github.io/integral-ibis-isgri-le-response/|
@@ -16,6 +16,7 @@
 |see also| [OSA11 calibration workflow](https://www.overleaf.com/project/5c74e428239bf17320c95f32) |
 |see also| [Requirements for calibration observations with ISGRI](https://www.overleaf.com/project/5db9c995dab87000015dbc8f) and [this](https://www.overleaf.com/project/5c4f34c9dcce396e146cc67d) (to develop and submit in next AO) |
 |see also| [relation to use in HILIGT](https://www.overleaf.com/project/5f33e78775157700016a8290), [HILIGT](https://doi.org/10.1016/j.ascom.2021.100529) |
+|see also| [useful paper](https://arxiv.org/pdf/astro-ph/0505053.pdf) |
 
 
 ## Glossary 

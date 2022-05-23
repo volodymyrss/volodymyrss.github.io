@@ -38,18 +38,20 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
@@ -210,6 +212,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/volodymyrss/integral-ibis-isgri-le-response/master?urlpath=tree/book/emorphcalib.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -251,7 +270,29 @@
                 
   <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-ddosa&#39;))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;HOME&#39;</span><span class="p">),</span> <span class="s1">&#39;ogip&#39;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">ogip</span>
+<span class="kn">import</span> <span class="nn">ogip.tools</span>
+<span class="kn">import</span> <span class="nn">ogip.spec</span>
+<span class="kn">import</span> <span class="nn">iconfig</span>
+
+<span class="n">ic_base</span> <span class="o">=</span> <span class="n">iconfig</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">ic_base</span>
+
+<span class="n">effi</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/mod/isgr_effc_mod_0235.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">11</span><span class="p">][</span><span class="s1">&#39;EFFICIENCY&#39;</span><span class="p">]</span>
+<span class="n">ebds</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ic_base</span> <span class="o">+</span> <span class="s1">&#39;/ic/ibis/rsp/isgr_ebds_mod_0001.fits&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span> <span class="o">=</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MIN&#39;</span><span class="p">],</span> <span class="n">ebds</span><span class="p">[</span><span class="s1">&#39;E_MAX&#39;</span><span class="p">]</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+
+<span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-ddosa&#39;))</span>
 <span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-eddosa&#39;))</span>
 <span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../eddosa_tools/fit1d&#39;))</span>
 <span class="c1"># sys.path.insert(0, os.path.join(os.getcwd(), &#39;../dda-ddosa11calib&#39;))</span>
@@ -271,54 +312,31 @@
             <span class="n">produce_e_morph_def</span> <span class="o">=</span> <span class="n">i</span>
             
 <span class="n">func_body</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mod_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="n">produce_e_morph_def</span><span class="o">.</span><span class="n">lineno</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">produce_e_morph_def</span><span class="o">.</span><span class="n">end_lineno</span><span class="p">])</span>
-<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;func_body.py&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="nb">open</span><span class="p">(</span><span class="s1">&#39;produce_e_morph.py&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">import numpy as np</span>
 <span class="s2">&quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">func_body</span><span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">func_body</span>
-<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">func_body</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">produce_e_morph</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">produce_e_morph</span><span class="p">)</span>
 
-<span class="n">emorph</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">func_body</span><span class="o">.</span><span class="n">produce_e_morph</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">3001</span><span class="p">)</span>
+<span class="n">emorph</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">produce_e_morph</span><span class="o">.</span><span class="n">produce_e_morph</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">3001</span><span class="p">)</span>
 <span class="c1"># this time-dependent variable</span>
 
 <span class="c1"># emorph: ISGRI_ENERGY =&gt; ISGRI_ENERGY_EMORPH</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">ce1</span><span class="p">,</span> 
-    <span class="n">rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span>  <span class="o">*</span> <span class="n">effi</span> <span class="o">*</span> <span class="n">nomex_norm</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span>
-    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrum&#39;</span>
-<span class="p">)</span>
-
-<span class="c1"># it does not matter how it&#39;s transformed as long as response is accordingly. </span>
-<span class="c1"># but need to preserve counts evolution</span>
-<span class="c1"># new effi from morph</span>
-
-<span class="c1"># here need to imitate what will OSA produce when binning and reconstructing</span>
-<span class="k">def</span> <span class="nf">emorph_rate</span><span class="p">(</span><span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">emorph</span><span class="p">):</span>
-    <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">ce1</span><span class="p">,</span> <span class="n">ce2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
-    <span class="n">cumrate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
-    <span class="n">cumrate_emorph</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span>
-        <span class="n">emorph</span><span class="p">(</span><span class="n">edges</span><span class="p">),</span>
-        <span class="n">cumrate</span><span class="p">,</span>
-    <span class="p">)(</span><span class="n">edges</span><span class="p">)</span>
-<span class="c1"># need to adapt morph until response is central</span>
-
-<span class="c1"># em_rate = e</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">emorph</span><span class="p">(</span><span class="n">ce1</span><span class="p">),</span> 
-    <span class="n">em_rate</span><span class="o">/</span><span class="p">(</span><span class="n">ce2</span><span class="o">-</span><span class="n">ce1</span><span class="p">)</span> <span class="o">*</span> <span class="n">effi</span> <span class="o">*</span> <span class="n">nomex_norm</span><span class="p">[</span><span class="s1">&#39;norm&#39;</span><span class="p">],</span>
-    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CountSpectrum modified&#39;</span>
-<span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">800</span><span class="p">])</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
-
 <span class="c1">#TODO: compute spectrum with modiied RSP. compute spectrum with non-modified RSP. several time moments</span>
+
+<span class="n">produce_e_morph</span><span class="o">.</span><span class="n">produce_e_morph</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">)[</span><span class="mi">0</span><span class="p">](</span><span class="mi">30</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ast.FunctionDef object at 0x7f15cfdd1370&gt; get_cube_bins_anal
+&lt;ast.FunctionDef object at 0x7f15d24836d0&gt; get_cube_bins_table
+&lt;ast.FunctionDef object at 0x7f15cfe94d00&gt; produce_e_morph
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>31.041112588893554
 </pre></div>
 </div>
 </div>

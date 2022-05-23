@@ -38,18 +38,20 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
@@ -280,7 +282,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-align:center"><p>version</p></td>
-<td class="text-align:center"><p><a class="reference external" href="https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/63c7a9fad349d7dca0aeef363e2fca8e95950c97">63c7a9f</a> 2022-02-02 17:03:27 +0100</p></td>
+<td class="text-align:center"><p><a class="reference external" href="https://github.com/volodymyrss/integral-ibis-isgri-le-response/tree/9f30b0d0005d09a5cc456ca74eb193a1613ee3cb">9f30b0d</a> 2022-05-23 10:17:08 +0200</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:center"><p>code origin</p></td>
 <td class="text-align:center"><p><a class="reference external" href="https://github.com/volodymyrss/integral-ibis-isgri-le-response">https://github.com/volodymyrss/integral-ibis-isgri-le-response</a></p></td>
@@ -321,12 +323,15 @@
 <tr class="row-odd"><td class="text-align:center"><p>see also</p></td>
 <td class="text-align:center"><p><a class="reference external" href="https://www.overleaf.com/project/5f33e78775157700016a8290">relation to use in HILIGT</a>, <a class="reference external" href="https://doi.org/10.1016/j.ascom.2021.100529">HILIGT</a></p></td>
 </tr>
+<tr class="row-even"><td class="text-align:center"><p>see also</p></td>
+<td class="text-align:center"><p><a class="reference external" href="https://arxiv.org/pdf/astro-ph/0505053.pdf">useful paper</a></p></td>
+</tr>
 </tbody>
 </table>
 <div class="section" id="glossary">
 <h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
 <dl class="glossary simple">
-<dt id="term-ISGRI">ISGRI<a class="headerlink" href="#term-ISGRI" title="Permalink to this term">¶</a></dt><dd><p>ISGRI <span id="id1">[<a class="reference internal" href="#id19">Lebrun <em>et al.</em>, 2003</a>]</span></p>
+<dt id="term-ISGRI">ISGRI<a class="headerlink" href="#term-ISGRI" title="Permalink to this term">¶</a></dt><dd><p>ISGRI <span id="id1">[<a class="reference internal" href="#id19" title="F. Lebrun, J. P. Leray, P. Lavocat, J. Crétolle, M. Arquès, C. Blondel, C. Bonnin, A. Bouère, C. Cara, T. Chaleil, F. Daly, F. Desages, H. Dzitko, B. Horeau, P. Laurent, O. Limousin, F. Mathy, V. Mauguen, F. Meignier, F. Molinié, E. Poindron, M. Rouger, A. Sauvageon, and T. Tourrette. ISGRI: The INTEGRAL Soft Gamma-Ray Imager. Astronomy and Astrophysics, 411:L141-L148, November 2003. doi:10.1051/0004-6361:20031367.">Lebrun <em>et al.</em>, 2003</a>]</span></p>
 </dd>
 <dt id="term-OSA">OSA<a class="headerlink" href="#term-OSA" title="Permalink to this term">¶</a></dt><dd><p>Offline Scientific Analysis</p>
 </dd>
@@ -334,7 +339,8 @@
 </div>
 <div class="section" id="bibliography">
 <h2>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">¶</a></h2>
-<p id="id2"><dl class="citation">
+<div class="docutils container" id="id2">
+<dl class="citation">
 <dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>F. Lebrun, J. P. Leray, P. Lavocat, J. Crétolle, M. Arquès, C. Blondel, C. Bonnin, A. Bouère, C. Cara, T. Chaleil, F. Daly, F. Desages, H. Dzitko, B. Horeau, P. Laurent, O. Limousin, F. Mathy, V. Mauguen, F. Meignier, F. Molinié, E. Poindron, M. Rouger, A. Sauvageon, and T. Tourrette. ISGRI: The INTEGRAL Soft Gamma-Ray Imager. <em>Astronomy and Astrophysics</em>, 411:L141–L148, November 2003. <a class="reference external" href="https://doi.org/10.1051/0004-6361:20031367">doi:10.1051/0004-6361:20031367</a>.</p>
 </dd>
@@ -345,7 +351,7 @@
 <dd><p>K. A. Arnaud. XSPEC: The first ten years. In George H. Jacoby and Jeannette Barnes, editors, <em>Astronomical Data Analysis Software and Systems v</em>, volume 101 of Astronomical Society of the Pacific Conference Series, 17. January 1996.</p>
 </dd>
 </dl>
-</p>
+</div>
 </div>
 <div class="toctree-wrapper compound">
 </div>
