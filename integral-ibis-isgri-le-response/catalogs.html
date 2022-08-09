@@ -385,6 +385,47 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="catalogs-in-ibis-isgri">
 <h1>Catalogs in IBIS/ISGRI<a class="headerlink" href="#catalogs-in-ibis-isgri" title="Permalink to this headline">#</a></h1>
+<p>Technically, ISGRI spectral and lightcurve extraction uses a <code class="docutils literal notranslate"><span class="pre">isgri_srcl_res.fits</span></code> catalog result.
+Technically, the only way to get the <code class="docutils literal notranslate"><span class="pre">isgri_srcl_res.fits</span></code> is by running the mosaic. Of course, it is possible to fudge any other catalog in the necessary format (this is done in <a class="reference external" href="https://www.astro.unige.ch/mmoda/">MMODA</a> when a catalog is generated from json provided by frontend or API), but this fudging is not naturally supported by <code class="docutils literal notranslate"><span class="pre">OSA</span></code> and should be done with care.</p>
+<p>The reason why the mosaic is need in standard user workflow in OSA is because the spectral extraction quality depends strongly on the catalog - the sky model used for deconstructing the shadowgram. With a wrong catalog, unaccounted source counts will be misattributed to other sources (distorting them) and to background. If the counts are attributed to background, source fluxes are not disrupted. But due to wide PSFs, sources in some positions overlap substantially.</p>
+<p>The good catalog is also needed to produce image - so the process is iterative (image -&gt; catalog -&gt; image -&gt; catalog … -&gt; catalog -&gt; spectra/lc ). This is the major source of complexity for coded mask analysis (and not only, this applies for every instrument with complex PSF, e.g. Fermi/LAT, or SKA).</p>
+<p>As explained in OSA doc and <a class="reference external" href="https://volodymyrss.github.io/integral-ibis-isgri-le-response/catalogs.html">https://volodymyrss.github.io/integral-ibis-isgri-le-response/catalogs.html</a> (TBC), to get accurate reconstruction of a source-of-interest (SOI), it is necessary to take into account a catalog with sources down to roughly 3 times source-of-interest count rate (keeping in mind various nuances, e.g. in PCFoV the psf overlap approaches 100%, and sources of comparable flux affect each other strongly).</p>
+<p>General reference catalog is the best global catalog for INTEGRAL, but it is not time-dependent.
+Using only GENREFCAT one often has too many sources in a catalog, and would miss some sources which are only detectable in short outbursts.</p>
+<p>So, it is always advisable to produce an catalog for the observation of interest. INTEGRAL General Reference Catalog provides such a general model, with source fluxes indicated.
+But, this catalog is static, so it is not really possible to derive sufficiently accurate catalog for given period, considering that over long time, we know that the sources are variable.</p>
+<p>In the simplest case, when running spectral extraction directly in one ScW pipeline but it will only rely on the general reference catalog and imaging of this one ScW. This works at minimum, but this is not recommended even at the typical observer level.</p>
+<p>We’d need a time-dependent catalog with all sources accounted on all timescales from ScW at least to whole mission. To be clear, to account for all sources, it is necessary to have intermediate timescales (orbit, year, etc).
+But it should be clear that this is an enormous task, that’s why so much effort goes in production of INTEGRAL catalog papers, and it was never done in an “theoretically ideal” way.
+The best approximations of this approach are used in different pipelines, used by us or other people.</p>
+<p>So a spectral/lc extraction has to rely on imaging made roughly for the same observation, adding computation.
+It also means that typical lightcurves are produced for a variety of effectively equivalent but slightly different catalogs, creating some duplicated lightcurves with slightly different provenance.</p>
+<p>With the data collection available now, we can provide the “recommended good” catalogs for spectral extraction at any time.</p>
+<p>This could be an extension of REFCAT but with indication of validity of the measurement. If put in a single catalog, it would have millions of rows. This is best handled in a relational DB.</p>
+<p>Ultimately, it is better to see the goal in designing a procedure for producing a catalog for given observation. The catalog can be built by querying the collection of available mosaics and providing the current best guess. The collection would have some 10k rows, and can be queried from an available store.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># adopted from  https://renkulab.io/projects/vladimir.savchenko/integral-ref-cat/files/blob/catsearch.ipynb</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy</span>
+<span class="kn">import</span> <span class="nn">astropy.coordinates</span>
+
+<span class="n">cat</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;http://isdcarc.unige.ch/arc/rev_3/cat/hec/gnrl_refr_cat_0043.fits&quot;</span><span class="p">)</span>
+<span class="n">cat_table</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+<span class="n">cat_coord</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">coordinates</span><span class="o">.</span><span class="n">SkyCoord</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;RA_OBJ&#39;</span><span class="p">],</span> <span class="n">cat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;DEC_OBJ&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">cat_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2410
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
