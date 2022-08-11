@@ -471,6 +471,12 @@ The nominal way to get the <code class="docutils literal notranslate"><span clas
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">Somewhat off-axis (7,7 deg) 100cps source contaminated by unaccounted 100cps source in different locations.</span><a class="headerlink" href="#figure-example" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/I20_J20_C100_Cm100_B1000.png"><img alt="_images/I20_J20_C100_Cm100_B1000.png" src="_images/I20_J20_C100_Cm100_B1000.png" style="width: 600px; height: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Very slightly off-axis (3.5,3.5 deg) 100cps source contaminated by unaccounted 100cps source in different locations.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Note that in spectral/lightcurve extraction the contamination is not the same as in imaging. Imaging uses iterative process, leading to different distribution of fluxes between correlated sources depending on both source count rate and significance. Spectral/lightcurve countrates produce more accurate count rates since they perform global fit.  We will only focus on spectra/lightcurves here. In principle, these fluxes also allow to reconstruct the image better, though this is not easy to implement in OSA.</p>
@@ -485,16 +491,22 @@ The nominal way to get the <code class="docutils literal notranslate"><span clas
 Using only <code class="docutils literal notranslate"><span class="pre">GENREFCAT</span></code> one often has too many sources in a particular observation catalog, and would miss some sources which are only detectable in short outbursts.
 Using too many sources in OSA causes issues, since fitting may not converge and/or fail in other ways. In general up to 200 sources can be treated safely.</p>
 <p>So, it is always advisable to produce an catalog <em>dedicated</em> to the observation of interest.</p>
-<p>In the simplest case, when running spectral extraction directly in one ScW pipeline but it will only rely on the general reference catalog and imaging of this one ScW. This works at minimum, but this is <em>not recommended</em> even at the typical observer level.</p>
-<p>We’d need a time-dependent catalog with all sources accounted on all timescales from ScW at least to whole mission. To be clear, to account for all sources, it is necessary to have intermediate timescales (orbit, year, etc).
-But it should be clear that this is in principle an enormous task, that’s why so much effort goes in production of INTEGRAL catalog papers. The best approximations of this approach are used in different pipelines by different teams.</p>
+<p><strong>In the simplest case</strong>, when running spectral extraction directly in one ScW pipeline but it will only rely on the general reference catalog and imaging of <em>this one ScW</em>. This works at minimum, but this is <em>not recommended</em> even at the typical observer level.</p>
+<p>We’d need a <strong>time-dependent catalog</strong> with all sources accounted on all timescales from ScW at least to whole mission. To be clear, to account for all sources, it is necessary to have intermediate timescales (hour, orbit, year, etc). The durations depend on the required systematic noise, which is typically related to statistical sensitivity. So the required timescales depend on the total exposure.
+But it should be clear that this is in principle a large task, that’s why so much effort goes in production of INTEGRAL catalog papers. The best approximations of this approach are used in different pipelines by different teams.</p>
 </section>
 <section id="building-the-best-sufficient-input-catalog">
 <h2>Building the best sufficient input catalog<a class="headerlink" href="#building-the-best-sufficient-input-catalog" title="Permalink to this headline">#</a></h2>
 <p>At the <strong>legacy stage</strong>, with the large data collection available now, we can provide the “recommended good” catalogs for spectral/lightcurve extraction at any time.</p>
-<p>Notably, this catalog <strong>does not need to include every detectable source</strong>. As shown in the analysis below, most of the time contaimination from missing sources is about 5% in average.
-For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), only sources brigther than 6mCrab will contribute more than 3 sigma to the SOI flux.
-6 mCrab sources are detectable (S/N 5) in a much smaller exposure of about 20ks - shorter than a typical observation. So to achieve the current goal, it is <strong>not necessary to build whole-mission catalog</strong>, but <strong>it is roughly sufficient to make mosaics in different observations of each revolution</strong></p>
+<p>Notably, this catalog <strong>does not need to include every detectable source</strong>. As shown in the analysis below, most of the time contaimination from missing sources is about 10% in average.
+For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), only sources brigther than 3mCrab will contribute more than 3 sigma to the SOI flux.
+3 mCrab sources are detectable (S/N 5) in a much smaller exposure of about 80ks - a typical observation in an orbit. So to achieve the current goal, it is <strong>not necessary to build whole-mission catalog</strong>, but <strong>it is roughly sufficient to make mosaics in different observations of each revolution</strong>. However, to get sufficient systematic uncertainty for weaker sources, larger timescales are required.</p>
+<p>Even though Spectral/lightcurve information might not be very useful for sources which are not detected significantly enough in multiple spectral/time bins, weaker sources can make a significant (detectable) difference to the source fluxes and spectral shape.</p>
+<p>The systematic uncertainty from unaccounted sources can be also compared to the systematic uncertainty of ISGRI flux calibration - 1% or 1mCrab for 100mCrab source. The same effect can be created by a 10mCrab unaccounted source - the kind of source which can also be found in 1-orbit observations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The recommended maximal timescale of the input catalog depends on the total exposure in the region of interest, and is a fraction of this exposure, in a given simple example - 2% of it (we can expect something similar in general). So the maximal typical timescale is about a month, but one orbit is sufficient for sources in 3Ms field.</p>
+</div>
 <p>The result of such an analysis count be an extension of GENREFCAT but with indication of time validity of each flux record measurement. If put in a single catalog, it would have millions of rows. This is best handled in a relational DB.</p>
 <p>Ultimately, it is better to see the goal in designing a procedure for producing a catalog for given observation. The catalog can be built by querying the collection of available mosaics and providing the current best guess. The collection would have some 20k rows, and can be queried from an available store.</p>
 <div class="cell docutils container">
@@ -572,7 +584,7 @@ For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), o
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fde2bcda910&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fde2b2fa790&gt;]
 </pre></div>
 </div>
 <img alt="_images/catalogs_4_1.png" src="_images/catalogs_4_1.png" />
@@ -667,6 +679,21 @@ For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), o
 10 7 0 96.12 s spent, remains: 865.1 s
 15 10 35 141.5 s spent, remains: 801.63 s
 20 14 0 190.7 s spent, remains: 762.75 s
+25 17 35 241.4 s spent, remains: 724.3 s
+30 21 0 291.1 s spent, remains: 679.19 s
+35 24 35 343.3 s spent, remains: 637.59 s
+40 28 0 394.6 s spent, remains: 591.95 s
+45 31 35 443.9 s spent, remains: 542.49 s
+50 35 0 484.9 s spent, remains: 484.91 s
+55 38 35 528 s spent, remains: 432.01 s
+60 42 0 570.6 s spent, remains: 380.4 s
+65 45 35 611.1 s spent, remains: 329.06 s
+70 49 0 650.5 s spent, remains: 278.8 s
+75 52 35 693.4 s spent, remains: 231.15 s
+80 56 0 738 s spent, remains: 184.51 s
+85 59 35 781.5 s spent, remains: 137.91 s
+90 63 0 823.3 s spent, remains: 91.48 s
+95 66 35 863.1 s spent, remains: 45.426 s
 </pre></div>
 </div>
 </div>
@@ -724,7 +751,7 @@ For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), o
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>catalog-study/I0_J0_C100_Cm100_B1000.png
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>catalog-study/I20_J20_C100_Cm100_B1000.png
 </pre></div>
 </div>
 <img alt="_images/catalogs_6_1.png" src="_images/catalogs_6_1.png" />
