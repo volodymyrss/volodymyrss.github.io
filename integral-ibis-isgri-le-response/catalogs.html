@@ -458,7 +458,7 @@ The nominal way to get the <code class="docutils literal notranslate"><span clas
 <p>Clearly, if the location and properties of the regions where the noise is concentrated is poorly understood, the complication is reconstructed.</p>
 <p>Another difficulty is that concentrated noise makes some regions largely unaccessible to scientific analysis. If the regions can be moved in different observations, this challenge can be alleviated - this is done in INTEGRAL.</p>
 </div>
-<p>One on of the consequences of MURA pattern is that on-axis source is not strongly modified by unaccounted source flux, except if the source is in the PSF side-lobes, which do not occupy large area. So even if at the main PSF side-peak, the contaminating count rate is about 50% of the source, the chance of this event is not large. However, since the PSF orientation depends on the pointing orientation, the PSF overlap occurs very often, resulting in modest average effect.</p>
+<p>One on of the consequences of MURA pattern is that a FCFoV source is not strongly modified by unaccounted source flux, except if the source is in the PSF side-lobes, which do not occupy large area. So even if at the main PSF side-peak, the contaminating count rate is about 50% of the source, the chance of this event is not large. However, since the PSF orientation depends on the pointing orientation, the PSF overlap occurs very often, resulting in modest average effect.</p>
 <figure class="align-default" id="fig1">
 <a class="reference internal image-reference" href="_images/I0_J0_C100_Cm100_B1000.png"><img alt="_images/I0_J0_C100_Cm100_B1000.png" src="_images/I0_J0_C100_Cm100_B1000.png" style="width: 600px; height: 250px;" /></a>
 <figcaption>
@@ -466,15 +466,23 @@ The nominal way to get the <code class="docutils literal notranslate"><span clas
 </figcaption>
 </figure>
 <figure class="align-default" id="figure-example">
-<a class="reference internal image-reference" href="_images/I40_J40_C100_Cm100_B1000.png"><img alt="_images/I40_J40_C100_Cm100_B1000.png" src="_images/I40_J40_C100_Cm100_B1000.png" style="width: 600px; height: 250px;" /></a>
+<a class="reference internal image-reference" href="catalog-study/I10_J10_C100_Cm100_B1000.png"><img alt="catalog-study/I10_J10_C100_Cm100_B1000.png" src="catalog-study/I10_J10_C100_Cm100_B1000.png" style="width: 600px; height: 250px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Somewhat off-axis (7,7 deg) 100cps source contaminated by unaccounted 100cps source in different locations.</span><a class="headerlink" href="#figure-example" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Very slightly off-axis (1.8,1.8 deg, FCFoV) 100cps source contaminated by unaccounted 100cps source in different locations.</span><a class="headerlink" href="#figure-example" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p>In PCFoV, the effect is no more contained to single dots/lines, largely due to interplay with background: since PIFs do not fill the entire detector anymore, while background still does, the PIFs are much more strongly correlated.
+The parasitic effect is reduced by lower total count rate collected from PCFoV (proportionally to coded fraction), but for modest loss of coding (e.g. 70%) the probematic large-scale correlation becomes quite large - 10-20%.</p>
 <figure class="align-default" id="id1">
 <a class="reference internal image-reference" href="_images/I20_J20_C100_Cm100_B1000.png"><img alt="_images/I20_J20_C100_Cm100_B1000.png" src="_images/I20_J20_C100_Cm100_B1000.png" style="width: 600px; height: 250px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Very slightly off-axis (3.5,3.5 deg) 100cps source contaminated by unaccounted 100cps source in different locations.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Slightly off-axis (3.7,3.7 deg) 100cps source contaminated by unaccounted 100cps source in different locations.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="_images/I40_J40_C100_Cm100_B1000.png"><img alt="_images/I40_J40_C100_Cm100_B1000.png" src="_images/I40_J40_C100_Cm100_B1000.png" style="width: 600px; height: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Somewhat off-axis (7,7 deg) 100cps source contaminated by unaccounted 100cps source in different locations.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -554,13 +562,13 @@ For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), o
 
 <span class="c1"># plt.imshow(maskmap)</span>
 <span class="c1"># plt.imshow(pif(0, int(15/deg_in_px)) )</span>
-<span class="c1"># plt.imshow(pif(0,int(3/deg_in_px)) )</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pif</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">)</span> <span class="o">+</span> <span class="n">pif</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pif</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="n">deg_in_px</span><span class="p">))</span> <span class="p">)</span>
+<span class="c1"># plt.imshow(pif(30,40) + pif(20, 0) )</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fde2bcae5e0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fde2975d550&gt;
 </pre></div>
 </div>
 <img alt="_images/catalogs_3_1.png" src="_images/catalogs_3_1.png" />
@@ -592,7 +600,7 @@ For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), o
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">I</span><span class="p">,</span> <span class="n">J</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">I</span><span class="p">,</span> <span class="n">J</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span>
 <span class="n">C</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">Cm</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">B</span> <span class="o">=</span> <span class="mi">1000</span>
@@ -675,25 +683,25 @@ For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), o
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 3 35 47.92 s spent, remains: 910.55 s
-10 7 0 96.12 s spent, remains: 865.1 s
-15 10 35 141.5 s spent, remains: 801.63 s
-20 14 0 190.7 s spent, remains: 762.75 s
-25 17 35 241.4 s spent, remains: 724.3 s
-30 21 0 291.1 s spent, remains: 679.19 s
-35 24 35 343.3 s spent, remains: 637.59 s
-40 28 0 394.6 s spent, remains: 591.95 s
-45 31 35 443.9 s spent, remains: 542.49 s
-50 35 0 484.9 s spent, remains: 484.91 s
-55 38 35 528 s spent, remains: 432.01 s
-60 42 0 570.6 s spent, remains: 380.4 s
-65 45 35 611.1 s spent, remains: 329.06 s
-70 49 0 650.5 s spent, remains: 278.8 s
-75 52 35 693.4 s spent, remains: 231.15 s
-80 56 0 738 s spent, remains: 184.51 s
-85 59 35 781.5 s spent, remains: 137.91 s
-90 63 0 823.3 s spent, remains: 91.48 s
-95 66 35 863.1 s spent, remains: 45.426 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 3 35 40.92 s spent, remains: 777.54 s
+10 7 0 83.04 s spent, remains: 747.35 s
+15 10 35 123.6 s spent, remains: 700.56 s
+20 14 0 166.2 s spent, remains: 664.98 s
+25 17 35 209.9 s spent, remains: 629.72 s
+30 21 0 252.5 s spent, remains: 589.25 s
+35 24 35 295.8 s spent, remains: 549.33 s
+40 28 0 342 s spent, remains: 512.97 s
+45 31 35 387 s spent, remains: 472.99 s
+50 35 0 431.8 s spent, remains: 431.83 s
+55 38 35 472.7 s spent, remains: 386.77 s
+60 42 0 512.4 s spent, remains: 341.63 s
+65 45 35 555.8 s spent, remains: 299.27 s
+70 49 0 598.7 s spent, remains: 256.59 s
+75 52 35 643.4 s spent, remains: 214.46 s
+80 56 0 686.8 s spent, remains: 171.7 s
+85 59 35 726.9 s spent, remains: 128.28 s
+90 63 0 774.5 s spent, remains: 86.06 s
+95 66 35 818.7 s spent, remains: 43.088 s
 </pre></div>
 </div>
 </div>
@@ -751,7 +759,7 @@ For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), o
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>catalog-study/I20_J20_C100_Cm100_B1000.png
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>catalog-study/I10_J10_C100_Cm100_B1000.png
 </pre></div>
 </div>
 <img alt="_images/catalogs_6_1.png" src="_images/catalogs_6_1.png" />
