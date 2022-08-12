@@ -515,7 +515,10 @@ For in a region of 1-sigma sensitivity of 0.1 mCrab (achievable in about 3Ms), o
 <p class="admonition-title">Note</p>
 <p>The recommended maximal timescale of the input catalog depends on the total exposure in the region of interest, and is a fraction of this exposure, in a given simple example - 2% of it (we can expect something similar in general). So the maximal typical timescale is about a month, but one orbit is sufficient for sources in 3Ms field.</p>
 </div>
-<p>The result of such an analysis count be an extension of GENREFCAT but with indication of time validity of each flux record measurement. If put in a single catalog, it would have millions of rows. This is best handled in a relational DB.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The result of such an analysis count be an extension of GENREFCAT but with indication of time validity of each flux record measurement. If put in a single catalog, it would have millions of rows. This is best handled in a relational DB, published and requested through TAP or similar protocol.</p>
+</div>
 <p>Ultimately, it is better to see the goal in designing a procedure for producing a catalog for given observation. The catalog can be built by querying the collection of available mosaics and providing the current best guess. The collection would have some 20k rows, and can be queried from an available store.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
